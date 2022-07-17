@@ -1,0 +1,42 @@
+body{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.spinner{
+    width: 80px;
+    height: 80px;
+    border: 2px solid rgb(255, 255, 255);
+    border-top:  solid rgb(203, 33, 186);
+    border-radius: 100%;
+    
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    animation: spin 1s infinite linear;
+}
+
+
+@keyframes spin{
+    form{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+#overlay{
+    height: 100%;
+    width: 100%;
+    background: rgb(2, 8, 95);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+
+
+}

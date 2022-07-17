@@ -1,0 +1,94 @@
+.btn:focus{
+	outline:none;
+  	box-shadow:none;
+}
+.btn-primary{
+  	background-color: #000 !important;
+  	border:none;
+}
+.btn-danger {
+    color: #fff !important;
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+.support-btn{
+	height: 39px;
+}
+.support-input-group{
+    margin-top: 15px;
+}
+.error{
+	color: #dc3545;
+}
+.input-group label.error{
+    top: 100%;
+	position: absolute;
+}
+
+#overlay {
+    position: absolute;
+    top: 260px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: none;
+    z-index: 3;
+    width: 100px;
+    height: 100px;
+}
+
+.cv-spinner {
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px #ddd solid;
+    border-top: 4px #2e93e6 solid;
+    border-radius: 50%;
+    animation: sp-anime .8s infinite linear;
+}
+
+@keyframes sp-anime {
+	100% {
+		transform: rotate(360deg)
+	}
+}
+
+
+.overlay-2 {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: #001329;
+    z-index: 2;
+    display: none;
+    opacity: .9;
+	
+}
+
+.account__section-content .form-control {
+    background-color: transparent;
+    color: #fff;
+    border-color: #28364a;
+    height: 50px;
+}
+.account__section-content .form-control option {
+    color: #001329;
+}
+
+
+.account__section-content .form-control:focus {
+    border-color: #c151cc;
+}
+
+.account__section-content label {
+    margin-bottom: 3px;
+}
+
