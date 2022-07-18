@@ -11,7 +11,7 @@
 <body class="bgimage">
 <div class="glseffect">
 <div class="rsc1">REGISTRATION  SUCCESS !</div>
-<p><strong>We have sent an Confirmation email to : </strong><label class="rcs2">kavindugayanmail@gmail.com</label></p>
+<p><strong>We have sent an Confirmation email to : </strong><label class="rcs2">{{Auth::user()->email}}</label></p>
 <p></p>
 </div>
 </body>
