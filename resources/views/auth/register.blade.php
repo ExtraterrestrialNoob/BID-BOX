@@ -92,7 +92,6 @@
                                 <select name="type" id="role_id" class="form-control">
                                 <option value="2">Bidder</option>
                                 <option value="3">Seller</option>
-                                <option value="1">Admin</option>
                                 </select>
                             </div>
                         </div>

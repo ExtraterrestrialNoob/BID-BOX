@@ -21,6 +21,10 @@ Route::get('/register_vendor',function(){
     return view('auth/register_vendor');
 })->name('register');
 
+Route::get('/register_success',function(){
+    return view('auth/registration_success_confirm');
+})->name('/register_success');
+
 // Route::get('/buyer_login',function(){
 //     return view('/auth/register');
 // })->name('register_buyer');
