@@ -57,7 +57,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'nic' => ['required', 'string', 'max:12','min:10', 'unique:users'],
             'type'=>['required','integer','between:2,3'],
-            'tpno'=>['required','integer','max:10','min:10'],
+            'tpno'=>['required','integer','max:10','min:9'],
         ]);
     }
 
