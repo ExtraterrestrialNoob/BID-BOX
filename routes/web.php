@@ -39,3 +39,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/seller', [App\Http\Controllers\Seller::class, 'index'])->middleware('role:3');
 Route::get('/bidder', [App\Http\Controllers\Bidder::class, 'index'])->middleware('role:2');
+
+
+//profile routes
+Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');

@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('content')
@@ -20,4 +21,21 @@
         </div>
     </div>
 </div>
+
+
+
+<!--
+    change page title
+
+-->
+<?php 
+$name = Auth::user()->name;
+$name = $name . "'s Profile"
+?>
+
+<script type="text/javascript">
+    document.title = "<?=$name;?>"
+</script>
+
+
 @endsection
