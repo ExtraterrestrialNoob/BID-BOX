@@ -71,12 +71,12 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="/profile" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="user" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profile') }}" >Profile</a>
+                                    <a class="dropdown-item" href="{{route('user.user')}}" >Profile</a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -86,7 +86,7 @@
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
 
-                                    <form id="profile-form" action="{{ route('profile') }}" class="d-none">
+                                    <form id="profile-form" action="{{ route('user.user')}}" class="d-none">
                                         @csrf
                                     </form>
                                 </div>

@@ -47,22 +47,22 @@ Route::get('/bidder', [App\Http\Controllers\Bidder::class, 'index'])->middleware
 
 //ProductRoutes Grouped
 Route::name('product.')->group(function () {
-    Route::get('product',[ProductController::class, 'index']);
-    Route::get('product/create',[ProductController::class, 'create']);
-    Route::get('product/{id}',[ProductController::class, 'show']);
-    Route::get('product/edit/{id}',[ProductController::class, 'edit']);
-    Route::post('product',[ProductController::class, 'store']);
-    Route::put('product/update/{id}',[ProductController::class, 'update']);
-    Route::delete('product/delete/{id}',[ProductController::class, 'destroy']);
+    Route::get('product',[ProductController::class, 'index'])->name('product');
+    Route::get('product/create',[ProductController::class, 'create'])->name('product.create');
+    Route::get('product/view/{id}',[ProductController::class, 'show'])->name('product.view');
+    Route::get('product/edit/{id}',[ProductController::class, 'edit'])->name('product.edit');
+    Route::post('product',[ProductController::class, 'store'])->name('product.product');
+    Route::put('product/update/{id}',[ProductController::class, 'update'])->name('product.update');
+    Route::delete('product/delete/{id}',[ProductController::class, 'destroy'])->name('product.delete');
 });
 
 
 //User routes
 Route::name('user.')->group(function(){
-    Route::get('/user', [UserController::class, 'index']); //self Profile
-    Route::get('/user/{id}', [UserController::class, 'show']);
-    Route::get('user/edit/{id}',[UserController::class, 'edit']);
+    Route::get('user', [UserController::class, 'index'])->name('user'); //self Profile
+    Route::get('user/view/{id}', [UserController::class, 'show'])->name('user.view');;
+    Route::get('user/edit/{id}',[UserController::class, 'edit'])->name('user.edit');;
     //Change User Details
-    Route::put('user/update/{id}',[UserController::class, 'update']);
-    Route::delete('user/delete/{id}',[UserController::class, 'destroy']);
+    Route::put('user/update/{id}',[UserController::class, 'update'])->name('user.update');;
+    Route::delete('user/delete/{id}',[UserController::class, 'destroy'])->name('user.delete');;
 });
