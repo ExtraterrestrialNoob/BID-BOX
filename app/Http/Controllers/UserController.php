@@ -55,12 +55,14 @@ class UserController extends Controller
     public function show($id)
     {
         //
-        $user = DB::table('users')
-                ->select('name','email','avatar')
-                ->where('id', '=', $id)
-                ->get();
+        // $user = DB::table('users')
+        //         ->select('name','email','avatar')
+        //         ->where('id', '=', $id)
+        //         ->get();
+
+        $data = User::all();
         
-        foreach($user as $i){
+        foreach($data as $i){
             echo $i->name;
             echo $i->email;
             echo $i->avatar;

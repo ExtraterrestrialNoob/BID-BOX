@@ -3,9 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Models\Product;
 
 class ProductController extends Controller
 {
+
+    public function __construct()
+    {
+        
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -24,6 +32,9 @@ class ProductController extends Controller
     public function create()
     {
         //
+
+        
+
     }
 
     /**
@@ -35,6 +46,19 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
+        $new = new Product;
+        $new->name = $request->name;
+        $new->price = $request->price;
+        $new->total_bid = $request->total_bid;
+        $new->expired_at = $request->expired_at;
+        $new->rating = $request->rating;
+        $new->total_rating = $request->total_rating;
+        $new->review = $request->review;
+        $new->short_description = $request->short_description;
+        $new->long_description = $request->long_description;
+        $new->specification = $request->specification;
+
+        return "add success";
     }
 
     /**
