@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Models\Product;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\Role;
 use Illuminate\Support\Facades\Storage;
 use App\Rules\FileTypeValidate;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -44,49 +45,60 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $imgValidation = 'required')
+    public function store(Request $request)
     {
-        //  // validate 
-        
-         if ($request->hasFile('image')) {
-            //if (FileTypeValidate($request->image, ['jpeg', 'jpg', 'png'])){
-            try {
-                $request->image = Storage::putFile('products', $request->file('image'));;
-            } catch (\Exception $exp) {
-                $notify[] = ['error', 'Image could not be uploaded.'];
-                return back()->withNotify($notify);
-            }
-        }   
-        
+        $this->validator($request); 
+        $product = new product();
+        $this->savedata($request, $product);
+        return redirect()->back()->with(\Session::flash('success', 'Data inserted Successfully.'));
+    }
 
-         $request->validate([
-            'name' => 'required',
-            'price' => 'required|numeric|gte:0',
-            'expired_at' => 'required',
+    protected function validator($data){
+
+        
+        $data->validate([
+            'name'                  => 'required',
+            'price'                 => 'required',
+            'expired_at'            => 'required',
             'short_description'     => 'required',
             'long_description'      => 'required',
-            'specification'         => 'nullable|array',
-            //'image'            => [$imgValidation,'image', new FileTypeValidate(['jpeg', 'jpg', 'png'])],
+            'specification'         => 'nullable',
+            'image'                 => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+    }
 
 
-        //
-        $new = new Product;
-        $new->name = $request->name;
-        $new->price = $request->price;
+    public function savedata($request , $product){
+
+        if ($request->hasFile('image')) {
+            //if (FileTypeValidate($request->image, ['jpeg', 'jpg', 'png']))
+            try{
+                $file= $request->file('image');
+                $filename= date('YmdHi').$file->getClientOriginalName();
+                $file-> move(public_path('assets/images/product'), $filename);
+                $request->image = $filename;
+            }catch (\Exception $exp) {
+                $notify[] = ['error', 'Image could not be uploaded.'];
+                return 'image upload error';
+                }   
+    }
+
+
+        $product->name = $request->name;
+        $product->price = $request->price;
         //$new->total_bid = $request->total_bid;
-        $new->expired_at = $request->expired_at;
+        $product->expired_at = $request->expired_at;
         //$new->rating = $request->rating;
         //$new->total_rating = $request->total_rating;
         //$new->review = $request->review;
-        $new->short_description = $request->short_description;
-        $new->long_description = $request->long_description;
-        $new->specification = $request->specification;
-        $new->image = $request->image;
-        $new->save();
+        $product->short_description = $request->short_description;
+        $product->long_description = $request->long_description;
+        $product->specification = $request->specification;
+        $product->image_path = $request->image;
+        $product->save();
 
-        return "add success";
     }
+
 
     /**
      * Display the specified resource.

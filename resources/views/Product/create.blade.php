@@ -2,7 +2,7 @@
 
 
 @section('content')
-<form method="POST" action="{{ route('product.product') }}">
+<form method="POST" action="{{ route('product.product.create') }}" enctype="multipart/form-data">
 @csrf
                         <div class="row mb-3">
                             <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
@@ -86,6 +86,11 @@
 
                             <div class="col-md-6">
                                 <input id="image" type="file" name="image">
+                                @error('image')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
@@ -101,5 +106,20 @@
 
 </form>
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+@if ($message = \Session::get('success'))
+  <div class="alert alert-success text-justify">
+    {{ $message }}
+  </div>
+@endif
 
 @endsection
