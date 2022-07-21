@@ -20,6 +20,7 @@ class Product extends Model
         'short_description',
         'long_description',
         'specification',
+        'image_path',
     ];
 
     public $timestamps = true;

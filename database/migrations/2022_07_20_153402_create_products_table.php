@@ -27,6 +27,7 @@ class CreateProductsTable extends Migration
             $table->text('short_description')->nullable();
             $table->text('long_description')->nullable();
             $table->text('specification')->nullable();
+            $table->text('image_path')->nullable();
             $table->timestamps();
         });
     }
