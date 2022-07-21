@@ -15,6 +15,7 @@
   class="bg-image card shadow-1-strong"
   style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');"
 >
+
   <div class="card-body text-white">
     <h5 class="card-title">Card title</h5>
     <p class="card-text">
@@ -25,6 +26,8 @@
   </div>
 </div>
 <!-- Card -->
+
+
         </main>
     </body>
 @endsection

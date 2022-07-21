@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -32,9 +33,12 @@ class ProductController extends Controller
     public function create()
     {
         //
+        if (!Auth::check()) // This isnt necessary, it should be part of your 'auth' middleware
+            return redirect('/home');
 
+        if(Auth::user()->role_id == '3' || Auth::user()->role_id == '1')
+          return $next($request);
         
-
     }
 
     /**
@@ -57,6 +61,7 @@ class ProductController extends Controller
         $new->short_description = $request->short_description;
         $new->long_description = $request->long_description;
         $new->specification = $request->specification;
+        $new->save();
 
         return "add success";
     }
