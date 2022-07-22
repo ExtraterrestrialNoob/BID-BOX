@@ -55,7 +55,7 @@
             <div class="py-4 px-4"> 
                     <div class="d-flex align-items-center justify-content-between mb-3"> 
                             <h5 class="mb-0">Recent Products </h5>
-                            <a href="#" class="btn btn-link text-muted">Show all</a> 
+                            <a href="{{route('product.products', $user_data->id )}}" class="btn btn-link text-muted">Show all</a> 
                     </div> 
                     <div class="row"> 
                     @for($i=0;$i<count($all_products);$i++)
