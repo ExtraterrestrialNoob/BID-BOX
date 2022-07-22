@@ -18,8 +18,11 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <!-- Styles -->
+    <!-- Styles  for specific page -->
+    <link href="{{ asset('assets/product/css/style.css') }}" rel="stylesheet">
+    <!--bootstrapmain -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 </head>
 
 

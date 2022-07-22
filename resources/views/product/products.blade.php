@@ -1,23 +1,22 @@
-@extends('layouts.app')
-
-
+@extends('product.layout.app')
 @section('content')
-<table class="table table--light style--two">
-    <th>
-        <tr>
-            <th>{{_('Name') }}</th>
-            <th>{{_('Price') }}</th>
-            <th>{{_('expired_at') }}</th>
-            <th>{{_('short_description') }}</th>
-@foreach($all_products as $product)
 
-<tr>
-    <td>{{ $product->name }}</td>
-    <td>{{ $product->price }}</td>
-    <td>{{ $product->expired_at }}</td>
-    <td>{{ $product->short_description }}</td>
-<tr>
+<div class="row">
+@foreach($all_products as $i)
+    <div class="col-md-3">
+    <div class="card" style="width: 18rem;">
+        <img src="{{ asset('assets/images/product/'.$i->image_path) }}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{$i->name}}</h5>
+            <p class="card-text">{{$i->short_description }}</p>
+            <a href="{{route('product.view', $i->id )}}" class="btn btn-primary">BID NOW</a>
+        </div>
+        <ul class="list-group list-group-flush">
+                <li class="list-group-item">Price Start: {{number_format((float)$i->price, 2, '.', '')}}</li>
+        </ul>
+    </div>
+    </div>
 @endforeach
+</div>
 
-</table>
 @endsection

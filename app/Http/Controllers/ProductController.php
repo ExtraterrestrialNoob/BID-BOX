@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\Role;
 use Illuminate\Support\Facades\Storage;
 use App\Rules\FileTypeValidate;
 use Illuminate\Support\Facades\Validator;
+
 
 class ProductController extends Controller
 {
@@ -67,7 +69,7 @@ class ProductController extends Controller
             'short_description'     => 'required',
             'long_description'      => 'required',
             'specification'         => 'nullable',
-            'image'                 => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image'                 => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:9096',
         ]);
     }
 
@@ -113,6 +115,10 @@ class ProductController extends Controller
     public function show($id)
     {
         //
+        //$user = User::with()
+        $product = Product::where('id',$id)->first();
+
+        return view('product.view', compact('product'));
     }
 
     /**
@@ -124,6 +130,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         //
+        echo $id;
     }
 
     /**
