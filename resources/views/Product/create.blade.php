@@ -80,12 +80,26 @@
                                 <input id="specification" type="specification" class="form-control" name="specification">
                             </div>
                         </div>
+
+                        <div class="row mb-3">
+                            <label for="category" class="col-md-4 col-form-label text-md-end">{{ __('category') }}</label>
+
+                            <div class="col-md-6">
+                               <select name="category" id="category" class="form-control">
+                                @foreach($all_category as $category)
+                                <option value="{{$category->class}}">{{$category->name}}</option>
+                                @endforeach
+                               </select>
+                            </div>
+                        </div>
+
+                        
                         
                         <div class="row mb-3">
                             <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Image ') }}</label>
 
                             <div class="col-md-6">
-                                <input id="image" type="file" name="image">
+                                <input id="image" type="file" name="image" class="form-control">
                                 @error('image')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
