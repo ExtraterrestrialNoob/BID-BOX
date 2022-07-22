@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Models\User;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -60,13 +60,10 @@ class UserController extends Controller
         //         ->where('id', '=', $id)
         //         ->get();
 
-        $data = User::all();
-        
-        foreach($data as $i){
-            echo $i->name;
-            echo $i->email;
-            echo $i->avatar;
-        }
+        $user_data = User::where('id',$id)->first();
+
+        return view('user.profile' , compact('user_data'));
+
     }
 
     /**
