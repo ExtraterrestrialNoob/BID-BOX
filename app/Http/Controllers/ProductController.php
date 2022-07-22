@@ -36,6 +36,15 @@ class ProductController extends Controller
 
     }
 
+    public function products_by_user($id)
+    {
+        //
+        $data = user::user()->id;
+        echo $data;
+       // return view('product.products', compact('all_products'));        
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -105,6 +114,7 @@ class ProductController extends Controller
         $product->specification = $request->specification;
         $product->image_path = $request->image;
         $product->category_id=$request->category;
+        $product->user = auth::user()->id;
         $product->save();
 
     }
