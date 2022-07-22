@@ -17,8 +17,10 @@ class UserController extends Controller
     public function index()
     {
         //
-        $user_data = Auth::user();
-        return view('user.view' , compact('user_data'));
+        $data = Auth::user();
+        echo 'id : '. $data->id; 
+        echo 'name : '. $data->name; 
+        echo 'email : '. $data->email; 
     }
 
     /**
@@ -60,7 +62,7 @@ class UserController extends Controller
 
         $user_data = User::where('id',$id)->first();
 
-        return view('user.view' , compact('user_data'));
+        return view('user.profile' , compact('user_data'));
 
     }
 

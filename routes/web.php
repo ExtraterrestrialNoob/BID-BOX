@@ -51,14 +51,13 @@ Route::name('product.')->group(function () {
     Route::get('product/create',[ProductController::class, 'create'])->name('product.create')->middleware('role:3');
     Route::get('product/view/{id}',[ProductController::class, 'show'])->name('view');
     Route::get('product/edit/{id}',[ProductController::class, 'edit'])->name('product.edit')->middleware('role:3');
-    //Changes to Products
     Route::post('product/create',[ProductController::class, 'store'])->name('product.create')->middleware('role:3');
     Route::put('product/update/{id}',[ProductController::class, 'update'])->name('product.update')->middleware('role:3');
     Route::delete('product/delete/{id}',[ProductController::class, 'destroy'])->name('product.delete')->middleware('role:3');
 });
 
 
-//User routes Grouped
+//User routes
 Route::name('user.')->group(function(){
     Route::get('user', [UserController::class, 'index'])->name('user'); //self Profile
     Route::get('user/view/{id}', [UserController::class, 'show'])->name('user.view');
