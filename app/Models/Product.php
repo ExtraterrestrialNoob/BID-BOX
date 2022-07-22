@@ -26,4 +26,8 @@ class Product extends Model
     public $timestamps = true;
 
 
+    public function Category(){
+        return $this->belongsTo(Product::class);
+    }
+
 }

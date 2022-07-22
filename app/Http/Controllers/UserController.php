@@ -17,10 +17,10 @@ class UserController extends Controller
     public function index()
     {
         //
-        $data = Auth::user();
-        echo 'id : '. $data->id; 
-        echo 'name : '. $data->name; 
-        echo 'email : '. $data->email; 
+        $user_data = Auth::user();
+
+        return view('user.view', compact('user_data'));
+
     }
 
     /**
