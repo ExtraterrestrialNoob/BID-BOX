@@ -58,7 +58,7 @@ class RegisterController extends Controller
             'nic' => ['required', 'string', 'max:12','min:10', 'unique:users'],
             'type'=>['required','integer','between:2,3'],
             'tpno'=>['required','string','max:10','min:10','unique:users'],
-            'user_image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:5096',
+            'user_image'=> ['required','image' ,'mimes:jpeg,png,jpg,gif,svg,webp', 'max:5096'],
         ]);
     }
 

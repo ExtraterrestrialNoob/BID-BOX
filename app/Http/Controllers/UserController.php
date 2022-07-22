@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -18,6 +19,10 @@ class UserController extends Controller
     {
         //
         $user_data = Auth::user();
+        if($user_data->role_id == 3){
+            $all_products = Product::where('user_id',$user_data->id)->get();
+            return view('user.view', compact('user_data','all_products'));
+        }
 
         return view('user.view', compact('user_data'));
 

@@ -58,9 +58,9 @@
                             <a href="#" class="btn btn-link text-muted">Show all</a> 
                     </div> 
                     <div class="row"> 
-                    @for($i=0;$i<4;$i++)
+                    @for($i=0;$i<count($all_products);$i++)
                         <div class="col-lg-6 mb-2 pr-lg-1">
-                                <img src="{{ asset('assets/images/product/'.$product->image_path) }}" alt="" class="img-fluid rounded shadow-sm">
+                                <img src="{{ asset('assets/images/product/'.$all_products[$i]->image_path) }}" alt="" class="img-fluid rounded shadow-sm">
                         </div> 
 
                     @endfor                                
