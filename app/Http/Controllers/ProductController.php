@@ -71,6 +71,7 @@ class ProductController extends Controller
             'short_description'     => 'required',
             'long_description'      => 'required',
             'specification'         => 'nullable',
+            'category'              => 'required',
             'image'                 => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:9096',
         ]);
     }
@@ -103,6 +104,7 @@ class ProductController extends Controller
         $product->long_description = $request->long_description;
         $product->specification = $request->specification;
         $product->image_path = $request->image;
+        $product->category=$request->category;
         $product->save();
 
     }
