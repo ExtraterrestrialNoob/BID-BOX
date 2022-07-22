@@ -39,9 +39,9 @@ class ProductController extends Controller
     public function products_by_user($id)
     {
         //
-        $data = Product::where('user_id',$id)->get();
-        echo $data;
-       // return view('product.products', compact('all_products'));        
+        $all_products = Product::where('user_id',$id)->get();
+
+        return view('product.products', compact('all_products'));        
 
     }
 
