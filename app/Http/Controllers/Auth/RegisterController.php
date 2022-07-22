@@ -58,7 +58,6 @@ class RegisterController extends Controller
             'nic' => ['required', 'string', 'max:12','min:10', 'unique:users'],
             'type'=>['required','integer','between:2,3'],
             'tpno'=>['required','string','max:10','min:10','unique:users'],
-            'user_image'=> ['required','image' ,'mimes:jpeg,png,jpg,gif,svg,webp', 'max:5096'],
         ]);
     }
 
@@ -70,18 +69,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        if ($data->hasFile('user_image')) {
-            //if (FileTypeValidate($data->image, ['jpeg', 'jpg', 'png']))
-            try{
-                $file= $data->file('user_image');
-                $filename= date('YmdHi').$file->getClientOriginalName();
-                $file-> move(public_path('assets/images/user/profile'), $filename);
-                $data->image = $filename;
-            }catch (\Exception $exp) {
-                $notify[] = ['error', 'Image could not be uploaded.'];
-                return 'image upload error';
-                }
-            }
+        
     
         return User::create([
             'name' => $data['name'],
@@ -90,7 +78,6 @@ class RegisterController extends Controller
             'nic' => $data['nic'],
             'tpno' => $data['tpno'],
             'role_id'=> $data['type'],
-            'avatar'=>$data['user_image'],
         ]);
     }
     // protected function create(array $data)
