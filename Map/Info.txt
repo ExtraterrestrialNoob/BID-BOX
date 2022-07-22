@@ -1,0 +1,22 @@
+User Functions
+	- All @ role
+		- View User Profiles
+		- View Products
+
+	- Admin @ role
+		- Add Categories
+		- Approve Products
+		- Approve Users
+		- Add Products
+		- Edit Products
+		- Delete Products
+		- Bid Product
+
+	- seller @ role
+		- Add Products
+		- Edit Products
+		- Delete Products
+		- Bid Product
+
+	- Bidder @ role
+		- Bid Product
