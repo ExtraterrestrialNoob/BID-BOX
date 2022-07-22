@@ -26,6 +26,7 @@ class User extends \TCG\Voyager\Models\User
         'nic',
         'tpno',
         'role_id',
+        'user_image',
     ];
 
     /**

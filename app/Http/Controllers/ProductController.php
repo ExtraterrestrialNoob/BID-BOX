@@ -36,6 +36,15 @@ class ProductController extends Controller
 
     }
 
+    public function products_by_user($id)
+    {
+        //
+        $all_products = Product::where('user_id',$id)->get();
+
+        return view('product.products', compact('all_products'));        
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -43,7 +52,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        $all_category = Category::all();
+
+        return view('product.create', compact('all_category'));
     }
 
     /**
@@ -70,6 +81,7 @@ class ProductController extends Controller
             'short_description'     => 'required',
             'long_description'      => 'required',
             'specification'         => 'nullable',
+            'category'              => 'required',
             'image'                 => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:9096',
         ]);
     }
@@ -102,6 +114,8 @@ class ProductController extends Controller
         $product->long_description = $request->long_description;
         $product->specification = $request->specification;
         $product->image_path = $request->image;
+        $product->category_id=$request->category;
+        $product->user_id = auth::user()->id;
         $product->save();
 
     }
@@ -118,8 +132,9 @@ class ProductController extends Controller
         //
         //$user = User::with()
         $product = Product::where('id',$id)->first();
+        $category = Category::where('id',$product->category_id)->first();
 
-        return view('product.view', compact('product'));
+        return view('product.view', compact('product','category'));
     }
 
     /**

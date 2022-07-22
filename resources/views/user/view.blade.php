@@ -51,29 +51,22 @@
                             @endif
                         </div> 
             </div> 
+            @if($user_data->role_id == 3)
             <div class="py-4 px-4"> 
                     <div class="d-flex align-items-center justify-content-between mb-3"> 
                             <h5 class="mb-0">Recent Products </h5>
-                            <a href="#" class="btn btn-link text-muted">Show all</a> 
+                            <a href="{{route('product.products', $user_data->id )}}" class="btn btn-link text-muted">Show all</a> 
                     </div> 
                     <div class="row"> 
+                    @for($i=0;$i<count($all_products);$i++)
                         <div class="col-lg-6 mb-2 pr-lg-1">
-                                <img src="https://images.unsplash.com/photo-1469594292607-7bd90f8d3ba4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm">
+                                <img src="{{ asset('assets/images/product/'.$all_products[$i]->image_path) }}" alt="" class="img-fluid rounded shadow-sm">
                         </div> 
 
-                        <div class="col-lg-6 mb-2 pl-lg-1">
-                                <img src="https://images.unsplash.com/photo-1493571716545-b559a19edd14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm">
-                        </div> 
-
-                        <div class="col-lg-6 pr-lg-1 mb-2">
-                                <img src="https://images.unsplash.com/photo-1453791052107-5c843da62d97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="" class="img-fluid rounded shadow-sm">
-                        </div> 
-
-                        <div class="col-lg-6 pl-lg-1">
-                                 <img src="https://images.unsplash.com/photo-1475724017904-b712052c192a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm">
-                        </div>                                 
+                    @endfor                                
                     </div>                             
-                </div>                         
+                </div>
+            @endif                         
             </div>            
         </div>
     </div>

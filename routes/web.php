@@ -51,6 +51,7 @@ Route::name('product.')->group(function () {
     Route::get('product/create',[ProductController::class, 'create'])->name('product.create')->middleware('role:3');
     Route::get('product/view/{id}',[ProductController::class, 'show'])->name('view');
     Route::get('product/edit/{id}',[ProductController::class, 'edit'])->name('product.edit')->middleware('role:3');
+    Route::get('product/{id}',[ProductController::class, 'products_by_user'])->name('products');
     //Change Products
     Route::post('product/create',[ProductController::class, 'store'])->name('product.create')->middleware('role:3');
     Route::put('product/update/{id}',[ProductController::class, 'update'])->name('product.update')->middleware('role:3');
