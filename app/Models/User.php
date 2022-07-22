@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Product;
 
 class User extends \TCG\Voyager\Models\User
 {
@@ -23,7 +24,8 @@ class User extends \TCG\Voyager\Models\User
         'password',
         'username',
         'nic',
-        'tpno'
+        'tpno',
+        'role_id',
     ];
 
     /**
@@ -48,5 +50,11 @@ class User extends \TCG\Voyager\Models\User
     // public function info_user(){
     //     return $this->hasOne(info_users::class);
     // }
+
+
+    public function products()
+    {
+        return $this->hasMany(Product::class)->where('role_id','==',3);
+    }
 
 }

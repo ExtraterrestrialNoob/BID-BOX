@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use function PHPSTORM_META\type;
+
 class RegisterController extends Controller
 {
     /*
@@ -50,10 +52,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255','unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:3', 'confirmed'],
             'nic' => ['required', 'string', 'max:12','min:10', 'unique:users'],
+            'type'=>['required','integer','between:2,3'],
+            'tpno'=>['required','string','max:10','min:10','unique:users'],
         ]);
     }
 
@@ -71,6 +75,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'nic' => $data['nic'],
             'tpno' => $data['tpno'],
+            'role_id'=> $data['type'],
         ]);
         
     }
