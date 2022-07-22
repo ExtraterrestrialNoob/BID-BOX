@@ -52,8 +52,22 @@
 
                         <li class="nav-item">
                             <a class="nav-link " href="{{ route('product.product')}}">Products</a>
+                            @if(Auth::user()->role_id==3)
+                        @php
+                            $i=Auth::user()->id
+                        @endphp
+                        <li class="nav-item">
+                            <a class="nav-link " href="{{route('product.products', $i )}}">My Products</a>
                             
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="{{route('product.product.create')}}">Add Products</a>
+                            
+                        </li>
+
+                        @endif
+                        </li>
+                        
                     </ul>
 
 
