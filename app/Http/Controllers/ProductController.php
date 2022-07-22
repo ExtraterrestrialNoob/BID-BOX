@@ -39,7 +39,7 @@ class ProductController extends Controller
     public function products_by_user($id)
     {
         //
-        $data = user::user()->id;
+        $data = Product::where('user_id',$id)->get();
         echo $data;
        // return view('product.products', compact('all_products'));        
 
@@ -53,7 +53,8 @@ class ProductController extends Controller
     public function create()
     {
         $all_category = Category::all();
-        return view('product.create',compact('all_category'));
+
+        return view('product.create', compact('all_category'));
     }
 
     /**
@@ -114,7 +115,7 @@ class ProductController extends Controller
         $product->specification = $request->specification;
         $product->image_path = $request->image;
         $product->category_id=$request->category;
-        $product->user = auth::user()->id;
+        $product->user_id = auth::user()->id;
         $product->save();
 
     }
@@ -131,7 +132,7 @@ class ProductController extends Controller
         //
         //$user = User::with()
         $product = Product::where('id',$id)->first();
-        $category=Category::where('id',$product->category_id)->first();
+        $category = Category::where('id',$product->category_id)->first();
 
         return view('product.view', compact('product','category'));
     }
