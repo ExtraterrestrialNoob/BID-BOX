@@ -104,7 +104,7 @@ class ProductController extends Controller
         $product->long_description = $request->long_description;
         $product->specification = $request->specification;
         $product->image_path = $request->image;
-        $product->category=$request->category;
+        $product->category_id=$request->category;
         $product->save();
 
     }
@@ -121,8 +121,9 @@ class ProductController extends Controller
         //
         //$user = User::with()
         $product = Product::where('id',$id)->first();
+        $category=Category::where('id',$product->category_id)->first();
 
-        return view('product.view', compact('product'));
+        return view('product.view', compact('product','category'));
     }
 
     /**

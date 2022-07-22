@@ -87,7 +87,7 @@
                             <div class="col-md-6">
                                <select name="category" id="category" class="form-control">
                                 @foreach($all_category as $category)
-                                <option value="{{$category->class}}">{{$category->name}}</option>
+                                <option value="{{$category->id}}">{{$category->name}}</option>
                                 @endforeach
                                </select>
                             </div>

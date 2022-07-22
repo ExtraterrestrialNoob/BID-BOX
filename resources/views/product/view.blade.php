@@ -21,7 +21,7 @@
 <h3>{{$product->name}}</h3>
 <h2>RS.{{number_format(round($product->price),2)}}</h2>
 <ul class="list">
-<li><a><span>Category</span> : {{$product->category}}</a></li>
+<li><a><span>Category</span> : {{$category->name}}</a></li>
 </ul>
 <p>{{$product->short_description}}</p>
 <p></p>
