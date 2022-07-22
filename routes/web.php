@@ -20,9 +20,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register_vendor',function(){
-    return view('auth/register_vendor');
-})->name('register');
+Route::get('/register_vendor',[ProductController::class, 'index'])->name('register'); // Tempory Product check
 
 Route::get('/register_success',function(){
     return view('auth/registration_success_confirm');
