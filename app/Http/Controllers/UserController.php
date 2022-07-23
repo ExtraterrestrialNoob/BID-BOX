@@ -21,6 +21,7 @@ class UserController extends Controller
         $user_data = Auth::user();
         if($user_data->role_id == 3){
             $all_products = Product::where('user_id',$user_data->id)->get();
+
             return view('user.view', compact('user_data','all_products'));
         }
 
