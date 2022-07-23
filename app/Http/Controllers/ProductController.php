@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Bid;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\Role;
-use Illuminate\Support\Facades\Storage;
 use App\Rules\FileTypeValidate;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 
 class ProductController extends Controller
@@ -39,8 +40,9 @@ class ProductController extends Controller
 
     public function products_by_user($id)
     {
-        //
-        $all_products = Product::where('user_id',$id)->get();
+    
+        $all_products = Product::orderBy('created_at','DESC')
+                   ->where('user_id', $id)->get();
 
         return view('product.products', compact('all_products'));        
 

@@ -20,7 +20,8 @@ class UserController extends Controller
         //
         $user_data = Auth::user();
         if($user_data->role_id == 3){
-            $all_products = Product::where('user_id',$user_data->id)->get();
+            $all_products = Product::orderBy('created_at','DESC')
+                   ->where('user_id', $user_data->id)->get();
 
             return view('user.view', compact('user_data','all_products'));
         }
@@ -67,8 +68,10 @@ class UserController extends Controller
         //         ->get();
 
         $user_data = User::where('id',$id)->first();
+        $all_products = Product::orderBy('created_at','DESC')
+                   ->where('user_id', $id)->get();
 
-        return view('user.profile' , compact('user_data'));
+        return view('user.view' , compact('user_data', 'all_products'));
 
     }
 
@@ -82,7 +85,7 @@ class UserController extends Controller
     {
         //
         $user_data = User::where('id',$id)->first();
-        
+
         return view('user.edit' , compact('user_data'));
     }
 
