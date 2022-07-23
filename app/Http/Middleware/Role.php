@@ -7,13 +7,15 @@ use Illuminate\Support\Facades\Auth;
 
 class Role {
 
-  public function handle($request, Closure $next, String $role) {
+  public function handle($request, Closure $next, ... $roles) {
     if (!Auth::check()) // This isnt necessary, it should be part of your 'auth' middleware
       return redirect('/home');
 
     $user = Auth::user();
-    if($user->role_id == $role)
-      return $next($request);
+    foreach($roles as $role){
+      if($user->role_id == $role)
+          return $next($request);
+    }
 
     return redirect('/home');
   }
