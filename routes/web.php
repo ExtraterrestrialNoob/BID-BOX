@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Seller;
+use App\Http\Controllers\Bidder;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -37,9 +41,9 @@ Route::group(['prefix' => 'admin'], function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/seller', [App\Http\Controllers\Seller::class, 'index'])->middleware('role:3');
-Route::get('/bidder', [App\Http\Controllers\Bidder::class, 'index'])->middleware('role:2');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/seller', [Seller::class, 'index'])->middleware('role:3');
+Route::get('/bidder', [Bidder::class, 'index'])->middleware('role:2');
 
 
 
@@ -52,6 +56,7 @@ Route::name('product.')->group(function () {
     Route::get('product/{id}',[ProductController::class, 'products_by_user'])->name('products');
     //Change Products
     Route::post('product/create',[ProductController::class, 'store'])->name('product.create')->middleware('role:3');
+    Route::post('product/bid/{pid}',[ProductController::class, 'bid'])->name('bid')->middleware('role:3,2');
     Route::put('product/update/{id}',[ProductController::class, 'update'])->name('product.update')->middleware('role:3');
     Route::delete('product/delete/{id}',[ProductController::class, 'destroy'])->name('product.delete')->middleware('role:3');
 });

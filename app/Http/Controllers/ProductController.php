@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Bid;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\Role;
 use Illuminate\Support\Facades\Storage;
@@ -170,5 +171,24 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function bid(Request $request, $pid)
+    {
+        //
+        $request->validate([
+            'amount'      => 'required',
+        ]);
+
+
+        Bid::create([
+            'product_id' =>  $pid,
+            'user_id' => Auth::user()->id,
+            'amount' => $request->amount,
+        ]);
+
+
+        return redirect()->back()->with(\Session::flash('success', 'Bid Placed Successfully.'));
     }
 }
