@@ -66,7 +66,7 @@ Route::name('product.')->group(function () {
 Route::name('user.')->group(function(){
     Route::get('user', [UserController::class, 'index'])->name('user'); //self Profile
     Route::get('user/view/{id}', [UserController::class, 'show'])->name('user.view');
-    Route::get('user/edit/{id}',[UserController::class, 'edit'])->name('user.edit');
+    Route::get('user/edit/',[UserController::class, 'edit'])->name('edit');
     //Change User Details
     Route::put('user/update/{id}',[UserController::class, 'update'])->name('user.update');
     Route::delete('user/delete/{id}',[UserController::class, 'destroy'])->name('user.delete');

@@ -81,10 +81,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
         //
-        $user_data = User::where('id',$id)->first();
+        $user_data = Auth::user();
+       // $user_data = User::where('id',$id)->first();
 
         return view('user.edit' , compact('user_data'));
     }

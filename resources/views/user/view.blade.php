@@ -12,13 +12,14 @@
                     <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="..." width="130" class="rounded mb-2 img-thumbnail">
                     @guest 
                     @else
-                    <?php 
-                    $current_user = Auth::user()->id;
-                    ?>
+                        <?php 
+                        $current_user = Auth::user()->id;
+                        ?>
                     @if($current_user == $user_data->id)
-                        <a href="" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a></div> 
+                        <a href="{{ route('user.edit') }}" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a></div> 
                     @endif
                     @endguest
+                    
                     <div class="media-body mb-5 text-white"> 
                         <h4 class="mt-0 mb-0">{{$user_data->name}}</h4> 
                         <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>{{$user_data->email}}</p> 
@@ -66,7 +67,7 @@
                             <a href="{{route('product.products', $user_data->id )}}" class="btn btn-link text-muted">Show all</a> 
                     </div> 
                     <div class="row"> 
-                        
+
                     <?php
                     $c=count($all_products);
                     if($c>=4){
