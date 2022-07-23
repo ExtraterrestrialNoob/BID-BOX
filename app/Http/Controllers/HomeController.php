@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
@@ -23,7 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $all_products = Product::orderBy('created_at','DESC')->get();
+
+        return view('home' , compact('all_products'));
     }
 
     // public function register($call)
