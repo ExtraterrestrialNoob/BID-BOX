@@ -14,7 +14,10 @@
                         </div>
                     @endif
 
-                    {{ __('Hello SELLER, You are logged in!') }}
+                    <?php
+                    $name = Auth::user()->name;
+                    ?>
+                    {{ __('Hello :name, You are logged in!',['name'=>$name]) }}
                 </div>
             </div>
         </div>

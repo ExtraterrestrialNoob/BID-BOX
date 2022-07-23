@@ -14,8 +14,10 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    {{ __('Hello BIDDER, You are logged in!') }}
+                    <?php
+                    $name = Auth::user()->name;
+                    ?>
+                    {{ __('Hello :name, You are logged in!',['name'=>$name]) }}
                 </div>
             </div>
         </div>
