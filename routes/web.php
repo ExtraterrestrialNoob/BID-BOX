@@ -20,9 +20,7 @@ use App\Http\Controllers\Bidder;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/register_vendor',[ProductController::class, 'index'])->name('register'); // Tempory Product check
 

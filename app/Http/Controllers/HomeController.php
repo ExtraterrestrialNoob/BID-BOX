@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         $all_products = Product::orderBy('created_at','DESC')->get();
 
-        return view('home' , compact('all_products'));
+        return view('welcome' , compact('all_products'));
     }
 
     // public function register($call)
