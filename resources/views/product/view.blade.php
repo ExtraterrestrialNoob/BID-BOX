@@ -39,7 +39,7 @@
                         <label for="amount" class="visually-hidden"></label>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <div class="input-group-text">$</div>
+                                <div class="input-group-text">Rs</div>
                             </div>
                             <input  id="amount" name="amount" type="number" class="form-control" step="any"  placeholder="Enter Your Amount">
                         </div>
