@@ -58,13 +58,13 @@
                             <a href="{{route('product.products', $user_data->id )}}" class="btn btn-link text-muted">Show all</a> 
                     </div> 
                     <div class="row"> 
-                    @php
-                    $c=count($all_products)
-                    @endphp
-                    @if($c>=4)
-                    $c=4
-                    @endif
-
+                    <?php
+                    $c=count($all_products);
+                    if($c>=4){
+                        $c=4;
+                    }
+                    ?>
+                    
                     @for($i=0;$i<$c;$i++)
                         <div class=" col-lg-6 mb-2 pr-lg-1">
                                 <img src="{{ asset('assets/images/product/'.$all_products[$i]->image_path) }}" alt="" class="img-fluid rounded shadow-sm">
