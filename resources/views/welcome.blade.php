@@ -88,25 +88,18 @@
                 ?>
 
             @for($i=0;$i<$count;$i++)
-                <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="{{ asset('assets/images/product/'.$all_products[$i]->image_path) }}"  />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">{{$all_products[$i]->name}}</h5>
-                                    <!-- Product price-->
-                                    Rs{{number_format((float)$all_products[$i]->price, 2, '.', '')}}
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{route('product.view', $all_products[$i]->id )}}">View</a></div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="col-md-7 col-lg-4 mb-3 col-xl-3">
+            <div class="card text-center card-product">
+            <img class="card-img-top img-responsive" src="{{ asset('assets/images/product/'.$all_products->image_path) }}"  alt="...">
+            <div class="card-body">
+            <h5 class="card-title">{{$all_products->name}}</h5>
+            <a href="{{route('product.view', $$all_products->id )}}" class="btn btn-primary">BID NOW</a>
+        </div>
+        <ul class="list-group list-group-flush">
+                <li class="list-group-item">Price Start: {{number_format((float)$all_products[$i]->price, 2, '.', '')}}</li>
+        </ul>
+    </div>
+    </div>
             @endfor
                 </div>
             </div>
