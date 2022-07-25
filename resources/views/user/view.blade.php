@@ -79,7 +79,7 @@
 
                                     @for($i=0;$i<$c;$i++)
                                     <div class=" col-lg-6 mb-2 pr-lg-1">
-                                        <img src="{{ asset('assets/images/product/'.$all_products[$i]->image_path) }}" alt="" class="img-fluid rounded shadow-sm">
+                                        <img style="max-width: 100%; " src="{{ asset('assets/images/product/'.$all_products[$i]->image_path) }}" alt="" class="img-fluid rounded shadow-sm">
                                     </div> 
 
                         @endfor                                
