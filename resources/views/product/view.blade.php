@@ -51,13 +51,11 @@
 						<h3 class="product-title">{{$product->name}}</h3>
                         <h4><span>Category</span> : {{$category->name}}</h4>
 						<div class="rating">
-							<span class="review-no">41 reviews</span>
+							<span class="review-no">Total BIDs : {{ $bid_info[0] }}</span>
 						</div>
-						<p class="product-description">{!! nl2br($product->long_description) !!}</p>
-						<h4 class="price">Current Bid Price: <span>$180</span></h4>
+						<p class="product-description"><textarea cols='40' rows='20'>{!! nl2br($product->long_description) !!}</textarea></p>
+						<h4 class="price">Current Bid Price: <span>{{ $bid_info[1] }}</span></h4>
 						<div class="action">
-							<button class="add-to-cart btn btn-default" type="button">add to cart</button>
-							<button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
 						</div>
 					</div>
 				</div>
