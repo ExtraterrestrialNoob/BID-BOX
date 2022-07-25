@@ -34,14 +34,15 @@
                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
             </div>
         </div>
+        </form>
         <div class="col-md-4">
             <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center experience"><span>Password Reset</span><span class="border px-3 p-1 add-experience"><a class="fa fa-plus" href="{{ route('password.request') }}"></a>&nbsp;Password Reset</span></div><br>
+                <div class="d-flex justify-content-between align-items-center experience"><span>Password Reset</span><span class="border px-3 p-1 add-experience"><a class="fa fa-plus" href="{{ route('password.request') }}">&nbsp;Password Reset</a></span></div><br>
             </div>
         </div>
     </div>
 </div>
 </div>
-</form>
+
 </div>
 @endsection
