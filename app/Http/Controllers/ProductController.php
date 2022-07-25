@@ -136,8 +136,9 @@ class ProductController extends Controller
         //$user = User::with()
         $product = Product::where('id',$id)->first();
         $category = Category::where('id',$product->category_id)->first();
-
-        return view('product.view', compact('product','category'));
+        $bid_count = Bid::where('product_id',$id)->count();
+        
+        return view('product.view', compact('product','category','bid_count'));
     }
 
     /**
