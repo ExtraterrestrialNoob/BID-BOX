@@ -135,12 +135,17 @@ class ProductController extends Controller
         //
         //$user = User::with()
         $product = Product::where('id',$id)->first();
-        $category = Category::where('id',$product->category_id)->first();
-        $bid_count = Bid::where('product_id',$id)->count();
-        $max_bid = Bid::where('product_id',$id)->max('amount');
-        $bid_info =array ($bid_count,$max_bid);
+        if(isset($product)){
+            $category = Category::where('id',$product->category_id)->first();
+            $bid_count = Bid::where('product_id',$id)->count();
+            $max_bid = Bid::where('product_id',$id)->max('amount');
+            $bid_info =array ($bid_count,$max_bid);
+
+            return view('product.view', compact('product','category','bid_info'));
+        }
+      
+        return view('product.view', compact('product'));
         
-        return view('product.view', compact('product','category','bid_info'));
     }
 
     /**
