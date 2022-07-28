@@ -60,7 +60,7 @@
             @endif
             @endauth
             </div>
-                <p id="demo" style="color:red;"></p>
+                <p id="timer" style="color:red;"></p>
           </div>
         </div>
       </div>
@@ -94,9 +94,16 @@
 
 {{-- Success Bid alert **not yet finished**  --}}
 @if ($message = \Session::get('success'))
-  <div class="alert alert-success text-justify">
+  <!-- <div class="alert alert-success text-justify">
     {{ $message }}
-  </div>
+  </div> -->
+<div class="popupContainer" id="popupContainer">
+      <div class="popup"> 
+        <h1> Done ! </h1>
+        <p> You have placed BID Successfully </P> 
+        <button id="closebtn" onclick="closepopup()">OK</button>
+      </div>
+</div>
 @endif
 
 
@@ -116,39 +123,44 @@
                 // if (document.getElementById("hour") == null) {
                 //     return; -10 -24 -14
                 // }
-                var demo = document.getElementById('demo');
-                var d
-                var s ;
+                var timer = document.getElementById('timer');
+                var d;
                 var h;
                 var m;
+                var s;
+
                 var f = true;
+
                 // Get today's date and time
                 var now = new Date().getTime();
+
                 // Find the distance between now and the count down date
                 var distance = countDownDate - now;
+
                 // Time calculations for days, hours, minutes and seconds
-                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                var d = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var s = Math.floor((distance % (1000 * 60)) / 1000);
+
                 // Output the result in an element with id="demo"
-                d = days;
-                h = hours ;
-                m = minutes;
-                s = seconds;
-                demo.innerHTML = d + "d   " + h + "m   " + m + "min   " + s + "s   ";
+                timer.innerHTML = d + "d   " + h + "m   " + m + "min   " + s + "s   ";
+                
                 // If the count down is over, write some text
                 if (distance < 1) {
                     $('#bid-form').hide();
-                    $('#demo').hide();
+                    timer.innerHTML = "Product Expired";
                     clearInterval(x);
-                } else {
-                    if (f) {
-                        
-                        f = false;
-                    }
-                }
+                } 
+            
             }, 1000);
+
+
+            function closepopup(){
+                var msg = document.getElementById('popupContainer');
+                msg.classList.add("hide");
+            }
+
 </script>
 @endisset
 

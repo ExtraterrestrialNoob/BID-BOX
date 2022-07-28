@@ -199,6 +199,6 @@ class ProductController extends Controller
         ]);
 
 
-        return redirect()->back()->with(\Session::flash('success', 'Bid Placed Successfully.'));
+        return back()->with(\Session::flash('success', 'Bid Placed Successfully.'));
     }
 }
