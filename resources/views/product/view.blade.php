@@ -27,9 +27,12 @@
             <p class="product-description"><textarea cols='40' rows='10'>{!! nl2br($product->long_description) !!}</textarea></p>
             @if($bid_info[1]>' ')
 
-            @if($product->price < $bid_info[1])
-                <h4 class="price">Current Bid Price: <span>{{ number_format((float)$bid_info[1], 2, '.', '') }}</span></h4>
-            @else
+                 <?php
+                    $p= $bid_info[1]
+                ?>
+
+                <h4 class="price">Current Bid Price: <span>{{ number_format((float)$p, 2, '.', '') }}</span></h4>
+            @elseif($bid_info[1]<=$product->price)
                         <h4 class="price">Price Start: <span>{{ number_format((float)$product->price, 2, '.', '')}}</span></h4>
             @endif
             
@@ -45,19 +48,17 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Rs</div>
                             </div>
-                            <input  id="amount" name="amount" type="number" class="form-control" step="any"  placeholder="Enter Your Amount" oninput="validatebid()">
+                            <input  id="amount" name="amount" type="number" class="form-control" step="any"  placeholder="Enter Your Amount">
                         </div>
                     </div>
                     <div class="col-auto">
-                        <button type="submit" class="btn btn-primary mb-3 disabled" id="bidbtn"> BID NOW </button>
+                        <button type="submit" class="btn btn-primary mb-3"> BID NOW </button>
                     </div>
                 </form>
                             
             @endif
             @endauth
             </div>
-                <p id="warning_price" style="display:none;color:red;"></p>
-                
                 
                 <div class="home-kv-carousel__countdown" id="timer" style="font-size: 20px;">
 									<span class="home-kv-carousel__countdown-text-wrap">
@@ -145,7 +146,6 @@
 
 {{--JS for Count Down Timer --}}
 @isset($product)
-
 <script>
 
             // Set the date we're counting down to
@@ -191,33 +191,11 @@
             
             }, 1000);
 
-            //close popup function
+
             function closepopup(){
                 var msg = document.getElementById('popupContainer');
                 msg.classList.add("hide");
             }
-
-
-            //Validate Bid price Before Submit
-            function validatebid(){
-                var input_val = parseInt(document.getElementById('amount').value);
-                var warning = document.getElementById('warning_price');
-                var max_bid = "{{ $bid_info[1]}}";
-                var orig_price = "{{ $product->price }}";
-
-                if(orig_price>max_bid){
-                    max_bid = orig_price;
-                }
-                
-                if(input_val<=max_bid){
-                    warning.innerHTML = "Bid Price must be greater than current price";
-                    warning.style.display = "inline-block";
-                }else{
-                    warning.style.display = "none";
-                    document.getElementById('bidbtn').classList.remove('disabled');
-                }
-            }
-
 
 </script>
 @endisset
