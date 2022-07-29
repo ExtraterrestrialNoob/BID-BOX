@@ -41,8 +41,8 @@ class ProductController extends Controller
     public function products_by_user($id)
     {
     
-        $all_products = Product::orderBy('created_at','DESC')
-                   ->where('user_id', $id)->get();
+        $all_products = Product::where('user_id', $id)
+                   ->orderBy('created_at','DESC')->get();
 
         return view('product.products', compact('all_products'));        
 
@@ -187,8 +187,10 @@ class ProductController extends Controller
     public function bid(Request $request, $pid)
     {
         //
+        // $current_price = Bid::where('product_id',$pid)->get()->max('amount');
+        
         $request->validate([
-            'amount'      => 'required',
+            'amount'      => 'required | numeric|',
         ]);
 
 
