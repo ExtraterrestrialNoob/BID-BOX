@@ -187,10 +187,13 @@ class ProductController extends Controller
     public function bid(Request $request, $pid)
     {
         //
-        // $current_price = Bid::where('product_id',$pid)->get()->max('amount');
+        $current_price = Bid::where('product_id',$pid)->get()->max('amount');
+        if(!isset($current_price)){
+            $current_price = Product::where('id',$pid)->first()->price;
+        }
         
         $request->validate([
-            'amount'      => 'required | numeric|',
+            'amount'      => 'required | numeric|gt:'.$current_price,
         ]);
 
 

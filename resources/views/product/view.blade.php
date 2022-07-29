@@ -10,9 +10,9 @@
     <div class="card">
       <div class="container-fliud">
         <div class="wrapper row">
-          <div class="preview col-md-6">
+          <div class="preview col-md-6" style="height:350px;width:400px;">
                         <div class="preview-pic tab-content">
-                            <img src="{{ asset('assets/images/product/'.$product->image_path) }}" class="img-fluid">
+                            <img src="{{ asset('assets/images/product/'.$product->image_path) }}" style="object-fit:cover;height:100%;width:100% ;Overflow:hidden;">
                         </div>
           </div>
           <div class="details col-md-6">
