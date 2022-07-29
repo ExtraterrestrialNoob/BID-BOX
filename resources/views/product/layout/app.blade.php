@@ -13,7 +13,6 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" defer></script>
-    
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -21,6 +20,7 @@
 
     <!-- Styles  for specific page -->
     <link href="{{ asset('assets/product/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/product/css/timer.css')}}" rel="stylesheet">
     <!--bootstrapmain -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 

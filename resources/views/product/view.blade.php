@@ -13,7 +13,6 @@
           <div class="preview col-md-6">
                         <div class="preview-pic tab-content">
                             <img src="{{ asset('assets/images/product/'.$product->image_path) }}" class="img-fluid">
-
                         </div>
           </div>
           <div class="details col-md-6">
@@ -25,7 +24,12 @@
               <span class="review-no">Total BIDs : {{ $bid_info[0] }}</span>
             </div>
 
+<<<<<<< Updated upstream
             <p class="product-description"><textarea cols='40' rows='20'>{!! nl2br($product->long_description) !!}</textarea></p>
+=======
+            <p class="product-description"><textarea cols='40' rows='10'>{!! nl2br($product->long_description) !!}</textarea></p>
+            @if($bid_info[1]>' ')
+>>>>>>> Stashed changes
 
             @if($product->price < $bid_info[1])
                 <h4 class="price">Current Bid Price: <span>{{ number_format((float)$bid_info[1], 2, '.', '') }}</span></h4>
@@ -56,8 +60,45 @@
             @endif
             @endauth
             </div>
+<<<<<<< Updated upstream
                 <p id="warning_price" style="display:none;color:red;"></p>
                 <p id="timer" style="color:red;"></p>
+=======
+                
+                <div class="home-kv-carousel__countdown" id="timer" style="font-size: 20px;">
+									<span class="home-kv-carousel__countdown-text-wrap">
+									<span class="home-kv-carousel__countdown-num" id="day"></span>
+									
+										<span class="home-kv-carousel__countdown-text" data-text-singular="DAY" data-text-plural="DAYS">DAYS</span>
+									
+									
+								</span>
+								<span class="home-kv-carousel__countdown-colon">:</span>
+								<span class="home-kv-carousel__countdown-text-wrap">
+									<span class="home-kv-carousel__countdown-num" id="hour"></span>
+									
+										<span class="home-kv-carousel__countdown-text" data-text-singular="HOUR" data-text-plural="HOURS">HOURS</span>
+									
+									
+								</span>
+								<span class="home-kv-carousel__countdown-colon">:</span>
+								<span class="home-kv-carousel__countdown-text-wrap">
+									<span class="home-kv-carousel__countdown-num" id="min"></span>
+									
+										<span class="home-kv-carousel__countdown-text" data-text-singular="MINUTE" data-text-plural="MINUTES">MINUTES</span>
+									
+									
+								</span>
+								<span class="home-kv-carousel__countdown-colon">:</span>
+								<span class="home-kv-carousel__countdown-text-wrap">
+									<span class="home-kv-carousel__countdown-num" id="sec"></span>
+									
+										<span class="home-kv-carousel__countdown-text" data-text-singular="SECOND" data-text-plural="SECONDS">SECONDS</span>
+									
+									
+								</span>
+				</div>
+>>>>>>> Stashed changes
           </div>
         </div>
       </div>
@@ -121,7 +162,7 @@
                 // if (document.getElementById("hour") == null) {
                 //     return; -10 -24 -14
                 // }
-                var timer = document.getElementById('timer');
+                // var timer = document.getElementById('timer');
                 var d;
                 var h;
                 var m;
@@ -142,12 +183,16 @@
                 var s = Math.floor((distance % (1000 * 60)) / 1000);
 
                 // Output the result in an element with id="demo"
-                timer.innerHTML = d + "d   " + h + "m   " + m + "min   " + s + "s   ";
-                
+                // timer.innerHTML = d + "d   " + h + "m   " + m + "min   " + s + "s   ";
+                    document.getElementById('day').innerHTML = d;
+                    document.getElementById('hour').innerHTML = h; 
+                    document.getElementById('min').innerHTML = m;
+                    document.getElementById('sec').innerHTML = s;
                 // If the count down is over, write some text
                 if (distance < 1) {
                     $('#bid-form').hide();
-                    timer.innerHTML = "Product Expired";
+                    document.getElementById('timer').style.color='red';
+                    document.getElementById('timer').innerHTML = "Product Expired";
                     clearInterval(x);
                 } 
             
