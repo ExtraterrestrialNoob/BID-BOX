@@ -25,15 +25,10 @@
             </div>
 
             <p class="product-description"><textarea cols='40' rows='10'>{!! nl2br($product->long_description) !!}</textarea></p>
-            @if($bid_info[1]>' ')
-
-                 <?php
-                    $p= $bid_info[1]
-                ?>
-
-                <h4 class="price">Current Bid Price: <span>{{ number_format((float)$p, 2, '.', '') }}</span></h4>
-            @elseif($bid_info[1]<=$product->price)
-                        <h4 class="price">Price Start: <span>{{ number_format((float)$product->price, 2, '.', '')}}</span></h4>
+            @if($bid_info[1]>$product->price)
+                    <h4 class="price">Current Bid Price: <span>{{ number_format((float)$bid_info[1], 2, '.', '') }}</span></h4>
+            @else
+                    <h4 class="price">Price Start: <span>{{ number_format((float)$product->price, 2, '.', '')}}</span></h4>
             @endif
             
             <div class="card_area d-flex align-items-center">
@@ -48,17 +43,19 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Rs</div>
                             </div>
-                            <input  id="amount" name="amount" type="number" class="form-control" step="any"  placeholder="Enter Your Amount">
+                            <input  id="amount" name="amount" type="number" class="form-control" step="any"  placeholder="Enter Your Amount" oninput="validatebid()">
                         </div>
                     </div>
                     <div class="col-auto">
-                        <button type="submit" class="btn btn-primary mb-3"> BID NOW </button>
+                        <button type="submit" class="btn btn-primary mb-3 disabled" id="bidbtn"> BID NOW </button>
                     </div>
                 </form>
                             
             @endif
             @endauth
             </div>
+            <p id="warning_price" style="display:none;color:red;"></p>
+
                 
                 <div class="home-kv-carousel__countdown" id="timer" style="font-size: 20px;">
 									<span class="home-kv-carousel__countdown-text-wrap">
@@ -144,7 +141,7 @@
 
 
 
-{{--JS for Count Down Timer --}}
+{{--JS--}}
 @isset($product)
 <script>
 
@@ -163,13 +160,13 @@
 
                 var f = true;
 
-                // Get today's date and time
+                    // Get today's date and time
                 var now = new Date().getTime();
 
-                // Find the distance between now and the count down date
+                    // Find the distance between now and the count down date
                 var distance = countDownDate - now;
 
-                // Time calculations for days, hours, minutes and seconds
+                    // Time calculations for days, hours, minutes and seconds
                 var d = Math.floor(distance / (1000 * 60 * 60 * 24));
                 var h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 var m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -177,10 +174,10 @@
 
                 // Output the result in an element with id="demo"
                 // timer.innerHTML = d + "d   " + h + "m   " + m + "min   " + s + "s   ";
-                    document.getElementById('day').innerHTML = d;
-                    document.getElementById('hour').innerHTML = h; 
-                    document.getElementById('min').innerHTML = m;
-                    document.getElementById('sec').innerHTML = s;
+                document.getElementById('day').innerHTML = d;
+                document.getElementById('hour').innerHTML = h; 
+                document.getElementById('min').innerHTML = m;
+                document.getElementById('sec').innerHTML = s;
                 // If the count down is over, write some text
                 if (distance < 1) {
                     $('#bid-form').hide();
@@ -188,13 +185,35 @@
                     document.getElementById('timer').innerHTML = "Product Expired";
                     clearInterval(x);
                 } 
-            
+                
             }, 1000);
 
 
+            //Function for Closing Popup
             function closepopup(){
                 var msg = document.getElementById('popupContainer');
                 msg.classList.add("hide");
+            }
+
+
+            //Validate Bid price Before Submit
+            function validatebid(){
+                var input_val = parseInt(document.getElementById('amount').value);
+                var warning = document.getElementById('warning_price');
+                var max_bid = "{{ $bid_info[1]}}";
+                var orig_price = "{{ $product->price }}";
+
+                if(orig_price>max_bid){
+                    max_bid = orig_price;
+                }
+                
+                if(input_val<=max_bid){
+                    warning.innerHTML = "Bid Price must be greater than current price";
+                    warning.style.display = "inline-block";
+                }else{
+                    warning.style.display = "none";
+                    document.getElementById('bidbtn').classList.remove('disabled');
+                }
             }
 
 </script>
