@@ -24,6 +24,8 @@
 .home-kv-carousel__countdown-text-wrap{display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}
 .home-kv-carousel__countdown-num{display:inline-block;width:80px;font-family:'SamsungSharpSans',arial,sans-serif;font-size:20px;line-height:1.2;font-weight:bold;text-align:center}
 .home-kv-carousel__countdown-colon{display:inline-block;width:30px;font-family:'SamsungSharpSans',arial,sans-serif;font-size:20px;line-height:1.2;font-weight:bold;text-align:center}
+.home-kv-carousel__countdown-num{display:inline-block;width:80px;font-family:'SamsungSharpSans',arial,sans-serif;font-size:60px;line-height:1.2;font-weight:bold;text-align:center}
+.home-kv-carousel__countdown-colon{display:inline-block;width:30px;font-family:'SamsungSharpSans',arial,sans-serif;font-size:60px;line-height:1.2;font-weight:bold;text-align:center}
 .home-kv-carousel__countdown-text{display:inline-block;width:80px;font-size:12px;line-height:1.33;text-align:center}
 .home-kv-carousel__countdown--hide{display:none}
 .home-kv-carousel__cta-wrap{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin-top:40px}
@@ -181,6 +183,7 @@
 .home-kv-carousel__period{margin-top:4.44444444vw;font-size:3.88888889vw}
 .home-kv-carousel__countdown{margin-top:4.44444444vw}
 .home-kv-carousel__countdown-num{width:12.22222222vw;font-size:10px;line-height:1.33}
+.home-kv-carousel__countdown-num{width:12.22222222vw;font-size:8.88888889vw;line-height:1.33}
 .home-kv-carousel__countdown-colon{width:3.88888889vw;font-size:8.33333333vw;line-height:1.33}
 .home-kv-carousel__countdown-text{width:12.22222222vw;font-size:2.77777778vw}
 .home-kv-carousel__cta-wrap{margin-top:6.66666667vw;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}
