@@ -24,12 +24,8 @@
               <span class="review-no">Total BIDs : {{ $bid_info[0] }}</span>
             </div>
 
-<<<<<<< Updated upstream
-            <p class="product-description"><textarea cols='40' rows='20'>{!! nl2br($product->long_description) !!}</textarea></p>
-=======
             <p class="product-description"><textarea cols='40' rows='10'>{!! nl2br($product->long_description) !!}</textarea></p>
             @if($bid_info[1]>' ')
->>>>>>> Stashed changes
 
             @if($product->price < $bid_info[1])
                 <h4 class="price">Current Bid Price: <span>{{ number_format((float)$bid_info[1], 2, '.', '') }}</span></h4>
@@ -60,10 +56,8 @@
             @endif
             @endauth
             </div>
-<<<<<<< Updated upstream
                 <p id="warning_price" style="display:none;color:red;"></p>
-                <p id="timer" style="color:red;"></p>
-=======
+                
                 
                 <div class="home-kv-carousel__countdown" id="timer" style="font-size: 20px;">
 									<span class="home-kv-carousel__countdown-text-wrap">
@@ -98,7 +92,6 @@
 									
 								</span>
 				</div>
->>>>>>> Stashed changes
           </div>
         </div>
       </div>
