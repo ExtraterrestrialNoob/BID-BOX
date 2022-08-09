@@ -97,10 +97,48 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+
+    // public function update(Request $request, $id)
+    // {
+    //     //
+    // }
+    //update profile
+    // public function update(Request $request)
+    // {
+    //     if($request->name != Auth::user()->name and $request->tpno != Auth::user()->tpno and $request->email != Auth::user()->email){
+    //         $request->validate([
+    //             'name' => [ 'string', 'max:255','unique:users'],
+    //             'email' => [ 'string', 'email', 'max:255', 'unique:users'],
+                
+    //             // 'nic' => [ 'string', 'max:12','min:10', 'unique:users'],
+    //             // 'type'=>['integer','between:2,3'],
+    //             'tpno'=>['string','max:10','min:10','unique:users'],
+    //             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:9096',
+    //         ]);
+
+    //         if ($request->hasFile('image')) {
+    //             //if (FileTypeValidate($request->image, ['jpeg', 'jpg', 'png']))
+    //             try{
+    //                 $file= $request->file('image');
+    //                 $filename= date('YmdHi').$file->getClientOriginalName();
+    //                 $file-> move(public_path('assets/images/product'), $filename);
+    //                 $request->image = $filename;
+    //             }catch (\Exception $exp) {
+    //                 $notify[] = ['error', 'Image could not be uploaded.'];
+    //                 return 'image upload error';
+    //                 }   
+    //         }
+
+    //         $user=Auth::user();
+    //         $user->name = $request['name'];
+    //         $user->email = $request['email'];
+    //         $user->tpno = $request['tpno'];
+    //         $user->save();
+    //         return redirect()->back()->with(\Session::flash('success', 'Data inserted Successfully.'));
+
+    //     }
+        
+    // }
 
     /**
      * Remove the specified resource from storage.
