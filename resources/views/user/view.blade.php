@@ -9,16 +9,12 @@
                 <div class="px-4 pt-0 pb-5 cover"> 
                     <div class="media align-items-end profile-head"> 
                         <div class="profile mr-3">
-                            <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="..." width="130" class="rounded mb-2 img-thumbnail">
-                        @guest 
-                        @else
-                            <?php 
-                            $current_user = Auth::user()->id;
-                            ?>
-                        @if($current_user == $user_data->id)
+                        @if($user_data->avatar)
+                            <img src="{{asset('assets/images/user/'.$user_data->avatar)}}" alt="profile Avatar" width="130" class="rounded mb-2 img-thumbnail">
+                        @endif
+                        @if(auth()->user()->id == $user_data->id)
                             <a href="{{ route('user.edit') }}" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a>
                         @endif
-                        @endguest
                         </div> 
                         
                         <div class="media-body mb-5 text-white"> 
