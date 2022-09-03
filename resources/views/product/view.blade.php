@@ -21,15 +21,14 @@
                 <h4><span>Category</span> : {{$category->name}}</h4>
 
             <div class="rating">
-              <span class="review-no">Total BIDs : {{ $bid_info[0] }}</span>
+              <h4 class="price">Price Start: <span>{{ number_format((float)$product->price, 2, '.', '')}}</span></h4>
             </div>
 
             <p class="product-description"><textarea cols='40' rows='10'>{!! nl2br($product->long_description) !!}</textarea></p>
-            @if($bid_info[1]>$product->price)
-                    <h4 class="price">Current Bid Price: <span>{{ number_format((float)$bid_info[1], 2, '.', '') }}</span></h4>
-            @else
-                    <h4 class="price">Price Start: <span>{{ number_format((float)$product->price, 2, '.', '')}}</span></h4>
-            @endif
+            
+                    <h4 class="price">Current Bid Price: <span id="newp"></span></h4>
+                    <span class="review-no">Total BIDs : {{ $bid_info[0] }}</span>
+            
             
             <div class="card_area d-flex align-items-center">
 
@@ -143,6 +142,7 @@
 
 {{--JS--}}
 @isset($product)
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
 <script>
 
             // Set the date we're counting down to
@@ -215,6 +215,14 @@
                     document.getElementById('bidbtn').classList.remove('disabled');
                 }
             }
+            // var counter=1;
+            var refresh = setInterval(
+                function() {
+                    var new_price="{{ number_format((float)$bid_info[1], 2, '.', '') }}";
+                    $('#newp').html(new_price);
+                    // console.log(new_price);
+                    // counter++;
+                }, 1000);
 
 </script>
 @endisset
