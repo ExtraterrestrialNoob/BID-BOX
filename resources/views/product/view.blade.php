@@ -90,6 +90,28 @@
 								</span>
 				</div>
           </div>
+
+        <br>
+          <div class="">
+            <h5> LeaderBoard </h5>
+            <table id="LeaderBoard">
+                    <tr>
+                        <th>User</th>
+                        <th>BID</th>
+                        <th>Time</th>
+                    </tr>
+                    @foreach($bid_info[2] as $bid)
+                    <tr>
+                        <td> ****** </td>
+                        <td> {{ $bid->amount }} </td>
+                        <td> {{ $bid->created_at }} </td>
+                    </tr>
+                    @endforeach
+            </table>
+          </div>
+
+
+
         </div>
       </div>
     </div>
