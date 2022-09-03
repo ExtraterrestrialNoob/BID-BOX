@@ -245,3 +245,28 @@ img {
   }
 
   /* Popup massege styles end */
+
+
+  /* BID Table Styles */
+  #LeaderBoard {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #LeaderBoard td, #LeaderBoard th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #LeaderBoard tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #LeaderBoard tr:hover {background-color: #ddd;}
+  
+  #LeaderBoard th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+  }

@@ -137,9 +137,10 @@ class ProductController extends Controller
         $product = Product::where('id',$id)->first();
         if(isset($product)){
             $category = Category::where('id',$product->category_id)->first();
-            $bid_count = Bid::where('product_id',$id)->count();
-            $max_bid = Bid::where('product_id',$id)->max('amount');
-            $bid_info =array ($bid_count,$max_bid);
+            $bid_data = Bid::where('product_id',$id)->take(10)->orderBy('amount', 'DESC')->get(); //https://stackoverflow.com/questions/15229303/is-there-a-way-to-limit-the-result-with-eloquent-orm-of-laravel
+            $max_bid = $bid_data->max('amount');
+            $bid_count = $bid_data->count();
+            $bid_info =array($bid_count,$max_bid,$bid_data);
 
             return view('product.view', compact('product','category','bid_info'));
         }
