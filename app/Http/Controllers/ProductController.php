@@ -156,9 +156,15 @@ class ProductController extends Controller
             $max_bid = $bid_data->max('amount');
             $bid_count = $bid_data->count();
             $bid = array($bid_count,$max_bid,$bid_data);
-            return response()->json($bid);
+            // return response()->json($bid);
+            return response()->json(array(
+                'bidcount' => $bid_count,
+                'maxbid'   => $max_bid,
+                
+            ));
         }
-
+        // $msg = "This is a simple message.";
+        // return response()->json(array('msg'=> $msg), 200);
     }
 
     /**

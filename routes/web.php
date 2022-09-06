@@ -51,7 +51,7 @@ Route::name('product.')->group(function () {
     Route::get('product/create',[ProductController::class, 'create'])->name('product.create')->middleware('role:1,3');
     Route::get('product/view/{id}',[ProductController::class, 'show'])->name('view');
     //ajax
-    Route::post('/getreq',[ProductController::class, 'bidupdate']);
+    Route::get('/getreq/{id}',[ProductController::class, 'bidupdate']);
     Route::get('product/edit/{id}',[ProductController::class, 'edit'])->name('product.edit')->middleware('role:1,3');
     Route::get('product/{id}',[ProductController::class, 'products_by_user'])->name('products');
     //Change Products
