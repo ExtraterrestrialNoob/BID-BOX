@@ -26,8 +26,8 @@
 
             <p class="product-description"><textarea cols='40' rows='10'>{!! nl2br($product->long_description) !!}</textarea></p>
             
-                    <h4 class="price">Current Bid Price: <span id="newp"></span></h4>
-                    <span class="review-no">Total BIDs :<span id="total_bid"></span> </span>
+                    <h4 class="price">Current Bid Price: <span id="current_bid_price">{{ $bid_info[1] }}</span></h4>
+                    <span class="review-no">Total BIDs :<span id="total_bids">{{ $bid_info[0] }}</span> </span>
             
             
             <div class="card_area d-flex align-items-center">
@@ -241,25 +241,43 @@
                 }
             }
             
+            //update table from ajax responses
+            function updatetable($data){
+                //https://stackoverflow.com/questions/3053503/javascript-to-get-rows-count-of-a-html-table
+                var table = document.getElementById('LeaderBoard');
+                var totalRowCount = table.rows.length;
+                var warning = document.getElementById('warning_price');
+
+                while (1<totalRowCount) {
+                    table.deleteRow(1);
+                    totalRowCount = table.rows.length;
+                }
+
+                for(let i in $data){
+                    var row = table.insertRow(-1);
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    var cell3 = row.insertCell(2);
+                    cell1.innerHTML = "******";
+                    cell2.innerHTML = $data[i]['amount'];
+                    cell3.innerHTML = $data[i]['created_at'];
+                }
+                
+            }
+
             // var counter=1;
             var refresh = setInterval(
                 function() {
-                    // var new_price="{{ number_format((float)$bid_info[1], 2, '.', '') }}";
-                    // $('#newp').html(new_price);
-                    // console.log(new_price);
-                    // counter++;
-
                     $.ajax({
                         type: 'GET',
-                        url:'/getreq/{{$product->id}}',
-                        
+                        url:"{{route('product.refresh.bid' , $product->id )}}",
                         success:function(data){
-                            $("#newp").html(data.maxbid);
-                            // $("#newp").html(data.msg);
-                            $("#total_bid").html(data.bidcount);
+                            $("#current_bid_price").html(data.bid_info[1]);
+                            $("#total_bids").html(data.bid_info[0]);
+                            updatetable(data.bid_info[2]);
                         }
                     })
-                }, 10000);
+                }, 5000);
 
 </script>
 @endisset

@@ -50,8 +50,8 @@ Route::name('product.')->group(function () {
     Route::get('product',[ProductController::class, 'index'])->name('product');
     Route::get('product/create',[ProductController::class, 'create'])->name('product.create')->middleware('role:1,3');
     Route::get('product/view/{id}',[ProductController::class, 'show'])->name('view');
-    //ajax
-    Route::get('/getreq/{id}',[ProductController::class, 'bidupdate']);
+    
+    
     Route::get('product/edit/{id}',[ProductController::class, 'edit'])->name('product.edit')->middleware('role:1,3');
     Route::get('product/{id}',[ProductController::class, 'products_by_user'])->name('products');
     //Change Products
@@ -59,6 +59,9 @@ Route::name('product.')->group(function () {
     Route::post('product/bid/{pid}',[ProductController::class, 'bid'])->name('bid')->middleware('role:1,2,3');
     Route::put('product/update/{id}',[ProductController::class, 'update'])->name('product.update')->middleware('role:1,3');
     Route::delete('product/delete/{id}',[ProductController::class, 'destroy'])->name('product.delete')->middleware('role:1,3');
+
+    //ajax routes
+    Route::get('/product/bid/{pid}',[ProductController::class, 'getbidstatus'])->name('refresh.bid');
 });
 
 

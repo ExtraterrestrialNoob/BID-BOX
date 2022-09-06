@@ -132,7 +132,6 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
         //$user = User::with()
         $product = Product::where('id',$id)->first();
         if(isset($product)){
@@ -148,19 +147,17 @@ class ProductController extends Controller
         return view('product.view', compact('product'));
         
     }
-    //for update bid and table
-    public function bidupdate($id){
+    //for update bid and table ajax
+    public function getbidstatus($id){
         $product = Product::where('id',$id)->first();
         if(isset($product)){
             $bid_data = Bid::where('product_id',$id)->take(10)->orderBy('amount', 'DESC')->get();
             $max_bid = $bid_data->max('amount');
             $bid_count = $bid_data->count();
-            $bid = array($bid_count,$max_bid,$bid_data);
+            $bid_info =array($bid_count,$max_bid,$bid_data);
             // return response()->json($bid);
             return response()->json(array(
-                'bidcount' => $bid_count,
-                'maxbid'   => $max_bid,
-                
+                'bid_info' => $bid_info
             ));
         }
         // $msg = "This is a simple message.";
