@@ -27,7 +27,7 @@
             <p class="product-description"><textarea cols='40' rows='10'>{!! nl2br($product->long_description) !!}</textarea></p>
             
                     <h4 class="price">Current Bid Price: <span id="newp"></span></h4>
-                    <span class="review-no">Total BIDs : {{ $bid_info[0] }}</span>
+                    <span id="total_bid" class="review-no">Total BIDs : </span>
             
             
             <div class="card_area d-flex align-items-center">
@@ -164,7 +164,7 @@
 
 {{--JS--}}
 @isset($product)
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
 
             // Set the date we're counting down to
@@ -240,11 +240,20 @@
             // var counter=1;
             var refresh = setInterval(
                 function() {
-                    var new_price="{{ number_format((float)$bid_info[1], 2, '.', '') }}";
-                    $('#newp').html(new_price);
+                    // var new_price="{{ number_format((float)$bid_info[1], 2, '.', '') }}";
+                    // $('#newp').html(new_price);
                     // console.log(new_price);
                     // counter++;
-                }, 1000);
+                    $.ajax({
+                        type: 'POST',
+                        url:'/getreq',
+                        data: '_token = <?php echo csrf_token() ?>',
+                        success:function(data){
+                            $("#newp").html(data.bid[0]);
+                            // $("#total_bid").html(data.bidcount);
+                        }
+                    })
+                }, 10000);
 
 </script>
 @endisset

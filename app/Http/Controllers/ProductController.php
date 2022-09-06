@@ -148,6 +148,18 @@ class ProductController extends Controller
         return view('product.view', compact('product'));
         
     }
+    //for update bid and table
+    public function bidupdate($id){
+        $product = Product::where('id',$id)->first();
+        if(isset($product)){
+            $bid_data = Bid::where('product_id',$id)->take(10)->orderBy('amount', 'DESC')->get();
+            $max_bid = $bid_data->max('amount');
+            $bid_count = $bid_data->count();
+            $bid = array($bid_count,$max_bid,$bid_data);
+            return response()->json($bid);
+        }
+
+    }
 
     /**
      * Show the form for editing the specified resource.
