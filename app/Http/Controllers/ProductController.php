@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Bid;
 use App\Http\Middleware\Role;
 use App\Rules\FileTypeValidate;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -138,7 +139,7 @@ class ProductController extends Controller
             $category = Category::where('id',$product->category_id)->first();
             $bid_data = Bid::where('product_id',$id)->take(10)->orderBy('amount', 'DESC')->get(); //https://stackoverflow.com/questions/15229303/is-there-a-way-to-limit-the-result-with-eloquent-orm-of-laravel
             $max_bid = $bid_data->max('amount');
-            $bid_count = $bid_data->count();
+            $bid_count = Bid::where('product_id',$id)->count();
             $bid_info =array($bid_count,$max_bid,$bid_data);
 
             return view('product.view', compact('product','category','bid_info'));
@@ -151,13 +152,19 @@ class ProductController extends Controller
     public function getbidstatus($id){
         $product = Product::where('id',$id)->first();
         if(isset($product)){
-            $bid_data = Bid::where('product_id',$id)->take(10)->orderBy('amount', 'DESC')->get();
-            $max_bid = $bid_data->max('amount');
-            $bid_count = $bid_data->count();
-            $bid_info =array($bid_count,$max_bid,$bid_data);
+            // $bid_data = Bid::where('product_id',$id)->take(10)->orderBy('amount', 'DESC')->get();  //send all data to webpage risky
+            $bid_amount = Bid::where('product_id',$id)->take(10)->orderBy('amount','DESC')->select('amount')->get();
+            $placed_time = Bid::where('product_id',$id)->take(10)->orderBy('amount','DESC')->select('created_at')->get();
+            $bid_count = Bid::where('product_id',$id)->count();
+            $max_bid = $bid_amount->max('amount');
+            // $datetime =  Carbon::parse($placed_time);
+            // $bid_info =array($bid_count,$max_bid,$bid_data,$datetime);
             // return response()->json($bid);
             return response()->json(array(
-                'bid_info' => $bid_info
+                'bid_amount' => $bid_amount,
+                'placed_time' => $placed_time,
+                'max_bid' => $max_bid,
+                'bid_count' => $bid_count,
             ));
         }
         // $msg = "This is a simple message.";

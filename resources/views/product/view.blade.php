@@ -222,17 +222,19 @@
 
 
             //Validate Bid price Before Submit
-            function validatebid(){
+            function validatebid($data){
                 var input_val = parseInt(document.getElementById('amount').value);
                 var warning = document.getElementById('warning_price');
                 var max_bid = "{{ $bid_info[1]}}";
                 var orig_price = "{{ $product->price }}";
+                var change_price = parseInt($data);
+                // console.log(typeof(change_price));
 
-                if(orig_price>max_bid){
-                    max_bid = orig_price;
-                }
+                // if(orig_price>max_bid){
+                //     max_bid = orig_price;
+                // }
                 
-                if(input_val<=max_bid){
+                if(input_val<=change_price){
                     warning.innerHTML = "Bid Price must be greater than current price";
                     warning.style.display = "inline-block";
                 }else{
@@ -242,8 +244,8 @@
             }
             
             //update table from ajax responses
-            function updatetable($data){
-                //https://stackoverflow.com/questions/3053503/javascript-to-get-rows-count-of-a-html-table
+            function updatetable($data1,$data2){
+                // https://stackoverflow.com/questions/3053503/javascript-to-get-rows-count-of-a-html-table
                 var table = document.getElementById('LeaderBoard');
                 var totalRowCount = table.rows.length;
                 var warning = document.getElementById('warning_price');
@@ -253,15 +255,17 @@
                     totalRowCount = table.rows.length;
                 }
 
-                for(let i in $data){
+                for(let i in $data1){
                     var row = table.insertRow(-1);
                     var cell1 = row.insertCell(0);
                     var cell2 = row.insertCell(1);
                     var cell3 = row.insertCell(2);
                     cell1.innerHTML = "******";
-                    cell2.innerHTML = $data[i]['amount'];
-                    cell3.innerHTML = $data[i]['created_at'];
+                    cell2.innerHTML = $data1[i]['amount'];
+                    cell3.innerHTML = $data2[i]['created_at'];
+                    
                 }
+                
                 
             }
 
@@ -272,9 +276,11 @@
                         type: 'GET',
                         url:"{{route('product.refresh.bid' , $product->id )}}",
                         success:function(data){
-                            $("#current_bid_price").html(data.bid_info[1]);
-                            $("#total_bids").html(data.bid_info[0]);
-                            updatetable(data.bid_info[2]);
+                            $("#current_bid_price").html(data.max_bid);
+                            $("#total_bids").html(data.bid_count);
+                            
+                            updatetable(data.bid_amount,data.placed_time);
+                            validatebid(data.max_bid);
                         }
                     })
                 }, 5000);
