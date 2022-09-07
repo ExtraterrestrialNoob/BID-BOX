@@ -2,16 +2,19 @@
 @section('content')
 
 <!-- Name |  | Price | BIDS | | Winner | Status | -->
+<div class="container rounded bg-white mt-5 mb-5">
 <table class="table align-middle mb-1 bg-light">
   <thead class="bg-light">
     <tr>
       <th >Name</th>
-      <th >Product_ID</th>
+      <th >Product ID</th>
       <th >Price</th>
-      <th >BIDS</th>
-      <th > MAX BID</th>
+      <th >Bids</th>
+      <th >Max Bid</th>
       <th >Winner</th>
       <th >Status</th>
+      <th ></th>
+      <th ></th>
       <th ></th>
     </tr>
   </thead>
@@ -52,11 +55,24 @@
       <td class="table-secondary">
         <p class="fw-normal mb-1">{{$i->status}}</p>
       </td>
+    
+      <td class="table-secondary">
+        <p class="fw-normal mb-1">{{ __('View')}}</p>
+      </td>
+
+      <td class="table-secondary">
+        <p class="fw-normal mb-1">{{__('Edit')}}</p>
+      </td>
+
+      <td class="table-secondary">
+        <p class="fw-normal mb-1">{{__('Delete')}}</p>
+      </td>
+
     </tr>
    
   </tbody>
   @endforeach
 </table>
-
+</div>
 
 @endsection
