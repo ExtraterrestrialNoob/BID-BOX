@@ -2,7 +2,7 @@
 @section('content')
 
 <!-- Name |  | Price | BIDS | | Winner | Status | -->
-<table class="table align-middle mb-1 bg-dark">
+<table class="table align-middle mb-1 bg-light">
   <thead class="bg-light">
     <tr>
       <th >Name</th>
@@ -18,7 +18,7 @@
   @foreach($all_products as $i)
   <tbody>
     <tr>
-      <td>
+      <td class="table-secondary">
         <div class="d-flex align-items-center">
           <img
               src="{{ asset('assets/images/product/'.$i->image_path)}}"
@@ -27,22 +27,23 @@
               class="rounded"
               />
           <div class="ms-3">
-            <p class="fw-bold mb-1 text-light">{{$i->name}}</p>
+            <p class="fw-bold mb-1">{{$i->name}}</p>
           </div>
         </div>
       </td>
-      <td>
-        <p class="fw-normal mb-1 text-light">{{$i->id}}</p>
+      <td class="table-secondary">
+        <p class="fw-normal mb-1">{{$i->id}}</p>
       </td>
-      <td>
-        <span class="fw-bold mb-1 text-light">Rs.{{number_format((float)$i->price, 2, '.', '')}}</span>
+      <td class="table-secondary">
+        <span class="fw-bold mb-1">Rs.{{number_format((float)$i->price, 2, '.', '')}}</span>
       </td>
-      <td class="fw-bold mb-1 text-light">{{$i->bid}}</td>
-      <td>
-        <button type="button" class="btn btn-link btn-sm btn-rounded">
+      <td class="fw-bold mb-1 table-secondary">{{$i->total_bid}}</td>
+      <td class="table-secondary">
+        <!-- <button type="button" class="btn btn-link btn-sm btn-rounded">
           Edit
-        </button>
-      </td>
+        </button> -->
+        <p class="fw-normal mb-1">{{$i->id}}</p>  
+    </td>
     </tr>
    
   </tbody>
