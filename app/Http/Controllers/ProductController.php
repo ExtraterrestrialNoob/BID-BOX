@@ -44,8 +44,11 @@ class ProductController extends Controller
     
         $all_products = Product::where('user_id', $id)
                    ->orderBy('created_at','DESC')->get();
+        // $count = Product::with('bid.user')->whereRelation('bid','user_id',Auth::id);
+        // $count->bid->
+        // Bid::where('user_id',$id)->with('')       
 
-        return view('product.myproducts', compact('all_products'));        
+        return view('product.myproducts', compact('all_products','count'));        
 
     }
 
@@ -216,13 +219,14 @@ class ProductController extends Controller
             'amount'      => 'required | numeric|gt:'.$current_price,
         ]);
 
-
+        $count = Bid::where('product_id',$pid)->count();
         Bid::create([
             'product_id' =>  $pid,
             'user_id' => Auth::user()->id,
             'amount' => $request->amount,
+            
         ]);
-
+        Product::where('id',$pid)->update(['total_bid'=>$count]);
 
         return back()->with(\Session::flash('success', 'Bid Placed Successfully.'));
     }
