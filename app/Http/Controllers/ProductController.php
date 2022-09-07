@@ -152,17 +152,14 @@ class ProductController extends Controller
     public function getbidstatus($id){
         $product = Product::where('id',$id)->first();
         if(isset($product)){
-            // $bid_data = Bid::where('product_id',$id)->take(10)->orderBy('amount', 'DESC')->get();  //send all data to webpage risky
-            $bid_amount = Bid::where('product_id',$id)->take(10)->orderBy('amount','DESC')->select('amount')->get();
-            $placed_time = Bid::where('product_id',$id)->take(10)->orderBy('amount','DESC')->select('created_at')->get();
+            $bid_data = Bid::where('product_id',$id)->orderBy('amount', 'DESC')->take(10)->select('amount','created_at')->get(); 
             $bid_count = Bid::where('product_id',$id)->count();
-            $max_bid = $bid_amount->max('amount');
-            // $datetime =  Carbon::parse($placed_time);
-            // $bid_info =array($bid_count,$max_bid,$bid_data,$datetime);
+            $max_bid = $bid_data->max('amount');
+
+            //$bid_info =array($bid_count,$max_bid,$bid_data);
             // return response()->json($bid);
             return response()->json(array(
-                'bid_amount' => $bid_amount,
-                'placed_time' => $placed_time,
+                'bid_info' => $bid_data, 
                 'max_bid' => $max_bid,
                 'bid_count' => $bid_count,
             ));

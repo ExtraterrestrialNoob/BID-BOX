@@ -100,13 +100,7 @@
                         <th>BID</th>
                         <th>Time</th>
                     </tr>
-                    @foreach($bid_info[2] as $bid)
-                    <tr>
-                        <td> ****** </td>
-                        <td> {{ $bid->amount }} </td>
-                        <td> {{ $bid->created_at }} </td>
-                    </tr>
-                    @endforeach
+
             </table>
           </div>
 
@@ -165,11 +159,11 @@
 @isset($product)
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
-            // $.ajaxSetup({
-            //     headers: {
-            //             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-            //     }
-            // });
+
+    //Global Variables
+    var max_bid = "{{ $bid_info[1] }}"
+            
+
             // Set the date we're counting down to
             var countDownDate = new Date(new Date("{{ $product->expired_at }}").getTime());
             // Update the count down every 1 second
@@ -222,19 +216,18 @@
 
 
             //Validate Bid price Before Submit
-            function validatebid($data){
+            function validatebid(){
                 var input_val = parseInt(document.getElementById('amount').value);
                 var warning = document.getElementById('warning_price');
-                var max_bid = "{{ $bid_info[1]}}";
                 var orig_price = "{{ $product->price }}";
-                var change_price = parseInt($data);
-                // console.log(typeof(change_price));
+                //var change_price = parseInt($data);
+                //console.log(orig_price,'max bid', max_bid);
 
-                // if(orig_price>max_bid){
-                //     max_bid = orig_price;
-                // }
+                if(orig_price>max_bid){
+                    max_bid = orig_price;
+                }
                 
-                if(input_val<=change_price){
+                if(input_val<=max_bid){
                     warning.innerHTML = "Bid Price must be greater than current price";
                     warning.style.display = "inline-block";
                 }else{
@@ -244,30 +237,28 @@
             }
             
             //update table from ajax responses
-            function updatetable($data1,$data2){
+            function updatetable(data){
                 // https://stackoverflow.com/questions/3053503/javascript-to-get-rows-count-of-a-html-table
                 var table = document.getElementById('LeaderBoard');
                 var totalRowCount = table.rows.length;
-                var warning = document.getElementById('warning_price');
 
                 while (1<totalRowCount) {
                     table.deleteRow(1);
                     totalRowCount = table.rows.length;
                 }
 
-                for(let i in $data1){
+                for(let i in data){
                     var row = table.insertRow(-1);
                     var cell1 = row.insertCell(0);
                     var cell2 = row.insertCell(1);
                     var cell3 = row.insertCell(2);
-                    cell1.innerHTML = "******";
-                    cell2.innerHTML = $data1[i]['amount'];
-                    cell3.innerHTML = $data2[i]['created_at'];
-                    
+                    cell1.innerHTML = "*******";
+                    cell2.innerHTML = data[i]['amount'];
+                    var date = new Date(data[i]['created_at']);
+                    cell3.innerHTML = date.toLocaleString();
                 }
-                
-                
             }
+
 
             // var counter=1;
             var refresh = setInterval(
@@ -279,11 +270,23 @@
                             $("#current_bid_price").html(data.max_bid);
                             $("#total_bids").html(data.bid_count);
                             
-                            updatetable(data.bid_amount,data.placed_time);
-                            validatebid(data.max_bid);
+                            updatetable(data.bid_info);
+                            max_bid = data.max_bid;
                         }
                     })
-                }, 5000);
+                }, 9000);
+
+                //Change Table After Rendering webpage
+                $(document).ready(function() {
+                    $.ajax({
+                        type: 'GET',
+                        url:"{{route('product.refresh.bid' , $product->id )}}",
+                        success:function(data){
+                            updatetable(data.bid_info);
+                            max_bid = data.max_bid;
+                        }
+                    })
+                });
 
 </script>
 @endisset
