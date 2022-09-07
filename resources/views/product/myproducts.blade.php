@@ -41,6 +41,7 @@
         <span class="fw-bold mb-1">Rs.{{number_format((float)$i->price, 2, '.', '')}}</span>
       </td>
       <td class="fw-bold mb-1 table-secondary">{{$i->bid_count}}</td>
+
       <td class="table-secondary">
         <!-- <button type="button" class="btn btn-link btn-sm btn-rounded">
           Edit
