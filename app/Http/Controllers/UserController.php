@@ -103,17 +103,17 @@ class UserController extends Controller
     //     //
     // }
     //update profile
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
-        if($request->name != Auth::user()->name and $request->tpno != Auth::user()->tpno and $request->email != Auth::user()->email){
+        // if($request->name != Auth::user()->name and $request->tpno != Auth::user()->tpno and $request->email != Auth::user()->email){
             $request->validate([
-                'name' => [ 'string', 'max:255','unique:users'],
-                'email' => [ 'string', 'email', 'max:255', 'unique:users'],
+                // 'name' => [ 'string', 'max:255','unique:users'],
+                // 'email' => [ 'string', 'email', 'max:255', 'unique:users'],
                 
                 // 'nic' => [ 'string', 'max:12','min:10', 'unique:users'],
                 // 'type'=>['integer','between:2,3'],
-                'tpno'=>['string','max:10','min:10','unique:users'],
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:9096',
+                // 'tpno'=>['string','max:10','min:10','unique:users'],
+                // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:9096',
             ]);
 
             if ($request->hasFile('image')) {
@@ -129,14 +129,14 @@ class UserController extends Controller
                     }   
             }
 
-            $user=Auth::user();
-            $user->name = $request['name'];
-            $user->email = $request['email'];
-            $user->tpno = $request['tpno'];
-            $user->save();
+            $user=User::find($id);
+            $user->name = $request->input('name');
+            $user->avatar = $request->image;
+            $user->update();
             return redirect()->back()->with(\Session::flash('success', 'Data inserted Successfully.'));
 
-        }
+        // }
+        
         
     }
 

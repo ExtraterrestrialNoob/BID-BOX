@@ -72,6 +72,6 @@ Route::name('user.')->group(function(){
     Route::get('user/view/{id}', [UserController::class, 'show'])->name('user.view');
     Route::get('user/edit/',[UserController::class, 'edit'])->name('edit');
     //Change User Details
-    Route::put('user/update/',[UserController::class, 'update'])->name('user.update');
+    Route::put('user/update/{id}',[UserController::class, 'update'])->name('user.update');
     Route::delete('user/delete/{id}',[UserController::class, 'destroy'])->name('user.delete');
 });
