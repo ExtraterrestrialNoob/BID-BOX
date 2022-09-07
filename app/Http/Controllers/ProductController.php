@@ -45,7 +45,7 @@ class ProductController extends Controller
         $all_products = Product::where('user_id', $id)
                    ->orderBy('created_at','DESC')->get();
 
-        return view('product.products', compact('all_products'));        
+        return view('product.myproducts', compact('all_products'));        
 
     }
 
