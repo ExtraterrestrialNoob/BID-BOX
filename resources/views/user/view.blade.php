@@ -11,7 +11,9 @@
                         <div class="profile mr-3">
                         @if($user_data->avatar)
                             <img src="{{asset('assets/images/user/'.$user_data->avatar)}}" alt="profile Avatar" width="130" class="rounded mb-2 img-thumbnail">
-                        @endif
+                        @else
+                        <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="profile Avatar" width="130" class="rounded mb-2 img-thumbnail">
+                            @endif
                         @if(auth()->user()->id == $user_data->id)
                             <a href="{{ route('user.edit') }}" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a>
                         @endif
