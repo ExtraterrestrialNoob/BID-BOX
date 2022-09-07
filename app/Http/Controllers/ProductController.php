@@ -41,16 +41,52 @@ class ProductController extends Controller
 
     public function products_by_user($id)
     {
+        $all_products = Product::where('user_id', $id)
+                        ->orderBy('created_at','DESC')->get();
+        for($i = 0;$i < sizeof($all_products);$i++){
+            $bid_count = Bid::where('product_id',$all_products[$i]->id)->count();
+            $max_bid = Bid::where('product_id',$all_products[$i]->id)->orderBy('amount','DESC')->first();
+            $status = $all_products[$i]->expired_at > now() ? 'Active' : 'Expired';
+            if($all_products[$i]->expired_at > now()){
+                $winner = 'No Winner Announced';
+            }elseif($max_bid != NULL){
+                $winner =  User::where('id',$max_bid->user_id)->first()->name;
+            }else{
+                $winner = 'No Bids Placed';
+            }
+            $all_products[$i]->bid_count = $bid_count;
+            $all_products[$i]->max_bid = $max_bid != NULL ?  $max_bid->amount : NULL ;
+            $all_products[$i]->status = $status;
+            $all_products[$i]->winner = $winner;
+        }
+
+        return view('product.myproducts', compact('all_products'));        
+
+    }
+
+
+    public function test($id)
+    {
     
         $all_products = Product::where('user_id', $id)
                    ->orderBy('created_at','DESC')->get();
-        // $count = Product::with('bid.user')->whereRelation('bid','user_id',Auth::id);
-        // $count->bid->
-        // Bid::where('user_id',$id)->with('') 
-        // $bid = Bid::  
-        // $max_bid =     
-
-        return view('product.myproducts', compact('all_products'));        
+        for($i = 0;$i < sizeof($all_products);$i++){
+                $bid_count = Bid::where('product_id',$all_products[$i]->id)->count();
+                $max_bid = Bid::where('product_id',$all_products[$i]->id)->orderBy('amount','DESC')->first();
+                $status = $all_products[$i]->expired_at > now() ? 'Active' : 'Expired';
+                if($all_products[$i]->expired_at > now()){
+                    $winner = 'No Winner Announced';
+                }elseif($max_bid != NULL){
+                    $winner =  User::where('id',$max_bid->user_id)->first()->name;
+                }else{
+                    $winner = 'No Bids Placed';
+                }
+                $all_products[$i]->bid_count = $bid_count;
+                $all_products[$i]->max_bid = $max_bid;
+                $all_products[$i]->status = $status;
+                $all_products[$i]->winner = $winner;
+         }
+        return compact('all_products');        
 
     }
 
