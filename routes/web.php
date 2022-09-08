@@ -59,6 +59,7 @@ Route::name('product.')->group(function () {
     Route::post('product/create',[ProductController::class, 'store'])->name('product.create')->middleware('role:1,3');
     Route::post('product/bid/{pid}',[ProductController::class, 'bid'])->name('bid')->middleware('role:1,2,3');
     Route::put('product/update/{id}',[ProductController::class, 'update'])->name('product.update')->middleware('role:1,3');
+    Route::put('product/update/image/{id}',[ProductController::class, 'updateimage'])->name('update.image')->middleware('role:1,3');
     Route::delete('product/delete/{id}',[ProductController::class, 'destroy'])->name('delete')->middleware('role:1,3');
 
     //ajax routes

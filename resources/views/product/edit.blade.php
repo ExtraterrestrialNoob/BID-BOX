@@ -39,10 +39,14 @@
                     <p class="mb-0"> By : {{ $user_info }}</p>
                     <div class="">Total Bids : {{ $bid_count}}</div>
                     <div class="mt-2">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fa fa-fw fa-camera"></i>
-                        <span>Change Photo</span>
-                      </button>
+
+                    <form method="POST" action="{{ route('product.update.image',$product->id) }}" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                      <input class="btn btn-primary" id="imageupload" type="file" name="image" value="image" class="form-control" data-buttonText="Upload Image" >
+                      <button class="btn btn-primary" type="submit">Upload</button>
+                    </form>
+
                     </div>
                   </div>
                   <div class="text-left text-sm-right">
@@ -188,6 +192,35 @@
     </div>
 @endempty
 
+
+@if ($message = \Session::get('success'))
+  <!-- <div class="alert alert-success text-justify">
+    {{ $message }}
+  </div> -->
+<div class="popupContainer" id="popupContainer">
+      <div class="popup"> 
+        <h1> Done ! </h1>
+        <p> Success </P> 
+        <button id="closebtn" onclick="closepopup()">OK</button>
+      </div>
+</div>
+@endif
+
+@if ($message = \Session::get('error'))
+  <!-- <div class="alert alert-success text-justify">
+    {{ $message }}
+  </div> -->
+<div class="popupContainer" id="popupContainer">
+      <div class="popup"> 
+        <h1> Done ! </h1>
+        <p> Error </P> 
+        <button id="closebtn" onclick="closepopup()">OK</button>
+      </div>
+</div>
+@endif
+
+
+
 @endsection
 @isset($product)
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -210,5 +243,20 @@
         defaultcategory.value = selected;
 
     })
+
+    function uploadimage(){
+      console.log('Clicked');
+      var image = documnet.getElementById('uploadbtn');
+      var formData = new FormData();
+      formData.append("file", imageupload.files[0]);
+      $.ajax({
+              type: 'GET',
+              url:"{{route('product.refresh.bid' , $product->id )}}",
+              success:function(data){
+              $("#current_bid_price").html(data.max_bid);
+              $("#total_bids").html(data.bid_count);
+              })
+
+    }
 </script>
 @endisset

@@ -245,6 +245,39 @@ class ProductController extends Controller
         //
     }
 
+    public function updateimage(Request $request, $id)
+    {
+        //
+        
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:9096',
+        ]);
+
+        $product = Product::find($id);
+        if($product){
+
+            if ($request->hasFile('image')) {
+                //if (FileTypeValidate($request->image, ['jpeg', 'jpg', 'png']))
+                try{
+                    $file= $request->file('image');
+                    $filename= date('YmdHi').$file->getClientOriginalName();
+                    $file-> move(public_path('assets/images/product'), $filename);
+                    $request->image = $filename;
+                }catch (\Exception $exp) {
+                    $notify[] = ['error', 'Image could not be uploaded.'];
+                    return 'image upload error';
+                    }   
+                }
+            
+            $product->image_path = $request->image;
+            $product->update();
+            return redirect()->back()->with(\Session::flash('success', 'Image inserted Successfully.'));
+        }else{
+            return redirect()->back()->with(\Session::flash('error', 'product id mismatch'));
+        }
+    }
+
+
     /**
      * Remove the specified resource from storage.
      *

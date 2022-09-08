@@ -60,7 +60,7 @@
         <p class="fw-normal mb-1 text-danger">{{$i->status}}</p>
         @endif
       </td>
-    
+      @if(auth()->user()->id == $i->user_id)
       <td class="table-secondary">
       <button type="submit" class="btn btn-primary" onclick='location="{{route('product.view', $i->id )}}"'>{{__('View')}}</button>  
       <!-- <p class="fw-normal mb-1"><a href="{{route('product.view', $i->id )}}">{{ __('View')}}</a></p> -->
@@ -75,7 +75,22 @@
       <button type="submit" class="btn btn-danger" onclick='location="{{route('product.delete', $i->id )}}"'>{{__('Delete')}}</button>
         <!-- <p class="fw-normal mb-1"><a href="{{route('product.delete', $i->id )}}">{{__('Delete')}}</a></p> -->
       </td>
-    
+      @else
+      <td class="table-secondary">
+      <button type="submit" class="btn btn-primary" disabled onclick='location="{{route('product.view', $i->id )}}"'>{{__('View')}}</button>  
+      <!-- <p class="fw-normal mb-1"><a href="{{route('product.view', $i->id )}}">{{ __('View')}}</a></p> -->
+      </td>
+
+      <td class="table-secondary">
+        <!-- <p class="fw-normal mb-1"><a href="{{route('product.edit', $i->id )}}">{{__('Edit')}}</a></p> -->
+        <button type="submit" class="btn btn-warning"  disabled onclick='location="{{route('product.edit', $i->id )}}"'>{{__('Edit')}}</button>
+      </td>
+
+      <td class="table-secondary">
+      <button type="submit" class="btn btn-danger" disabled onclick='location="{{route('product.delete', $i->id )}}"'>{{__('Delete')}}</button>
+        <!-- <p class="fw-normal mb-1"><a href="{{route('product.delete', $i->id )}}">{{__('Delete')}}</a></p> -->
+      </td>
+      @endif
     </tr>
    
   </tbody>
