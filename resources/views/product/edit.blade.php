@@ -47,7 +47,7 @@
                   </div>
                   <div class="text-left text-sm-right">
                     <div class=""> ID : {{ $product->id }} </div>
-                    <div class=""> Created: {{ $product->created_at }}</div>
+                    <div class=""><span id="createdDate"></span></div>
                   </div>
                 </div>
               </div>
@@ -189,3 +189,26 @@
 @endempty
 
 @endsection
+@isset($product)
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function setDateandCategory(){
+        //change created date
+        var date = document.getElementById('createdDate');
+        var createddate = new Date('{{ $product->created_at}}');
+        date.innerHTML = 'Created : ' + createddate.toLocaleString();
+
+        //change expire datetimelocal date
+        var datetimelocal = document.getElementById('expired_at');
+        var expireddate = '{{ $product->expired_at}}';
+        datetimelocal.value = expireddate;
+
+        //change category type
+        var defaultcategory = document.getElementById('category');
+        var selected = '{{ $product->category_id}}';
+        defaultcategory.value = selected;
+
+    })
+</script>
+@endisset
