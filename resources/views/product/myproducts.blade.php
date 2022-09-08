@@ -58,15 +58,15 @@
       </td>
     
       <td class="table-secondary">
-        <p class="fw-normal mb-1">{{ __('View')}}</p>
+        <p class="fw-normal mb-1"><a href="{{route('product.view', $i->id )}}">{{ __('View')}}</a></p>
       </td>
 
       <td class="table-secondary">
-        <p class="fw-normal mb-1">{{__('Edit')}}</p>
+        <p class="fw-normal mb-1"><a href="{{route('product.edit', $i->id )}}">{{__('Edit')}}</a></p>
       </td>
 
       <td class="table-secondary">
-        <p class="fw-normal mb-1">{{__('Delete')}}</p>
+        <p class="fw-normal mb-1"><a href="{{route('product.delete', $i->id )}}">{{__('Delete')}}</a></p>
       </td>
 
     </tr>

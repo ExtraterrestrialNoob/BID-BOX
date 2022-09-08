@@ -218,7 +218,8 @@ class ProductController extends Controller
     public function edit($id)
     {
         //
-        echo $id;
+
+        return view('product.view');
     }
 
     /**
