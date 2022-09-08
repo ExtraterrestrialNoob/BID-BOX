@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="expired_at" class="col-md-4 col-form-label text-md-end text-light">{{ __('Expire_Time') }}</label>
+                            <label for="expired_at" class="col-md-4 col-form-label text-md-end text-light">{{ __('Expire Time') }}</label>
 
                             <div class="col-md-6">
                                 <input id="expired_at" type="datetime-local" class="form-control @error('expired_at') is-invalid @enderror" name="expired_at" value="{{ old('expired_at') }}" required autocomplete="expired_at">
@@ -47,7 +47,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="short_description" class="col-md-4 col-form-label text-md-end text-light">{{ __('short description') }}</label>
+                            <label for="short_description" class="col-md-4 col-form-label text-md-end text-light">{{ __('Short Description') }}</label>
 
                             <div class="col-md-6">
                                 <input id="short_description" type="text" class="form-control @error('short_description') is-invalid @enderror" name="short_description" value="{{ old('short_description') }}" required autocomplete="short_description">
@@ -61,7 +61,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="long_description" class="col-md-4 col-form-label text-md-end text-light">{{ __('long description') }}</label>
+                            <label for="long_description" class="col-md-4 col-form-label text-md-end text-light">{{ __('Long Description') }}</label>
 
                             <div class="col-md-6">
                                 <textarea  id="long_description" class="form-control @error('long_description') is-invalid @enderror" name="long_description"></textarea>
@@ -74,7 +74,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="specification" class="col-md-4 col-form-label text-md-end text-light">{{ __('specification') }}</label>
+                            <label for="specification" class="col-md-4 col-form-label text-md-end text-light">{{ __('Specification') }}</label>
 
                             <div class="col-md-6">
                                 <input id="specification" type="specification" class="form-control" name="specification">
@@ -82,7 +82,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="category" class="col-md-4 col-form-label text-md-end text-light">{{ __('category') }}</label>
+                            <label for="category" class="col-md-4 col-form-label text-md-end text-light">{{ __('Category') }}</label>
 
                             <div class="col-md-6">
                                <select name="category" id="category" class="form-control">
