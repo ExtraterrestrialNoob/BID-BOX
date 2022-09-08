@@ -5,9 +5,9 @@
 <div class="row">
 @foreach($all_products as $i)
     <div class="col-md-7 col-lg-4 mb-3 col-xl-3">
-    <div class="card text-center card-product">
-        <img class="card-img-top img-responsive" src="{{ asset('assets/images/product/'.$i->image_path) }}"  alt="...">
-        <div class="card-body">
+    <div class="card text-center card-product h-100">
+        <img class="card-img-top img-responsive" style="object-fit:cover; height:200px; width:100%; Overflow:hidden;" src="{{ asset('assets/images/product/'.$i->image_path) }}"  alt="...">
+        <div class="card-body p-4">
             <h5 class="card-title">{{$i->name}}</h5>
             <p class="card-text">{{$i->short_description }}</p>
             <a href="{{route('product.view', $i->id )}}" class="btn btn-primary">BID NOW</a>
@@ -17,7 +17,6 @@
         </ul>
     </div>
     </div>
-
 
 @endforeach
 </div>

@@ -218,8 +218,19 @@ class ProductController extends Controller
     public function edit($id)
     {
         //
+        $product = Product::where('id',$id)->first();
+        if(isset($product)){
+            $category = Category::where('id',$product->category_id)->first();
+            $user_info = User::where('id', $product->user_id)->first()->name;
+            //$bid_data = Bid::where('product_id',$id)->orderBy('amount', 'DESC')->take(10)->get(); //https://stackoverflow.com/questions/15229303/is-there-a-way-to-limit-the-result-with-eloquent-orm-of-laravel
+            //$max_bid = $bid_data->max('amount');
+            $bid_count = Bid::where('product_id',$id)->count();
+            $all_category = Category::all();
 
-        return view('product.view');
+            return view('product.edit', compact('product','category','user_info','bid_count','all_category'));
+        }
+
+        return view('product.edit');
     }
 
     /**
