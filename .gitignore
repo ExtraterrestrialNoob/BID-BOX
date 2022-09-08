@@ -25,3 +25,4 @@ composer.json
 composer.lock
 composer.json
 *.lock
+app/Providers/AppServiceProvider.php
