@@ -24,7 +24,7 @@
               <h4 class="price">Price Start: <span>{{ number_format((float)$product->price, 2, '.', '')}}</span></h4>
             </div>
 
-            <p class="product-description"><textarea cols='40' rows='10'>{!! nl2br($product->long_description) !!}</textarea></p>
+            <textarea class="form-control" rows="10" placeholder="" value="" style="resize: none;"> {{ $product->long_description }} </textarea>
             
                     <h4 class="price">Current Bid Price: <span id="current_bid_price">{{ $bid_info[1] }}</span></h4>
                     <span class="review-no">Total BIDs :<span id="total_bids">{{ $bid_info[0] }}</span> </span>
