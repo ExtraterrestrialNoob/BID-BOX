@@ -160,7 +160,7 @@ class ProductController extends Controller
         $product->specification = $request->specification;
         $product->image_path = $request->image;
         $product->category_id=$request->category;
-        $product->user_id = auth::User()->id;
+        $product->user_id = Auth::user()->id;
         $product->save();
 
     }
