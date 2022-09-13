@@ -197,7 +197,12 @@
     {{ $message }}
   </div>
 @endif
-
+<script>
+    function closepopup(){
+        var msg = document.getElementById('popupContainer');
+        msg.classList.add("hide")
+    }
+</script>
 @endsection
 
 

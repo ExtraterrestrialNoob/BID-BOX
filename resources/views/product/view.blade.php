@@ -8,7 +8,7 @@
 @isset($product)
 <div class="container ">
     <div class="card">
-      <div class="container-fliud card-body">
+      <div class="container-fliud">
         <div class="wrapper row">
           <div class="preview col-md-6" style="height:350px;width:400px;">
                         <div class="preview-pic tab-content">
@@ -21,12 +21,12 @@
                 <h4><span>Category</span> : {{$category->name}}</h4>
 
             <div class="rating">
-              <h4 class="price">Price Start: <span style="color: #ff9f1a;">{{ number_format((float)$product->price, 2, '.', '')}}</span></h4>
+              <h4 class="price">Price Start: <span>{{ number_format((float)$product->price, 2, '.', '')}}</span></h4>
             </div>
 
             <textarea class="form-control" rows="10" placeholder="" value="" style="resize: none;"> {{ $product->long_description }} </textarea>
             
-                    <h4 class="price">Current Bid Price: <span style="color: #ff9f1a;" id="current_bid_price">{{ $bid_info[1] }}</span></h4>
+                    <h4 class="price">Current Bid Price: <span id="current_bid_price">{{ $bid_info[1] }}</span></h4>
                     <span class="review-no">Total BIDs :<span id="total_bids">{{ $bid_info[0] }}</span> </span>
             
             
@@ -94,8 +94,8 @@
         <br>
           <div class="">
             <h5> LeaderBoard </h5>
-            <table id="LeaderBoard" class="table align-middle mb-0 bg-white">
-                    <tr class="table-success" class="background-color: #04AA6D; color:white">
+            <table id="LeaderBoard">
+                    <tr class="table-success">
                         <th>User</th>
                         <th>BID</th>
                         <th>Time</th>
