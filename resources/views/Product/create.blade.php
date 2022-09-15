@@ -84,7 +84,7 @@
                           <div class="col mb-3">
                             <div class="form-group">
                               <label>Short Description</label>
-                              <textarea id="short_description" type="text" class="form-control @error('short_description') is-invalid @enderror" name="short_description" value="{{ old('short_description') }}" required autocomplete="short_description"></textarea>
+                              <input class="form-control" type="text" name="short_description" placeholder="">
                               @error('short_description')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

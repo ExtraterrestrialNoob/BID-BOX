@@ -89,7 +89,7 @@
                           <div class="col mb-3">
                             <div class="form-group">
                               <label>Short Description</label>
-                              <textarea class="form-control" rows="3" placeholder="" value="" style="resize: none;"> {{ $product->short_description }} </textarea>
+                              <input class="form-control" type="text" name="short_description" placeholder="" value="{{ $product->short_description }}">
                             </div>
                           </div>
                         </div>
