@@ -116,9 +116,15 @@
 
 {{-- IF there is no product with this id --}}
 @empty($product)
+@if($ActiveStatus == 0)
+<div class="alert alert-danger text-center" role="alert">
+        <strong>{{ _('Product Suspended')}}</strong> 
+    </div>
+@else
 <div class="alert alert-danger text-center" role="alert">
         <strong>{{ _('Product Not Found')}}</strong> 
     </div>
+@endif
 @endempty
 
 

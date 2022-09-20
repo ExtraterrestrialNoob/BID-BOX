@@ -33,7 +33,7 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $all_products = Product::orderBy('created_at','DESC')->get();
+        $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->take(10)->get();
 
         return view('product.products', compact('all_products'));
 
@@ -41,7 +41,8 @@ class ProductController extends Controller
 
     public function products_by_user($id)
     {
-        $all_products = Product::where('user_id', $id)
+        //$all_products = Product::where([['user_id', '=', $id],['Is_active', '=',1]])
+        $all_products = Product::where([['user_id', '=', $id]])
                         ->orderBy('created_at','DESC')->get();
         for($i = 0;$i < sizeof($all_products);$i++){
             $bid_count = Bid::where('product_id',$all_products[$i]->id)->count();
@@ -54,6 +55,11 @@ class ProductController extends Controller
             }else{
                 $winner = 'No Bids Placed';
             }
+
+             //Overite Status and Winners if Product Suspended
+            $status = $all_products[$i]->Is_active == 0 ? 'Suspended' : $status;
+            $winner = $all_products[$i]->Is_active == 0 ? 'Suspended' : $winner;
+
             $all_products[$i]->bid_count = $bid_count;
             $all_products[$i]->max_bid = $max_bid != NULL ?  $max_bid->amount : NULL ;
             $all_products[$i]->status = $status;
@@ -81,6 +87,11 @@ class ProductController extends Controller
                 }else{
                     $winner = 'No Bids Placed';
                 }
+
+                //Overite Status and Winners if Product Suspended
+                $status = $all_products[$i]->Is_active == 0 ? 'Suspended' : $status;
+                $winner = $all_products[$i]->Is_active == 0 ? 'Suspended' : $winner;
+
                 $all_products[$i]->bid_count = $bid_count;
                 $all_products[$i]->max_bid = $max_bid;
                 $all_products[$i]->status = $status;
@@ -176,17 +187,23 @@ class ProductController extends Controller
     {
         //$user = User::with()
         $product = Product::where('id',$id)->first();
+        $ActiveStatus = 0;
+        if($product->Is_active == 0){
+            $product = NULL;
+            return view('product.view', compact('product','ActiveStatus'));
+        }
         if(isset($product)){
+            $ActiveStatus = 1;
             $category = Category::where('id',$product->category_id)->first();
             $bid_data = Bid::where('product_id',$id)->take(10)->orderBy('amount', 'DESC')->get(); //https://stackoverflow.com/questions/15229303/is-there-a-way-to-limit-the-result-with-eloquent-orm-of-laravel
             $max_bid = $bid_data->max('amount');
             $bid_count = Bid::where('product_id',$id)->count();
             $bid_info =array($bid_count,$max_bid,$bid_data);
 
-            return view('product.view', compact('product','category','bid_info'));
+            return view('product.view', compact('product','category','bid_info','ActiveStatus'));
         }
       
-        return view('product.view', compact('product'));
+        return view('product.view', compact('product','ActiveStatus'));
         
     }
     //for update bid and table ajax
