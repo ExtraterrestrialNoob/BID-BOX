@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $all_products = Product::orderBy('created_at','DESC')->take(15)->get();
+        $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->take(15)->get();
 
         return view('welcome' , compact('all_products'));
     }

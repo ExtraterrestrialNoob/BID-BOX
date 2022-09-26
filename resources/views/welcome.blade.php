@@ -27,7 +27,7 @@
                 <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <img class="card-img-top img-responsive" style="object-fit:cover; height:200px; width:100%; Overflow:hidden;" src="{{ asset('assets/images/product/'.$all_products[$i]->image_path) }}"  />
+                            <img class="card-img-top img-responsive" style="object-fit:cover; height:200px; width:100%; Overflow:hidden;" src="{{ asset('storage/'.$all_products[$i]->image_path) }}"  />
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">

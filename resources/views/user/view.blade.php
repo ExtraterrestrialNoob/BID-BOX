@@ -10,7 +10,7 @@
                     <div class="media align-items-end profile-head"> 
                         <div class="profile mr-3">
                         @if($user_data->avatar != 'users/default.png')
-                            <img src="{{asset('assets/images/user/'.$user_data->avatar)}}" alt="profile Avatar" width="130" class="rounded mb-2 img-thumbnail">
+                            <img src="{{asset('storage/'.$user_data->avatar)}}" alt="profile Avatar" width="130" class="rounded mb-2 img-thumbnail">
                         @else
                         <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="profile Avatar" width="130" class="rounded-circle mb-2 img-thumbnail">
                         @endif

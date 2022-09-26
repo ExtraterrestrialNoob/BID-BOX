@@ -121,8 +121,8 @@ class UserController extends Controller
                 try{
                     $file= $request->file('image');
                     $filename= date('YmdHi').$file->getClientOriginalName();
-                    $file-> move(public_path('assets/images/user'), $filename);
-                    $request->image = $filename;
+                    $file-> move(public_path('storage/assets/images/user'), $filename);
+                    $request->image = 'storage/assets/images/user'.$filename;
                 }catch (\Exception $exp) {
                     $notify[] = ['error', 'Image could not be uploaded.'];
                     return 'image upload error';
