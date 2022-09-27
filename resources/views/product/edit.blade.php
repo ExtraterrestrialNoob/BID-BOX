@@ -29,7 +29,7 @@
                   <div class="mx-auto" style="width: 250px; hight: 250px">
                     <div class="d-flex justify-content-center align-items-center rounded" style="height: 250px; background-color: rgb(233, 236, 239);">
                       <!-- <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span> -->
-                      <img src="{{ asset('assets/images/product/'.$product->image_path) }}" style="object-fit:cover;height:100%;width:100% ;Overflow:hidden;">
+                      <img src="{{ asset('storage/'.$product->image_path) }}" style="object-fit:cover;height:100%;width:100% ;Overflow:hidden;">
                     </div>
                   </div>
                 </div>
@@ -44,7 +44,7 @@
                     @csrf
                     @method('PUT')
                       <input class="btn btn-primary" id="imageupload" type="file" name="image" value="image" class="form-control" data-buttonText="Upload Image" >
-                      <button class="btn btn-primary" type="submit">Upload</button>
+                      <button class="btn btn-primary" type="submit" formaction="#">Upload</button>
                     </form>
 
                     </div>
@@ -60,7 +60,9 @@
               </ul>
               <div class="tab-content pt-3">
                 <div class="tab-pane active">
-                  <form class="form" novalidate="">
+                  <form class="form" method="POST" action="{{ route('product.update.image',$product->id) }}">
+                  @csrf
+                    @method('PUT')
                     <div class="row">
                       <div class="col">
                         <div class="row">
@@ -147,7 +149,7 @@
                     </div>
                     <div class="row">
                       <div class="col d-flex justify-content-end">
-                        <button class="btn btn-primary" type="submit">Save Changes</button>
+                        <button class="btn btn-primary" formaction="#" type="submit">Save Changes</button>
                       </div>
                     </div>
                   </form>
@@ -197,10 +199,10 @@
   <!-- <div class="alert alert-success text-justify">
     {{ $message }}
   </div> -->
-<div class="popupContainer" id="popupContainer">
+  <div class="popupContainer" id="popupContainer">
       <div class="popup"> 
         <h1> Done ! </h1>
-        <p> Success </P> 
+        <p> You have placed BID Successfully </P> 
         <button id="closebtn" onclick="closepopup()">OK</button>
       </div>
 </div>
@@ -212,7 +214,7 @@
   </div> -->
 <div class="popupContainer" id="popupContainer">
       <div class="popup"> 
-        <h1> Done ! </h1>
+        <h1> Error ! </h1>
         <p> Error </P> 
         <button id="closebtn" onclick="closepopup()">OK</button>
       </div>
@@ -258,5 +260,10 @@
               })
 
     }
+    function closepopup(){
+                var msg = document.getElementById('popupContainer');
+                msg.classList.add("hide");
+            }
+
 </script>
 @endisset
