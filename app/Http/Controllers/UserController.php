@@ -20,7 +20,9 @@ class UserController extends Controller
         //
         $user_data = Auth::user();
         if($user_data->role_id == 3){
-            $all_products = Product::where('user_id',$user_data->id)->get();
+            $all_products = Product::orderBy('created_at','DESC')
+                   ->where('user_id', $user_data->id)->get();
+
             return view('user.view', compact('user_data','all_products'));
         }
 
@@ -66,8 +68,10 @@ class UserController extends Controller
         //         ->get();
 
         $user_data = User::where('id',$id)->first();
+        $all_products = Product::orderBy('created_at','DESC')
+                   ->where('user_id', $id)->get();
 
-        return view('user.profile' , compact('user_data'));
+        return view('user.view' , compact('user_data', 'all_products'));
 
     }
 
@@ -77,9 +81,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
         //
+        $user_data = Auth::user();
+       // $user_data = User::where('id',$id)->first();
+
+        return view('user.edit' , compact('user_data'));
     }
 
     /**
@@ -89,9 +97,47 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+
+    // public function update(Request $request, $id)
+    // {
+    //     //
+    // }
+    //update profile
+    public function update(Request $request,$id)
     {
-        //
+        // if($request->name != Auth::user()->name and $request->tpno != Auth::user()->tpno and $request->email != Auth::user()->email){
+            $request->validate([
+                // 'name' => [ 'string', 'max:255','unique:users'],
+                // 'email' => [ 'string', 'email', 'max:255', 'unique:users'],
+                
+                // 'nic' => [ 'string', 'max:12','min:10', 'unique:users'],
+                // 'type'=>['integer','between:2,3'],
+                // 'tpno'=>['string','max:10','min:10','unique:users'],
+                // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:9096',
+            ]);
+
+            if ($request->hasFile('image')) {
+                //if (FileTypeValidate($request->image, ['jpeg', 'jpg', 'png']))
+                try{
+                    $file= $request->file('image');
+                    $filename= date('YmdHi').$file->getClientOriginalName();
+                    $file-> move(public_path('storage/assets/images/user'), $filename);
+                    $request->image = 'storage/assets/images/user'.$filename;
+                }catch (\Exception $exp) {
+                    $notify[] = ['error', 'Image could not be uploaded.'];
+                    return 'image upload error';
+                    }   
+            }
+
+            $user=User::find($id);
+            $user->name = $request->input('name');
+            $user->avatar = $request->image;
+            $user->update();
+            return redirect()->back()->with(\Session::flash('success', 'Data inserted Successfully.'));
+
+        // }
+        
+        
     }
 
     /**

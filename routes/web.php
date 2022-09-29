@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Seller;
+use App\Http\Controllers\Bidder;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +20,9 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/register_vendor',function(){
-    return view('auth/register_vendor');
-})->name('register');
+Route::get('/register_vendor',[ProductController::class, 'index'])->name('register'); // Tempory Product check
 
 Route::get('/register_success',function(){
     return view('auth/registration_success_confirm');
@@ -39,23 +39,31 @@ Route::group(['prefix' => 'admin'], function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/seller', [App\Http\Controllers\Seller::class, 'index'])->middleware('role:3');
-Route::get('/bidder', [App\Http\Controllers\Bidder::class, 'index'])->middleware('role:2');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/seller', [Seller::class, 'index'])->middleware('role:3');
+Route::get('/bidder', [Bidder::class, 'index'])->middleware('role:2');
 
 
 
 //ProductRoutes Grouped
 Route::name('product.')->group(function () {
     Route::get('product',[ProductController::class, 'index'])->name('product');
-    Route::get('product/create',[ProductController::class, 'create'])->name('product.create')->middleware('role:3');
+    Route::get('product/create',[ProductController::class, 'create'])->name('create')->middleware('role:1,3');
     Route::get('product/view/{id}',[ProductController::class, 'show'])->name('view');
-    Route::get('product/edit/{id}',[ProductController::class, 'edit'])->name('product.edit')->middleware('role:3');
-    Route::get('product/{id}',[ProductController::class, 'products_by_user'])->name('products');
+    
+    
+    Route::get('product/edit/{id}',[ProductController::class, 'edit'])->name('edit')->middleware('role:1,3');
+    Route::get('product/{id}',[ProductController::class, 'products_by_user'])->name('products')->middleware('role:1,2,3');
+    //Route::get('product/test/{id}',[ProductController::class, 'test'])->name('products'); Testing 
     //Change Products
-    Route::post('product/create',[ProductController::class, 'store'])->name('product.create')->middleware('role:3');
-    Route::put('product/update/{id}',[ProductController::class, 'update'])->name('product.update')->middleware('role:3');
-    Route::delete('product/delete/{id}',[ProductController::class, 'destroy'])->name('product.delete')->middleware('role:3');
+    Route::post('product/create',[ProductController::class, 'store'])->name('product.create')->middleware('role:1,3');
+    Route::post('product/bid/{pid}',[ProductController::class, 'bid'])->name('bid')->middleware('role:1,2,3');
+    Route::post('product/update/{id}',[ProductController::class, 'update'])->name('update')->middleware('role:1,3');
+    Route::post('product/update/image/{id}',[ProductController::class, 'updateimage'])->name('update.image')->middleware('role:1,3');
+    Route::delete('product/delete/{id}',[ProductController::class, 'destroy'])->name('delete')->middleware('role:1,3');
+
+    //ajax routes
+    Route::get('/product/bid/{pid}',[ProductController::class, 'getbidstatus'])->name('refresh.bid');
 });
 
 
@@ -63,7 +71,7 @@ Route::name('product.')->group(function () {
 Route::name('user.')->group(function(){
     Route::get('user', [UserController::class, 'index'])->name('user'); //self Profile
     Route::get('user/view/{id}', [UserController::class, 'show'])->name('user.view');
-    Route::get('user/edit/{id}',[UserController::class, 'edit'])->name('user.edit');
+    Route::get('user/edit/',[UserController::class, 'edit'])->name('edit');
     //Change User Details
     Route::put('user/update/{id}',[UserController::class, 'update'])->name('user.update');
     Route::delete('user/delete/{id}',[UserController::class, 'destroy'])->name('user.delete');

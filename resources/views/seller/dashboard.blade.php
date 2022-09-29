@@ -14,10 +14,27 @@
                         </div>
                     @endif
 
-                    {{ __('Hello SELLER, You are logged in!') }}
+                    <?php
+                    $name = Auth::user()->name;
+                    ?>
+                    {{ __('Hello :name, You are logged in!',['name'=>$name]) }}
+                    <p>You will be redirected in <span id="timeout">3</span> seconds</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+
+setInterval(function() {
+            var div = document.querySelector("#timeout");
+            var count = div.textContent * 1 - 1;
+            div.textContent = count;
+            if (count <= 0) {
+                window.location = "{{ url('/') }}";
+            }
+        }, 1000);
+</script>
+
 @endsection

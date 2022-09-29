@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="nic" class="col-md-4 col-form-label text-md-end">{{ __('nic') }}</label>
+                            <label for="nic" class="col-md-4 col-form-label text-md-end">{{ __('NIC Number') }}</label>
 
                             <div class="col-md-6">
                                 <input id="nic" type="text" class="form-control @error('nic') is-invalid @enderror" name="nic" value="{{ old('nic') }}" required autocomplete="nic">
@@ -54,7 +54,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="tpno" class="col-md-4 col-form-label text-md-end">{{ __('tpno') }}</label>
+                            <label for="tpno" class="col-md-4 col-form-label text-md-end">{{ __('Mobile Number') }}</label>
 
                             <div class="col-md-6">
                                 <input id="tpno" type="number" class="form-control @error('tpno') is-invalid @enderror" name="tpno" value="{{ old('tpno') }}" required autocomplete="tpno">
@@ -90,7 +90,7 @@
                         </div>
                         <div>
                             <div class="row mb-3">
-                                <label for=register-type" class="col-md-4 col-form-label text-md-end">Type</label>
+                                <label for=register-type" class="col-md-4 col-form-label text-md-end">Account</label>
                             <div class="col-md-6">
                                 <select name="type" id="role_id" class="form-control">
                                 <option value="2">Bidder</option>

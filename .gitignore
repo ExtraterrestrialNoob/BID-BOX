@@ -1,6 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
+/public/assets/images
 /storage/*.key
 /vendor
 .env
@@ -18,3 +19,11 @@ package-lock.json
 public/css/app.css
 public/js/app.js
 public/mix-manifest.json
+resources/views/auth/register_vendor.blade.php
+public/assets/images/product/202207221902202207212007c353aa6b2b01198bb44499227f23ad33.jpg
+composer.json
+composer.lock
+composer.json
+*.lock
+app/Providers/AppServiceProvider.php
+app/Providers/AppServiceProvider.php

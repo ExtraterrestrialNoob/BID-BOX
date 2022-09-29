@@ -13,7 +13,6 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -22,7 +21,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- custom styles -->
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('css/style.css') }}" rel="stylesheet"> -->
+    <link href="{{ asset('assets/product/css/style.css') }}" rel="stylesheet">
 
 </head>
 
@@ -30,7 +30,7 @@
 <body>
     <div id="app">
         <!-- navbar starts -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 <!-- app name logo -->
                 <a class="navbar-brand" href="{{ url('/') }}">

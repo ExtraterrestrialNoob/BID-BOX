@@ -55,7 +55,7 @@ return [
     */
 
     'storage' => [
-        'disk' => 'public',
+        'disk' => 'voyager',
     ],
 
     /*
@@ -145,8 +145,8 @@ return [
 
         'widgets' => [
             'TCG\\Voyager\\Widgets\\UserDimmer',
-            'TCG\\Voyager\\Widgets\\PostDimmer',
-            'TCG\\Voyager\\Widgets\\PageDimmer',
+            '\\App\\Widgets\\Products',
+            // 'TCG\\Voyager\\Widgets\\PostDimmer',
         ],
 
     ],

@@ -5,6 +5,7 @@
 
 <div class="container">
     <div class="row justify-content-center">
+
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
@@ -73,4 +74,20 @@
     </div>
 </div>
 </div>
+@if (session('error')) 
+     <div class="popupContainer" id="popupContainer">
+      <div class="popup"> 
+        <h1> Error ! </h1>
+        <p> {{ session('error') }} </P> 
+        <button id="closebtn" onclick="closepopup()">OK</button>
+      </div>
+</div>
+@endif
+<script type="text/javascript">
+     function closepopup(){
+                var msg = document.getElementById('popupContainer');
+                msg.classList.add("hide");
+            }
+</script>
+
 @endsection

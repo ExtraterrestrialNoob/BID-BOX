@@ -14,8 +14,12 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <?php
+                    $name = Auth::user()->name;
+                    ?>
+                    {{ __('Hello :name, You are logged in!',['name'=>$name]) }}
 
-                    {{ __('Hello BIDDER, You are logged in!') }}
+                    <p>You will be redirected in <span id="timeout">3</span> seconds</p>
                 </div>
             </div>
         </div>
@@ -35,6 +39,16 @@ $name = $name . "'s Profile"
 
 <script type="text/javascript">
     document.title = "<?=$name;?>"
+    
+    setInterval(function() {
+            var div = document.querySelector("#timeout");
+            var count = div.textContent * 1 - 1;
+            div.textContent = count;
+            if (count <= 0) {
+                window.location = "{{ url('/') }}";
+            }
+        }, 1000);
+        
 </script>
 
 
