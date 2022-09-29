@@ -6,9 +6,8 @@
 <div class="container">
 <div class="row flex-lg-nowrap">
 
-
   <div class="col">
-  <form method="POST" action="{{route('product.product.create')}}" enctype="multipart/form-data">
+  <form method="POST" action="{{route('product.create')}}" enctype="multipart/form-data">
   @csrf  
   <div class="row">
       <div class="col mb-3">
@@ -33,7 +32,7 @@
                 </div>
               </div>
               <ul class="nav nav-tabs">
-                <li class="nav-item"><a href="" class="active nav-link">Product Detail</a></li>
+                <li class="nav-item">Product Detail</a></li>
               </ul>
               <div class="tab-content pt-3">
                 <div class="tab-pane active">
@@ -58,7 +57,7 @@
                           <div class="col">
                             <div class="form-group">
                               <label>Name</label>
-                              <input class="form-control @error('name') is-invalid @enderror" id="name" type="text" name="name" placeholder=""  required>
+                              <input class="form-control" id="name" type="text" name="name" placeholder=""  required value="{{ old('name') }}">
                               @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -71,7 +70,7 @@
                           <div class="col">
                             <div class="form-group">
                               <label>Price</label>
-                              <input id="price" type="number" step="any" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" required autocomplete="price">
+                              <input id="price" type="number" step="any" class="form-control" name="price" value="{{ old('price') }}" required autocomplete="price">
                               @error('price')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -84,7 +83,7 @@
                           <div class="col mb-3">
                             <div class="form-group">
                               <label>Short Description</label>
-                              <input class="form-control" type="text" name="short_description" placeholder="">
+                              <input class="form-control" type="text" name="short_description" placeholder="" value="{{ old('short_description') }}">
                               @error('short_description')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -98,7 +97,7 @@
                             <div class="form-group">
                               <label>Long Discription</label>
                               
-                              <textarea  id="long_description" rows="5" class="form-control @error('long_description') is-invalid @enderror" name="long_description"></textarea>
+                              <textarea  id="long_description" rows="5" class="form-control" name="long_description" value="{{ old('long_description') }}"></textarea>
                               @error('long_description')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -112,7 +111,7 @@
                             <div class="form-group">
                               <label>Specification</label>
                               
-                              <input id="specification" type="specification" class="form-control" name="specification">
+                              <input id="specification" type="specification" class="form-control" name="specification" value="{{ old('specification')}}">
                             </div>
                           </div>
                         </div>
@@ -122,7 +121,7 @@
                       <div class="col-12 col-sm-6 mb-3">
                         <div class="mb-2"><b>Expire Time</b></div>
                           
-                            <input id="expired_at" type="datetime-local" class="form-control @error('expired_at') is-invalid @enderror" name="expired_at" value="{{ old('expired_at') }}" required autocomplete="expired_at">
+                            <input id="expired_at" type="date" class="form-control" name="expired_at" value="{{ old('expired_at') }}" required autocomplete="expired_at" min="" max="">
 
                                 @error('expired_at')
                                     <span class="invalid-feedback" role="alert">
@@ -192,18 +191,31 @@
     </div>
 @endif
 
-@if ($message = \Session::get('success'))
+@if($message = \Session::get('success'))
   <div class="alert alert-success text-justify">
     {{ $message }}
   </div>
 @endif
-<script>
+@endsection
+
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript">
     function closepopup(){
         var msg = document.getElementById('popupContainer');
         msg.classList.add("hide")
     }
+    //change expire datetimelocal date
+
+    $(document).ready(function setDateandCategory(){
+    var datetimelocal = document.getElementById('expired_at');
+    //max date to set
+    datetimelocal.min = '{{ $nowdate }}';
+    datetimelocal.max = '{{ $maxdate }}';
+
+    })
+
 </script>
-@endsection
+
 
 
 

@@ -1,22 +1,11 @@
 @extends('product.layout.app')
-<meta name="csrf-token" content="{{ csrf_token() }}">
+
 @section('content')
 
 
 @isset($product)
 <div class="container">
 <div class="row flex-lg-nowrap">
-  <!-- <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
-    <div class="card p-3">
-      <div class="e-navlist e-navlist--active-bg">
-        <ul class="nav">
-          <li class="nav-item"><a class="nav-link px-2 active" href="#"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Overview</span></a></li>
-          <li class="nav-item"><a class="nav-link px-2" href="https://www.bootdey.com/snippets/view/bs4-crud-users" target="__blank"><i class="fa fa-fw fa-th mr-1"></i><span>CRUD</span></a></li>
-          <li class="nav-item"><a class="nav-link px-2" href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page" target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>Settings</span></a></li>
-        </ul>
-      </div>
-    </div>
-  </div> -->
 
   <div class="col">
     <div class="row">
@@ -42,9 +31,8 @@
 
                     <form method="POST" action="{{ route('product.update.image',$product->id) }}" enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
                       <input class="btn btn-primary" id="imageupload" type="file" name="image" value="image" class="form-control" data-buttonText="Upload Image" >
-                      <button class="btn btn-primary" type="submit" formaction="#">Upload</button>
+                      <button class="btn btn-primary" type="submit" >Upload</button>
                     </form>
 
                     </div>
@@ -60,9 +48,8 @@
               </ul>
               <div class="tab-content pt-3">
                 <div class="tab-pane active">
-                  <form class="form" method="POST" action="{{ route('product.update.image',$product->id) }}">
+                  <form method="POST" class="form" action="{{ route('product.update',$product->id) }}" enctype="multipart/form-data">
                   @csrf
-                    @method('PUT')
                     <div class="row">
                       <div class="col">
                         <div class="row">
@@ -72,12 +59,6 @@
                               <input class="form-control" type="text" name="name" placeholder="" value="{{ $product->name }}">
                             </div>
                           </div>
-                          <!-- <div class="col">
-                            <div class="form-group">
-                              <label>Username</label>
-                              <input class="form-control" type="text" name="username" placeholder="johnny.s" value="johnny.s">
-                            </div>
-                          </div> -->
                         </div>
                         <div class="row">
                           <div class="col">
@@ -99,7 +80,7 @@
                           <div class="col mb-3">
                             <div class="form-group">
                               <label>Long Discription</label>
-                              <textarea class="form-control" rows="5" placeholder="" value="" style="resize: none;"> {{ $product->long_description }} </textarea>
+                              <textarea class="form-control" rows="5" type="text" name ="long_description" value="" style="resize: none;"> {{ $product->long_description }} </textarea>
                             </div>
                           </div>
                         </div>
@@ -107,7 +88,7 @@
                           <div class="col mb-3">
                             <div class="form-group">
                               <label>Specification</label>
-                              <textarea class="form-control" rows="2" placeholder="" value="" style="resize: none;"> {{ $product->specification }} </textarea>
+                              <textarea class="form-control" rows="2" type="text" name="specification" placeholder="" value="" style="resize: none;"> {{ $product->specification }} </textarea>
                             </div>
                           </div>
                         </div>
@@ -116,7 +97,7 @@
                     <div class="row">
                       <div class="col-12 col-sm-6 mb-3">
                         <div class="mb-2"><b>Expire Time</b></div>
-                            <input id="expired_at" type="datetime-local" class="form-control @error('expired_at') is-invalid @enderror" name="expired_at" value="{{ old('expired_at') }}">
+                            <input id="expired_at" type="date" class="form-control" name="expired_at" value="{{ old('expired_at') }}" min="" max="">
                       </div>
                       <div class="col-12 col-sm-5 offset-sm-1 mb-3">
                         <div class="mb-2"><b>Category</b></div>
@@ -125,31 +106,11 @@
                                 <option value="{{$category->id}}">{{$category->name}}</option>
                                 @endforeach
                         </select>
-                        <!-- <div class="mb-2"><b>Keeping in Touch</b></div>
-                        <div class="row">
-                          <div class="col">
-                            <label>Email Notifications</label>
-                            <div class="custom-controls-stacked px-2">
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
-                                <label class="custom-control-label" for="notifications-blog">Blog posts</label>
-                              </div>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="notifications-news" checked="">
-                                <label class="custom-control-label" for="notifications-news">Newsletter</label>
-                              </div>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
-                                <label class="custom-control-label" for="notifications-offers">Personal Offers</label>
-                              </div>
-                            </div>
-                          </div>
-                        </div> -->
                       </div>
                     </div>
                     <div class="row">
                       <div class="col d-flex justify-content-end">
-                        <button class="btn btn-primary" formaction="#" type="submit">Save Changes</button>
+                        <button class="btn btn-primary" type="submit">Save Changes</button>
                       </div>
                     </div>
                   </form>
@@ -160,28 +121,6 @@
           </div>
         </div>
       </div>
-
-      <!-- <div class="col-12 col-md-3 mb-3">
-        <div class="card mb-3">
-          <div class="card-body">
-            <div class="px-xl-3">
-              <button class="btn btn-block btn-secondary">
-                <i class="fa fa-sign-out"></i>
-                <span>Logout</span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <h6 class="card-title font-weight-bold">Support</h6>
-            <p class="card-text">Get fast, free help from our friendly assistants.</p>
-            <button type="button" class="btn btn-primary">Contact Us</button>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
   </div>
 </div>
 </div>
@@ -236,8 +175,12 @@
 
         //change expire datetimelocal date
         var datetimelocal = document.getElementById('expired_at');
-        var expireddate = '{{ $product->expired_at}}';
-        datetimelocal.value = expireddate;
+        //max date to set
+        datetimelocal.value = '{{ $product->expired_at}}';
+        datetimelocal.min = '{{ $nowdate }}';
+        datetimelocal.max = '{{ $maxdate }}';
+        console.log(datetimelocal.min);
+        console.log(datetimelocal.max);
 
         //change category type
         var defaultcategory = document.getElementById('category');
@@ -246,20 +189,6 @@
 
     })
 
-    function uploadimage(){
-      console.log('Clicked');
-      var image = documnet.getElementById('uploadbtn');
-      var formData = new FormData();
-      formData.append("file", imageupload.files[0]);
-      $.ajax({
-              type: 'GET',
-              url:"{{route('product.refresh.bid' , $product->id )}}",
-              success:function(data){
-              $("#current_bid_price").html(data.max_bid);
-              $("#total_bids").html(data.bid_count);
-              })
-
-    }
     function closepopup(){
                 var msg = document.getElementById('popupContainer');
                 msg.classList.add("hide");

@@ -109,8 +109,10 @@ class ProductController extends Controller
     public function create()
     {
         $all_category = Category::all();
+        $maxdate = Carbon::now()->setTime(0, 0, 0)->addDays(14)->format('Y-m-d');
+        $nowdate = Carbon::now()->format('Y-m-d');
 
-        return view('product.create', compact('all_category'));
+        return view('product.create', compact('all_category','maxdate','nowdate'));
     }
 
     /**
@@ -244,7 +246,13 @@ class ProductController extends Controller
             $bid_count = Bid::where('product_id',$id)->count();
             $all_category = Category::all();
 
-            return view('product.edit', compact('product','category','user_info','bid_count','all_category'));
+            //date operations
+            $expire_date =new Carbon($product->expired_at);
+            $product->expired_at = $expire_date->format('Y-m-d');
+            $maxdate = Carbon::now()->setTime(0, 0, 0)->addDays(14)->format('Y-m-d');
+            $nowdate = Carbon::now()->format('Y-m-d');
+
+            return view('product.edit', compact('product','category','user_info','bid_count','all_category','maxdate','nowdate'));
         }
 
         return view('product.edit');
@@ -260,6 +268,22 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $product = Product::find($id);
+        if($product){
+
+            $product->name = $request->name;
+            $product->expired_at = $request->expired_at;
+            $product->short_description = $request->short_description;
+            $product->long_description = $request->long_description;
+            $product->specification = $request->specification;
+            $product->category_id=$request->category;
+            $product->update();
+
+            return redirect()->back()->with(\Session::flash('success', 'Image inserted Successfully.'));
+        }else{
+            return redirect()->back()->with(\Session::flash('error', 'product id mismatch'));
+        }
+
     }
 
     public function updateimage(Request $request, $id)
@@ -279,7 +303,7 @@ class ProductController extends Controller
                     $file= $request->file('image');
                     $filename= date('YmdHi').$file->getClientOriginalName();
                     $file-> move(public_path('storage/assets/images/product'), $filename);
-                    $request->image = 'storage/assets/images/product/'.$filename;
+                    $request->image = 'assets/images/product/'.$filename;
                 }catch (\Exception $exp) {
                     $notify[] = ['error', 'Image could not be uploaded.'];
                     return 'image upload error';
