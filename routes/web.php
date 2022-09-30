@@ -75,4 +75,5 @@ Route::name('user.')->group(function(){
     //Change User Details
     Route::put('user/update/{id}',[UserController::class, 'update'])->name('user.update');
     Route::delete('user/delete/{id}',[UserController::class, 'destroy'])->name('user.delete');
+    Route::get('user/history/{id}',[UserController::class, 'history'])->name('user.history');
 });

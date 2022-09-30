@@ -57,10 +57,10 @@
                         </li>
                         @guest
                         @else
+                            @php
+                                $i=Auth::user()->id
+                                @endphp   
                             @if(Auth::user()->role_id==3)
-                                @php
-                                    $i=Auth::user()->id
-                                @endphp
                                 <li class="nav-item">
                                     <a class="nav-link " href="{{route('product.products', $i )}}">My Products</a>
                                     
@@ -70,6 +70,9 @@
                                     
                                 </li>
                             @endif
+                            <li class="nav-otem">
+                            <a class="nav-link " href="{{route('user.user.history', $i)}}">Bid history</a>
+                            </li>
                         @endguest
                     </ul>
 

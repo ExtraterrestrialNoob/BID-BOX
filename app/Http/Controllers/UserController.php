@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -149,5 +150,18 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function history($id){
+        $histry = Bid::where('user_id',"=",$id)->orderBy('created_at','DESC')->get();
+        for($i=0; $i<sizeof($histry); $i++){
+            $product = Product::where('id',$histry[$i]->product_id)->select('name','price')->first();
+            $histry[$i]->product = $product;
+        }
+        return view('user.history', compact('histry'));
+    }
+
+    public function win($id){
+        $bidinfo = Bid::where('user_id','=',$id);
     }
 }
