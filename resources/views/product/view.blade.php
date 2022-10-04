@@ -21,12 +21,12 @@
                 <h4><span>Category</span> : {{$category->name}}</h4>
 
             <div class="rating">
-              <h4 class="price">Price Start: <span>{{ number_format((float)$product->price, 2, '.', '')}}</span></h4>
+              <h4 class="price">Price Start : <span> Rs. {{ number_format((float)$product->price, 2, '.', '')}}</span></h4>
             </div>
 
             <textarea class="form-control" rows="10" placeholder="" value="" style="resize: none;"> {{ $product->long_description }} </textarea>
             
-                    <h4 class="price">Current Bid Price: <span id="current_bid_price">{{ $bid_info[1] }}</span></h4>
+                    <h4 class="price">Current Bid Price : <span id="current_bid_price">Rs. {{ $bid_info[1] }}</span></h4>
                     <span class="review-no">Total BIDs :<span id="total_bids">{{ $bid_info[0] }}</span> </span>
             
             
@@ -34,11 +34,10 @@
 
             @auth {{-- Check if user is logged in and is user the owner of this product --}}
             @if(Auth::user()->id != $product->user_id)
-                <form id="bid-form" class="row g-3" method="POST" action="{{route('product.bid' , $product->id )}}" onsubmit="return confirm('Are you sure to submit this Bid?' );">
-                @csrf
+                
                     <div class="col-auto">
                         <label for="amount" class="visually-hidden"></label>
-                        <div class="input-group mb-2">
+                        <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Rs</div>
                             </div>
@@ -46,9 +45,9 @@
                         </div>
                     </div>
                     <div class="col-auto">
-                        <button type="submit" class="btn btn-primary mb-3 disabled" id="bidbtn"> BID NOW </button>
+                        <button type="" class="btn btn-primary mb-3 disabled" id="bidbtn" onclick="isconfirm()"> BID NOW </button>
                     </div>
-                </form>
+                
                             
             @endif
             @endauth
@@ -141,29 +140,13 @@
 @endif
 
 
-
-{{-- Success Bid alert **not yet finished**  --}}
-@if ($message = \Session::get('success'))
-  <!-- <div class="alert alert-success text-justify">
-    {{ $message }}
-  </div> -->
-<div class="popupContainer" id="popupContainer">
-      <div class="popup"> 
-        <h1> Done ! </h1>
-        <p> You have placed BID Successfully </P> 
-        <button id="closebtn" onclick="closepopup()">OK</button>
-      </div>
-</div>
-@endif
-
 @endsection
-
-
 
 
 {{--JS--}}
 @isset($product)
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
     //Global Variables
@@ -214,12 +197,6 @@
             }, 1000);
 
 
-            //Function for Closing Popup
-            function closepopup(){
-                var msg = document.getElementById('popupContainer');
-                msg.classList.add("hide");
-            }
-
 
             //Validate Bid price Before Submit
             function validatebid(){
@@ -259,7 +236,7 @@
                     var cell2 = row.insertCell(1);
                     var cell3 = row.insertCell(2);
                     cell1.innerHTML = "*******";
-                    cell2.innerHTML = data[i]['amount'];
+                    cell2.innerHTML = "Rs. " + data[i]['amount'];
                     var date = new Date(data[i]['created_at']);
                     cell3.innerHTML = date.toLocaleString();
                 }
@@ -273,7 +250,7 @@
                         type: 'GET',
                         url:"{{route('product.refresh.bid' , $product->id )}}",
                         success:function(data){
-                            $("#current_bid_price").html(data.max_bid);
+                            $("#current_bid_price").html("Rs" + data.max_bid);
                             $("#total_bids").html(data.bid_count);
                             
                             updatetable(data.bid_info);
@@ -293,6 +270,41 @@
                         }
                     })
                 });
+
+
+                function isconfirm(){
+
+                    var amount = parseInt($("#amount").val());
+                    console.log(amount);
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, place it!'
+                        }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                type: "POST",
+                                url: "{{route('product.bid' , $product->id )}}",
+                                data: {
+                                    "_token": "{{ csrf_token() }}",
+                                    'amount':amount,
+                                },
+                                success:function(response){
+                                    Swal.fire(
+                                        'BID Placed!',
+                                        'Your bid has been placed!.',
+                                        'success'
+                                      )
+                                      document.getElementById('amount').value = "";
+                                }
+                            })
+                        }
+                        })
+                }
 
 </script>
 @endisset

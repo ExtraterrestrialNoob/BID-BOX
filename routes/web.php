@@ -64,6 +64,7 @@ Route::name('product.')->group(function () {
 
     //ajax routes
     Route::get('/product/bid/{pid}',[ProductController::class, 'getbidstatus'])->name('refresh.bid');
+    // Route::delete('product/delete/',[ProductController::class, 'destroy'])->name('delete')->middleware('role:1,3');
 });
 
 

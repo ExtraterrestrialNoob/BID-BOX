@@ -72,7 +72,8 @@
       </td>
 
       <td class="table-secondary">
-      <button type="submit" class="btn btn-danger" onclick='location="{{route('product.delete', $i->id )}}"'>{{__('Delete')}}</button>
+      <!-- <button type="submit" class="btn btn-danger" onclick='location="{{route('product.delete', $i->id )}}"'>{{__('Delete')}}</button> -->
+      <button type="submit" class="btn btn-danger" onclick="deleteproduct({{$i->id}})">{{__('Delete')}}</button>
         <!-- <p class="fw-normal mb-1"><a href="{{route('product.delete', $i->id )}}">{{__('Delete')}}</a></p> -->
       </td>
       @else
@@ -99,3 +100,42 @@
 </div>
 
 @endsection
+
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript">
+
+  function deleteproduct(id){
+    console.log(id);
+    var baseurl = "/product/delete/" + id;
+    console.log(baseurl);
+    Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, Delete it!'
+          }).then((result) => {
+          if (result.isConfirmed) {
+              $.ajax({
+                  type: "DELETE",
+                  url: baseurl,
+                  data: {
+                        "_token": "{{ csrf_token() }}"
+                  },
+                  success:function(response){
+                          Swal.fire(
+                                  'Deleted!',
+                                  'Product Successfully Deleted',
+                                  'success'
+                                  )
+                          
+                      }
+                })
+            }
+        })
+  }
+
+</script>

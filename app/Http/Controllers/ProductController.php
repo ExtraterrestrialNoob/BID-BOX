@@ -328,6 +328,18 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+        $product = Product::where("id",$id)->first();
+        if($product){
+            if($product->user_id == Auth::user()->id){
+
+                Product::where("id",$id)->delete();
+                return response()->json(null);
+            }else{
+                echo "USer mismatch";
+            }
+        }else{
+            echo "product not found";
+        }
     }
 
 
@@ -351,7 +363,9 @@ class ProductController extends Controller
             
         ]);
         Product::where('id',$pid)->update(['total_bid'=>$count]);
+       
 
-        return back()->with(\Session::flash('success', 'Bid Placed Successfully.'));
+        // return back()->with(\Session::flash('success', 'Bid Placed Successfully.'));
+        return response()->json(['success'=>'Bid Placed Successfully.']);
     }
 }
