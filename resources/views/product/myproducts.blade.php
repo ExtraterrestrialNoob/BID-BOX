@@ -24,7 +24,7 @@
       <td class="table-secondary">
         <div class="d-flex align-items-center">
           <img
-              src="{{ asset('storage/'.$i->image_path)}}"
+              src="{{ asset('storage/assets/images/product/'.$i->image_path)}}"
               alt=""
               style="width: 80px; height: 80px"
               class="rounded"
