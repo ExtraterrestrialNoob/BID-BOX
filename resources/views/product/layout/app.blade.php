@@ -13,6 +13,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" defer></script>
+    
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,6 +21,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <!-- Styles  for specific page -->
+    <!-- <link href="{{ asset('assets/user/css/style.css') }}" rel="stylesheet"> -->
     <link href="{{ asset('assets/product/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/product/css/timer.css')}}" rel="stylesheet">
     <!--bootstrapmain -->
@@ -31,7 +33,7 @@
 <body>
     <div id="app">
         <!-- navbar starts -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 <!-- app name logo -->
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -54,9 +56,9 @@
 
                         <li class="nav-item">
                             <a class="nav-link " href="{{ route('product.product')}}">Products</a>
-                            
                         </li>
-                        @guest
+
+                        @guest 
                         @else
                             @if(Auth::user()->role_id==3)
                                 @php
@@ -66,13 +68,14 @@
                                     <a class="nav-link " href="{{route('product.products', $i )}}">My Products</a>
                                     
                                 </li>
-
                                 <li class="nav-item">
                                     <a class="nav-link " href="{{route('product.product.create')}}">Add Products</a>
                                     
                                 </li>
+
                             @endif
                         @endguest
+                        
                     </ul>
 
 
@@ -93,27 +96,27 @@
                                 </li>
                             @endif
                         @else
-                        <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="user" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <i class="fa-sharp fa-solid fa-circle-user fa-xl"></i> {{ Auth::user()->name }} 
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{route('user.user')}}" > <i class="fa-solid fa-user"></i> Profile</a>
-
-                                    <a class="dropdown-item" href="{{route('user.user.history', Auth::user()->id)}}" > <i class="fa-sharp fa-solid fa-gavel"></i> My Bids</a>
-
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                       <i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
+                            <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="user" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <i class="fa-sharp fa-solid fa-circle-user fa-xl"></i> {{ Auth::user()->name }} 
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{route('user.user')}}" > <i class="fa-solid fa-user"></i> Profile</a>
 
-                                    <form id="profile-form" action="{{ route('user.user')}}" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
+                                        <a class="dropdown-item" href="{{route('user.user.history', Auth::user()->id)}}" > <i class="fa-sharp fa-solid fa-gavel"></i> My Bids</a>
+
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+
+                                        <form id="profile-form" action="{{ route('user.user')}}" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
                             </li>
                         @endguest
                     </ul>

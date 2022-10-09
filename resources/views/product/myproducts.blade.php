@@ -24,7 +24,7 @@
       <td class="table-secondary">
         <div class="d-flex align-items-center">
           <img
-              src="{{ asset('storage/assets/images/product/'.$i->image_path)}}"
+              src="{{ asset('storage/'.$i->image_path)}}"
               alt=""
               style="width: 80px; height: 80px"
               class="rounded"
@@ -114,8 +114,8 @@
           text: "You won't be able to revert this!",
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
           confirmButtonText: 'Yes, Delete it!'
           }).then((result) => {
           if (result.isConfirmed) {

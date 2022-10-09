@@ -12,7 +12,7 @@
         <div class="wrapper row">
           <div class="preview col-md-6" style="height:350px;width:400px;">
                         <div class="preview-pic tab-content">
-                            <img src="{{ asset('storage/assets/images/product/'.$product->image_path) }}" style="object-fit:cover;height:100%;width:100% ;Overflow:hidden;">
+                            <img src="{{ asset('storage/'.$product->image_path) }}" style="object-fit:cover;height:100%;width:100% ;Overflow:hidden;">
                         </div>
           </div>
           <div class="details col-md-6">
@@ -281,8 +281,8 @@
                         text: "You won't be able to revert this!",
                         icon: 'warning',
                         showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
                         confirmButtonText: 'Yes, place it!'
                         }).then((result) => {
                         if (result.isConfirmed) {

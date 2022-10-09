@@ -16,12 +16,20 @@
       <td class="table-secondary">
         <div class="d-flex align-items-center">
           <div class="ms-3">
-            <p class="fw-bold mb-1">{{$i->product->name}}</p>
+            @if(($i->product) == null)
+              <p class="fw-bold mb-1">This product is no longer available</p>
+            @else
+              <p class="fw-bold mb-1">{{$i->product->name}}</p>
+            @endif
           </div>
         </div>
       </td>
       <td class="table-secondary">
-        <span class="fw-bold mb-1">Rs.{{number_format((float)$i->product->price, 2, '.', '')}}</span>
+        @if($i->product != null)
+          <span class="fw-bold mb-1">Rs.{{number_format((float)$i->product->price, 2, '.', '')}}</span>
+        @else
+          <span class="fw-bold mb-1">Unknown</span>
+        @endif
       </td>
       <td class="table-secondary">
         <span class="fw-bold mb-1">Rs.{{number_format((float)$i->amount, 2, '.', '')}}</span>

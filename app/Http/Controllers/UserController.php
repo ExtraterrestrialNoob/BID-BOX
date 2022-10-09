@@ -156,9 +156,9 @@ class UserController extends Controller
         $histry = Bid::where('user_id',"=",$id)->orderBy('created_at','DESC')->get();
         for($i=0; $i<sizeof($histry); $i++){
             $product = Product::where('id',$histry[$i]->product_id)->select('name','price')->first();
-            $histry[$i]->product = $product;
         }
         return view('user.history', compact('histry'));
+        // dd($histry);
     }
 
     public function win($id){

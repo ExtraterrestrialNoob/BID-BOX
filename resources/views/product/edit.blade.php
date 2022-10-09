@@ -18,7 +18,7 @@
                   <div class="mx-auto" style="width: 250px; hight: 250px">
                     <div class="d-flex justify-content-center align-items-center rounded" style="height: 250px; background-color: rgb(233, 236, 239);">
                       <!-- <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span> -->
-                      <img src="{{ asset('storage/assets/images/product/'.$product->image_path) }}" style="object-fit:cover;height:100%;width:100% ;Overflow:hidden;">
+                      <img src="{{ asset('storage/'.$product->image_path) }}" style="object-fit:cover;height:100%;width:100% ;Overflow:hidden;">
                     </div>
                   </div>
                 </div>

@@ -153,7 +153,7 @@ class ProductController extends Controller
                 $file= $request->file('image');
                 $filename= date('YmdHi').$file->getClientOriginalName();
                 $file-> move(public_path('storage/assets/images/product'), $filename);
-                $request->image = $filename;
+                $request->image =  'assets/images/product/'.$filename;
             }catch (\Exception $exp) {
                 $notify[] = ['error', 'Image could not be uploaded.'];
                 return 'image upload error';
@@ -190,22 +190,33 @@ class ProductController extends Controller
         //$user = User::with()
         $product = Product::where('id',$id)->first();
         $ActiveStatus = 0;
-        if($product->Is_active == 0){
-            $product = NULL;
-            return view('product.view', compact('product','ActiveStatus'));
+        if($product != null){
+            if($product->Is_active == 0){
+                $product = NULL;
+                return view('product.view', compact('product','ActiveStatus'));
+            }
+            if(isset($product)){
+                $ActiveStatus = 1;
+                $category = Category::where('id',$product->category_id)->first();
+                $bid_data = Bid::where('product_id',$id)->take(10)->orderBy('amount', 'DESC')->get(); //https://stackoverflow.com/questions/15229303/is-there-a-way-to-limit-the-result-with-eloquent-orm-of-laravel
+                $max_bid = $bid_data->max('amount');
+                $bid_count = Bid::where('product_id',$id)->count();
+                $bid_info =array($bid_count,$max_bid,$bid_data);
+    
+                return view('product.view', compact('product','category','bid_info','ActiveStatus'));
+            }
         }
-        if(isset($product)){
-            $ActiveStatus = 1;
-            $category = Category::where('id',$product->category_id)->first();
-            $bid_data = Bid::where('product_id',$id)->take(10)->orderBy('amount', 'DESC')->get(); //https://stackoverflow.com/questions/15229303/is-there-a-way-to-limit-the-result-with-eloquent-orm-of-laravel
-            $max_bid = $bid_data->max('amount');
-            $bid_count = Bid::where('product_id',$id)->count();
-            $bid_info =array($bid_count,$max_bid,$bid_data);
 
-            return view('product.view', compact('product','category','bid_info','ActiveStatus'));
+        else{
+            // $ActiveStatus = 1;
+            // dd("not a");
+            // $errors="This pro";
+            // return view('product.view', compact('errors','ActiveStatus'));
+            return redirect()->back()->with(\Session::flash('error', 'product id mismatch'));
+
         }
       
-        return view('product.view', compact('product','ActiveStatus'));
+        // return view('product.view', compact('product','ActiveStatus'));
         
     }
     //for update bid and table ajax
@@ -305,7 +316,7 @@ class ProductController extends Controller
                     $file= $request->file('image');
                     $filename= date('YmdHi').$file->getClientOriginalName();
                     $file-> move(public_path('storage/assets/images/product'), $filename);
-                    $request->image = $filename;
+                    $request->image = 'storage/assets/images/product'.$filename;
                 }catch (\Exception $exp) {
                     $notify[] = ['error', 'Image could not be uploaded.'];
                     return 'image upload error';
@@ -333,11 +344,12 @@ class ProductController extends Controller
         $product = Product::where("id",$id)->first();
         if($product){
             if($product->user_id == Auth::user()->id){
-                $image =  ('public\assets\images\product\\'.$product->image_path);
+                $image =  ('public\\'.$product->image_path);
                 if (Storage::exists($image)){
                     Storage::delete($image);
                 }
                 Product::where("id",$id)->delete();
+                // BId::where("product_id",$id)->delete()->all();
                 return response()->json(null);
             }else{
                 echo "USer mismatch";
