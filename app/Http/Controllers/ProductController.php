@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -306,9 +306,10 @@ class ProductController extends Controller
         ]);
 
         $product = Product::find($id);
+        $image =  public_path('storage/'.$product->image_path);
         if($product){
-            if(Storage::exists('public\assets\images\product\\'.$product->image_path)){
-                Storage::delete('public\assets\images\product\\'.$product->image_path);
+            if(File::exists($image)){
+               File::delete($image);
             }
             if ($request->hasFile('image')) {
                 //if (FileTypeValidate($request->image, ['jpeg', 'jpg', 'png']))
@@ -316,7 +317,7 @@ class ProductController extends Controller
                     $file= $request->file('image');
                     $filename= date('YmdHi').$file->getClientOriginalName();
                     $file-> move(public_path('storage/assets/images/product'), $filename);
-                    $request->image = 'storage/assets/images/product'.$filename;
+                    $request->image = 'assets/images/product/'.$filename;
                 }catch (\Exception $exp) {
                     $notify[] = ['error', 'Image could not be uploaded.'];
                     return 'image upload error';
@@ -343,15 +344,25 @@ class ProductController extends Controller
         //
         $product = Product::where("id",$id)->first();
         if($product){
+            // if($product->user_id == Auth::user()->id){
+            //     $image =  ('public/storage/'.$product->image_path);
+            //     if (Storage::exists($image)){
+            //         Storage::delete($image);
+            //     }
+            //     Product::where("id",$id)->delete();
+            //     // BId::where("product_id",$id)->delete()->all();
+            //     return response()->json(null);
+            // }
             if($product->user_id == Auth::user()->id){
-                $image =  ('public\\'.$product->image_path);
-                if (Storage::exists($image)){
-                    Storage::delete($image);
+                $image =  public_path('storage/'.$product->image_path);
+                if (File::exists($image)){
+                    File::delete($image);
                 }
+
                 Product::where("id",$id)->delete();
-                // BId::where("product_id",$id)->delete()->all();
                 return response()->json(null);
-            }else{
+            }
+            else{
                 echo "USer mismatch";
             }
         }else{
