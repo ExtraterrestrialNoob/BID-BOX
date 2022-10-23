@@ -40,6 +40,12 @@
                 <img src="{{ asset('assets/images/logoicon/logo.png') }}" width="120" height="35" class="d-inline-block align-bottom" alt="">
                     
                 </a>
+               <div>
+                <input type="text" id="form2" class="form-control">
+                    <!-- <button type="button" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                    </button> -->
+               </div>
 
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -47,7 +53,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-right">
                             <!-- here you can add buttons -->
                         <li class="nav-item">
                             <a class="nav-link " href="#">Actions
@@ -129,4 +135,14 @@
         </main>
     </div>
 </body>
+<script>
+$(document).ready(function(){
+  $("#form2").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myDIV *").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 </html>

@@ -1,8 +1,8 @@
-@extends('product.layout.app')
+@extends('product.layout.sp')
 @section('content')
 
 <div class="container">
-<div class="row">
+<div class="row" id="myDIV">
 @foreach($all_products as $i)
     <div class="col-md-7 col-lg-4 mb-3 col-xl-3">
     <div class="card text-center card-product h-100">
@@ -21,6 +21,5 @@
 @endforeach
 </div>
 </div>
-
 
 @endsection
