@@ -1,4 +1,4 @@
-@extends('product.layout.sp')
+@extends('product.layout.app')
 @section('content')
 
 <section class="product-section pt-120 pb-120">
