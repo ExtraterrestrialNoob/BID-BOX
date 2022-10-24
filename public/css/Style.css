@@ -42,10 +42,11 @@ body {
 .filter-widget{
   position: relative;
   padding: 30px;
+  background-color:white;
 }
 
 .bg--body{
-  background-color: white;
+  background-color:white;
   position: relative;
   padding: 10px;
 }

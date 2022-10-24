@@ -10,7 +10,7 @@
         </div>
         <div class="row flex-wrap-reverse">
             <div class="col-lg-4 col-xl-3">
-                <aside class="search-filter" style="background-color:white;">
+                <aside class="search-filter">
                     <div class="bg--section pb-5 pb-lg-0">
                         <div class="filter-widget pt-3 pb-2">
                             <h4 class="title m-0"><i class="las la-random"></i>Filters</h4>
@@ -81,8 +81,8 @@
 </div>
 <div class="overlay-2" id="overlay2"></div>
 <div class="d-flex flex-wrap justify-content-sm-between justify-content-center mb-4" style="gap:15px 30px">
-    <p class="mb-0 text-white">Showing Results: <span>18</span></p>
-    <p class="mb-0 text-white">Results Found: <span>21</span></p>
+    <p class="mb-0 text-white-50">Showing Results: <span>18</span></p>
+    <p class="mb-0 text-white-50">Results Found: <span>21</span></p>
 </div>
 <div class="row g-4">
 @foreach($all_products as $i)
@@ -98,7 +98,7 @@
                 <a href="{{route('product.view', $i->id )}}" class="btn btn-primary">BID NOW</a> 
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Price Start: {{number_format((float)$i->price, 2, '.', '')}}</li>
+                    <li class="list-group-item ">Price Start: {{number_format((float)$i->price, 2, '.', '')}}</li>
                 </ul>
             </div>
         </div>
