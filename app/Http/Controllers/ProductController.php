@@ -30,10 +30,22 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //change paginete to show how many products do you want to show in product page 
-        $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->paginate(9);
+        $all_products = Product::query();
+        if(!empty($_GET['category'])){
+            $slugs=explode(',',$_GET['category']);
+            $cat_ids=Category::select('id')->whereIn('slug',$slugs)->pluck('id')->toArray();
+            $all_products=$all_products->whereIn('category_id',$cat_ids)->orderby('created_at','DESC')->paginate(9);
+            // $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->paginate(9);
+        }
+
+        else{
+            $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->paginate(9); 
+        }
+
+        // $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->paginate(9);
         $category = Category::where('status',1)->with('products')->orderBy('name','ASC')->get();
         return view('product.products', compact('all_products','category'));
         // dd($all_products,$category);
@@ -395,5 +407,49 @@ class ProductController extends Controller
 
         // return back()->with(\Session::flash('success', 'Bid Placed Successfully.'));
         return response()->json(['success'=>'Bid Placed Successfully.']);
+    }
+
+    public function product_filter(Request $request){
+        // dd($request->all());
+        $data = $request->all();
+
+        $caturl = '';
+        if(!empty($data['category'])){
+            foreach($data['category'] as $category){
+                if(empty($caturl)){
+                    $caturl .= '&category='.$category;
+                }
+
+                else{
+                    $caturl .= ','.$category;
+                }
+            }
+        }
+        return redirect()->route('product.product', $caturl);
+    }
+
+    // public function autosearch(Request $request){
+    //     // dd($request->all());
+    //     $query=$request->get('term', '');
+    //     $products=Product::where('name','LIKE','%'.$query.'%')->get();
+    //     $data=array();
+    //     foreach($products as $product){
+    //         $data[]=array('value'=>$product->name,'id'=>$product->id);
+    //     }
+
+    //     if(count($data)){
+    //         return $data;
+    //     }
+
+    //     else{
+    //         return ['value'=>'NO Result Found','id'=>''];
+    //     }
+    // }
+
+    public function search(Request $request){
+        $query=$request->input('query');
+        $all_products=Product::where('name','LIKE','%'.$query.'%')->orderBy('id','DESC')->paginate(9);
+        $category = Category::where('status',1)->with('products')->orderBy('name','ASC')->get();
+        return view('product.products',compact('all_products','category'));
     }
 }

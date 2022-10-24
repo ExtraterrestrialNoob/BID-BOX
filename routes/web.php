@@ -50,6 +50,8 @@ Route::name('product.')->group(function () {
     Route::get('product',[ProductController::class, 'index'])->name('product');
     Route::get('product/create',[ProductController::class, 'create'])->name('create')->middleware('role:1,3');
     Route::get('product/view/{id}',[ProductController::class, 'show'])->name('view');
+    //product search and auto search
+    Route::get('/product/search',[ProductController::class,'search'])->name('search');
     
     
     Route::get('product/edit/{id}',[ProductController::class, 'edit'])->name('edit')->middleware('role:1,3');
@@ -61,6 +63,7 @@ Route::name('product.')->group(function () {
     Route::post('product/update/{id}',[ProductController::class, 'update'])->name('update')->middleware('role:1,3');
     Route::post('product/update/image/{id}',[ProductController::class, 'updateimage'])->name('update.image')->middleware('role:1,3');
     Route::delete('product/delete/{id}',[ProductController::class, 'destroy'])->name('delete')->middleware('role:1,3');
+    Route::post('product/filter',[ProductController::class,'product_filter'])->name('filter');
 
     //ajax routes
     Route::get('/product/bid/{pid}',[ProductController::class, 'getbidstatus'])->name('refresh.bid');
