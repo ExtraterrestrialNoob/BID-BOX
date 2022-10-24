@@ -55,7 +55,7 @@ class User extends \TCG\Voyager\Models\User
 
     public function product()
     {
-        return $this->hasMany(Product::class)->where('role_id','==',3);
+        return $this->hasMany(Product::class);
     }
 
 }

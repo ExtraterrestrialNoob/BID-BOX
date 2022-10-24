@@ -32,11 +32,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
-        $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->take(10)->get();
-
-        return view('product.products', compact('all_products'));
-
+        //change paginete to show how many products do you want to show in product page 
+        $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->paginate(9);
+        $category = Category::where('status',1)->with('products')->orderBy('name','ASC')->get();
+        return view('product.products', compact('all_products','category'));
+        // dd($all_products,$category);
     }
 
     public function products_by_user($id)

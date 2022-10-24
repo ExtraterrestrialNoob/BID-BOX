@@ -38,3 +38,14 @@ body {
   min-height: 100vh;
   overflow-x:hidden;
 }
+
+.filter-widget{
+  position: relative;
+  padding: 30px;
+}
+
+.bg--body{
+  background-color: white;
+  position: relative;
+  padding: 10px;
+}

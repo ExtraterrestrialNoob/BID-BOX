@@ -26,6 +26,7 @@
     <link href="{{ asset('assets/product/css/timer.css')}}" rel="stylesheet">
     <!--bootstrapmain -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/Style.css') }}" rel="stylesheet">
 
 </head>
 
