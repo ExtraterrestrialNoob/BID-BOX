@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Seller;
 use App\Http\Controllers\Bidder;
-
+use App\Http\Controllers\cron;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/seller', [Seller::class, 'index'])->middleware('role:3');
 Route::get('/bidder', [Bidder::class, 'index'])->middleware('role:2');
-
+route::get('/update',[cron::class,'expire'])->name('update');
 
 
 //ProductRoutes Grouped
