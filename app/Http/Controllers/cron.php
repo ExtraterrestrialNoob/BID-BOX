@@ -8,26 +8,36 @@ use App\Models\winner;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+use function PHPSTORM_META\type;
+
 class cron extends Controller
 {
     public function expire(){
         $temps = Product::all();
-        $current_time = Carbon::now()->toDateTimeString();
+        $current_time = Carbon::now();
+
         foreach($temps as $temp){
-            if ($temp->expired_at < $current_time AND $temp->is_expired == 0 AND $temp->is_winner_selected == 0){
- 
+            $exp = Carbon::create($temp->expired_at);
+            // $result=$current_time->gte($exp);
+            if ($current_time->gte($exp) == 1 AND $temp->is_expired == 0 AND $temp->is_winner_selected == 0){
+                // echo $exp ,'<br>',$temp->id,'</span>','<p>';
+                // echo $temp->id,'<p>';
+
                 $bid = Bid::where('product_id',$temp->id)->orderBy('amount','DESC')->first();
 
-                 winner::create([
+              
+               
+                winner::create([
                     'product_id' => $temp->id,
                     'customer_id' => $bid->user_id,
                     'bid_id' => $bid->id,
                 ]);
 
-                $temp->is_expired = 1;
-                $temp->is_winner_selected = 1;
-                $temp->update();
+               $temp->is_expired = 1;
+               $temp->is_winner_selected = 1;
+               $temp->update();
             }
+
 
         }
 
