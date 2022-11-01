@@ -26,7 +26,11 @@
 
             <textarea class="form-control" rows="10" placeholder="" value="" style="resize: none;"> {{ $product->long_description }} </textarea>
             
+            @if($bid_info[1] == null)
+                    <h4 class="price">Current Bid Price : <span id="current_bid_price">Rs. 0.00</span></h4>
+                    @else
                     <h4 class="price">Current Bid Price : <span id="current_bid_price">Rs. {{ $bid_info[1] }}</span></h4>
+                    @endif
                     <span class="review-no">Total BIDs :<span id="total_bids">{{ $bid_info[0] }}</span> </span>
             
             
@@ -250,7 +254,13 @@
                         type: 'GET',
                         url:"{{route('product.refresh.bid' , $product->id )}}",
                         success:function(data){
-                            $("#current_bid_price").html("Rs" + data.max_bid);
+                            if(data.max_bid == null){
+                                $("#current_bid_price").html("Rs 0.00");
+                            }
+                            else{
+                                $("#current_bid_price").html("Rs" + data.max_bid);
+                            }
+                            
                             $("#total_bids").html(data.bid_count);
                             
                             updatetable(data.bid_info);
