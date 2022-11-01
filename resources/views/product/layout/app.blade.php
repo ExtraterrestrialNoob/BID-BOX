@@ -31,7 +31,7 @@
 </head>
 
 
-<body>
+<body @yield('body_event')>
     <div id="app">
         <!-- navbar starts -->
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
