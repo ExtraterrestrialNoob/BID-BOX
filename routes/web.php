@@ -8,6 +8,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Seller;
 use App\Http\Controllers\Bidder;
 use App\Http\Controllers\cron;
+use App\Http\Controllers\payment;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,4 +82,12 @@ Route::name('user.')->group(function(){
     Route::put('user/update/{id}',[UserController::class, 'update'])->name('user.update');
     Route::delete('user/delete/{id}',[UserController::class, 'destroy'])->name('user.delete');
     Route::get('user/history/{id}',[UserController::class, 'history'])->name('user.history');
+});
+
+Route::name('payment.')->group(function(){
+
+    Route::get('/payment', [PaymentController::class,'index'])->name('payment');
+    Route::post('/payment_process', [PaymentController::class,'process']);
+    route::get('/confirm',[PaymentController::class,'confirm']);
+
 });

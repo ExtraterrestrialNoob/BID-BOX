@@ -8,11 +8,15 @@
         "php": "^7.3|^8.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "ignited/laravel-omnipay": "^3.4",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
+        "league/omnipay": "^3.2",
         "nesbot/carbon": "^2.60",
+        "omnipay/stripe": "^3.2",
+        "stripe/stripe-php": "^9.8",
         "tcg/voyager": "^1.5"
     },
     "require-dev": {
