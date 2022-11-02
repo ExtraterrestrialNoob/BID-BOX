@@ -63,7 +63,7 @@
  
 
 <script>
-var publishable_key = '{{ env("STRIPE_PUBLISHABLE_KEY") }}';
+var publishable_key = '{{ env("STRIPE_KEY") }}';
 </script>
 
 

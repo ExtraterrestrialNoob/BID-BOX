@@ -31,9 +31,9 @@ return [
     ],
 
     'stripe' => [
-        'model'  => App\Http\Models\User::class,
-        'key' => env('STRIPE_PUBLISHABLE_KEY'),
-        'secret' => env('STRIPE_SECRETE_KEY'),
+        'model'  => App\Models\User::class,
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRETE'),
     ],
 
 ];
