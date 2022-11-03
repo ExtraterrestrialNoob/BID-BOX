@@ -4,29 +4,27 @@
 <table class="table align-middle mb-1 bg-light">
   <thead class="bg-light">
     <tr>
-      <th >Product Name</th>
-      <th >Product Price</th>
-      <th >Your Bid</th>
-      <th >Bid Time</th>
+      <th>Product Name</th>
+      <th>Product Price</th>
+      <th>Your Bid</th>
+      <th>Highest Bid</th>
+      <th>Bid Time</th>
+      <th>Status</th>
     </tr>
   </thead>
-  @foreach($histry as $i)
+  @foreach($history as $i)
   <tbody>
     <tr>
       <td class="table-secondary">
         <div class="d-flex align-items-center">
           <div class="ms-3">
-            @if(($i->product) == null)
-              <p class="fw-bold mb-1">This product is no longer available</p>
-            @else
-              <p class="fw-bold mb-1">{{$i->product->name}}</p>
-            @endif
+              <p class="fw-bold mb-1">{{$i->product_name}}</p>
           </div>
         </div>
       </td>
       <td class="table-secondary">
         @if($i->product != null)
-          <span class="fw-bold mb-1">Rs.{{number_format((float)$i->product->price, 2, '.', '')}}</span>
+          <span class="fw-bold mb-1">Rs.{{number_format((float)$i->start_price, 2, '.', '')}}</span>
         @else
           <span class="fw-bold mb-1">Unknown</span>
         @endif
@@ -35,12 +33,18 @@
         <span class="fw-bold mb-1">Rs.{{number_format((float)$i->amount, 2, '.', '')}}</span>
       </td>
 
-    <td class="table-secondary">
-        <p class="fw-normal mb-1">{{$i->created_at}}</p>
+      <td class="table-secondary">
+        <span class="fw-bold mb-1">Rs.{{number_format((float)$i->max_bid, 2, '.', '')}}</span>
       </td>
 
-      
-   
+    <td class="table-secondary">
+        <p class="fw-normal mb-1">{{$i->created_at}}</p>
+    </td>
+
+    <td class="table-secondary">
+        <p class="fw-normal mb-1">{{$i->status}}</p>
+    </td>
+ 
   </tbody>
   @endforeach
 </table>

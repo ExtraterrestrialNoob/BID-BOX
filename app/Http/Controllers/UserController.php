@@ -153,11 +153,42 @@ class UserController extends Controller
     }
 
     public function history($id){
-        $histry = Bid::where('user_id',"=",$id)->orderBy('created_at','DESC')->get();
-        for($i=0; $i<sizeof($histry); $i++){
-            $product = Product::where('id',$histry[$i]->product_id)->select('name','price')->first();
+        $history = Bid::where('user_id',"=",Auth::User()->id)->orderBy('created_at','DESC')->get();
+        if($history){
+            foreach($history as $bid){
+                $product_details = Product::where("id",$bid->product_id)->select('name','price')->first();
+                if($product_details){
+                    $bid->product_name = $product_details->name;
+                    $bid->start_price = $product_details->price;
+                }else{
+                    $bid->product_name = "Product not found !";
+                    $bid->start_price = "Product not found !";
+                }
+                
+                $max_bid_on_product = Bid::where('product_id',$bid->product_id)->orderBy('amount','DESC')->first();
+                if($max_bid_on_product){
+                    $bid->max_bid = $max_bid_on_product->amount;
+                    echo $max_bid_on_product;
+                    $max_bid_user = $max_bid_on_product->user_id;
+                    if($max_bid_on_product->id == $bid->id){
+                        $bid->status = "Winning";
+                    }else{
+                        $bid->status = "Losing";
+                    }
+                }
+
+                
+                
+            }//foreach
         }
-        return view('user.history', compact('histry'));
+
+        // echo $history;
+        // for($i=0; $i<sizeof($histry); $i++){
+        //     $product = Product::where('id',$histry[$i]->product_id)->select('name','price')->first();
+        //     // echo $product;
+        // }
+        // echo $histry;
+       return view('user.history', compact('history'));
         // dd($histry);
     }
 
