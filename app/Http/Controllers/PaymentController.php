@@ -14,7 +14,7 @@ class PaymentController extends Controller
     public function __construct()
     {
         $this->gateway = Omnipay::create('Stripe\PaymentIntents');
-        $this->gateway->setApiKey('sk_test_51LzlxaAEbjP8PimKQzQO1AjLmhMpGgf0slaiF1tgUnh9R1KYyFjRXUJc125e2cnN2eu3xcf78OfsUHkywYJSmkyy00txCGwXrf');
+        $this->gateway->setApiKey( env('STRIPE_SECRETE'));
         $this->completePaymentUrl = url('confirm');
     }
  
@@ -42,7 +42,7 @@ class PaymentController extends Controller
             {
                 $response = $this->gateway->capture([
                     'amount' => $request->input('amount'),
-                    'currency' => env('STRIPE_CURRENCY'),
+                    // 'currency' => env('STRIPE_CURRENCY'),
                     'paymentIntentReference' => $response->getPaymentIntentReference(),
                 ])->send();
  
@@ -93,7 +93,7 @@ class PaymentController extends Controller
                 'payment_id' => $arr_payment_data['id'],
                 'payer_email' => session('payer_email'),
                 'amount' => $arr_payment_data['amount']/100,
-                'currency' => env('STRIPE_CURRENCY'),
+                // 'currency' => env('STRIPE_CURRENCY'),
                 'payment_status' => $arr_payment_data['status'],
             ]);
  
@@ -115,7 +115,7 @@ class PaymentController extends Controller
             $payment->payment_id = $arr_data['payment_id'];
             $payment->payer_email = $arr_data['payer_email'];
             $payment->amount = $arr_data['amount'];
-            $payment->currency = env('STRIPE_CURRENCY');
+            // $payment->currency = env('STRIPE_CURRENCY');
             $payment->payment_status = $arr_data['payment_status'];
             $payment->save();
         }
