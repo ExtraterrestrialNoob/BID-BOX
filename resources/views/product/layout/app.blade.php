@@ -75,6 +75,9 @@
                                 </li>
 
                             @endif
+                            <li class="nav-otem">
+                            <a class="nav-link " href="{{route('user.user.history', $i)}}">Bid history</a>
+                            </li>
                         @endguest
                         
                     </ul>
