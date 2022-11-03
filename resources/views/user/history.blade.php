@@ -7,10 +7,11 @@
       <th >Product Name</th>
       <th >Product Price</th>
       <th >Your Bid</th>
+      <th>Highest Bid</th>
       <th >Bid Time</th>
     </tr>
   </thead>
-  @foreach($histry as $i)
+  @foreach(array_combine($histry, $high) as $i => $h)
   <tbody>
     <tr>
       <td class="table-secondary">
@@ -33,6 +34,10 @@
       </td>
       <td class="table-secondary">
         <span class="fw-bold mb-1">Rs.{{number_format((float)$i->amount, 2, '.', '')}}</span>
+      </td>
+
+      <td class="table-secondary">
+        <span class="fw-bold mb-1">Rs.{{number_format((float)$h->amount, 2, '.', '')}}</span>
       </td>
 
     <td class="table-secondary">
