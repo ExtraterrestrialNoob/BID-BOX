@@ -1,16 +1,89 @@
 @extends('layouts.app')
+<header>
+    <style>
+        .welcome-banner{
+            background-image:url(/storage/assets/images/frontend/banner.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+        .banner-text{
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-family: 'Advent Pro', sans-serif;
+        }
+
+        .search-center{
+        position: absolute;
+        top: 80%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 40%;
+        }
+        #search button, [type="text"]{
+        position: absolute;
+        height: 6vh;
+        font-size: 5vh;
+        border: none;
+        bottom: 0;
+        }
+        #search button{
+        width: 15%;
+        right: 0;
+        color: #FFFFFF;
+        background: #D604B4;
+        cursor: pointer;
+        }
+        #search [type='text']{
+        background: #fff;
+        bottom: 0;
+        width: 85%;
+        color: #777675;
+        padding-left: 20px;
+        padding-right: 20px;
+        }
+
+
+    </style>
+</header>
 
 @section('content')
 <body>
-        <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
+
+<!-- <div class="welcome-banner"> 
+    <div class="container-fluid">
+        <h1 class="display-4 fw-bolder">BID BOX</h1>
+        <p class="lead fw-normal text-white-50 mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac felis justo. Pellentesque laoreet turpis enim. Aliquam sed lectus pulvinar mi elementum tincidunt.</p>
+    </div>
+</div> -->
+
+
+        <!-- Header -->
+        <header class="welcome-banner h-50">
+            <div class="banner-text">
+                <div class="text-center text-white ">
                     <h1 class="display-4 fw-bolder">BID BOX</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac felis justo. Pellentesque laoreet turpis enim. Aliquam sed lectus pulvinar mi elementum tincidunt.</p>
+                    <p class="lead fw-normal text-white-50 mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac felis justo.</p>
+                </div>
+            </div>
+            
+
+            <div id="search">
+                <div class="search-center">
+                    <form action="{{route('product.search')}}">
+                        <input type="text">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
                 </div>
             </div>
         </header>
+
+
         <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
@@ -24,25 +97,25 @@
                 ?>
 
             @for($i=0;$i<$count;$i++)
-                <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top img-responsive" style="object-fit:cover; height:200px; width:100%; Overflow:hidden;" src="{{ asset('storage/'.$all_products[$i]->image_path) }}"  />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">{{$all_products[$i]->name}}</h5>
-                                    <!-- Product price-->
-                                    Rs{{number_format((float)$all_products[$i]->price, 2, '.', '')}}
-                                </div>
+            <div class="col-sm-6 col-xl-4">
+                        <div class="bg--body">
+                            <div class="auction__item-thumb">
+                                <img class="border rounded"
+                                    style="object-fit:cover; height:200px; width:100%; Overflow:hidden;"
+                                    src="{{ asset('storage/'.$all_products[$i]->image_path) }}" alt="auction">
                             </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{route('product.view', $all_products[$i]->id )}}">View</a></div>
+
+                            <div class="auction__item-content p-4">
+                                <h5 class="card-title">{{$all_products[$i]->name}}</h5>
+                                <p class="card-text">{{$all_products[$i]->short_description }}</p>
+                                <a href="{{route('product.view', $all_products[$i]->id )}}" class="btn btn-primary">BID NOW</a>
                             </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item ">Price Start:
+                                    {{number_format((float)$all_products[$i]->price, 2, '.', '')}}</li>
+                            </ul>
                         </div>
-                    </div>
+                </div>
             @endfor
                 </div>
             </div>

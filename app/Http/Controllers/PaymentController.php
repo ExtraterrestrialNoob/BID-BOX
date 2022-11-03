@@ -50,17 +50,17 @@ class PaymentController extends Controller
                 // dd($arr_payment_data);
                 $this->store_payment([      //මේ ටිකම වෙනස් කරන්න ඕනෙ
                     'payment_id' => $arr_payment_data['id'],
-                    'payer_email' => $request->input('email'), //auth user මෙතඩ් එකෙන් මේල් එක ගමු
+                    'email' => $request->input('email'), //auth user මෙතඩ් එකෙන් මේල් එක ගමු
                     'amount' => $arr_payment_data['amount']/100,
                     'currency' => env('STRIPE_CURRENCY'),
-                    'payment_status' => $arr_payment_data['status'],
+                    'status' => $arr_payment_data['status'],
                 ]);
  
                 return redirect("payment")->with("success", "Payment is successful. Your payment id is: ". $arr_payment_data['id']);
             }
             elseif($response->isRedirect())
             {
-                session(['payer_email' => $request->input('email')]);
+                session(['email' => $request->input('email')]);
                 $response->redirect();
             }
             else
@@ -91,10 +91,10 @@ class PaymentController extends Controller
  
             $this->store_payment([
                 'payment_id' => $arr_payment_data['id'],
-                'payer_email' => session('payer_email'),
+                'email' => session('payer_email'),
                 'amount' => $arr_payment_data['amount']/100,
                 // 'currency' => env('STRIPE_CURRENCY'),
-                'payment_status' => $arr_payment_data['status'],
+                'status' => $arr_payment_data['status'],
             ]);
  
             return redirect("payment")->with("success", "Payment is successful. Your payment id is: ". $arr_payment_data['id']);
@@ -113,10 +113,10 @@ class PaymentController extends Controller
         {
             $payment = new Payment;
             $payment->payment_id = $arr_data['payment_id'];
-            $payment->payer_email = $arr_data['payer_email'];
+            $payment->email = $arr_data['email'];
             $payment->amount = $arr_data['amount'];
-            // $payment->currency = env('STRIPE_CURRENCY');
-            $payment->payment_status = $arr_data['payment_status'];
+            $payment->currency = env('STRIPE_CURRENCY');
+            $payment->status = $arr_data['status'];
             $payment->save();
         }
     }
