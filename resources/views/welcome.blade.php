@@ -75,8 +75,8 @@
 
             <div id="search">
                 <div class="search-center">
-                    <form action="{{route('product.search')}}">
-                        <input type="text">
+                    <form action="{{route('product.search')}}" method="GET">
+                        <input type="text" id="search" name="query" class="form-control" placeholder="Search Product" />
                         <button type="submit"><i class="fas fa-search"></i></button>
                     </form>
                 </div>
