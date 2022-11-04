@@ -86,8 +86,8 @@ Route::name('user.')->group(function(){
 
 Route::name('payment.')->group(function(){
 
-    Route::get('/payment', [PaymentController::class,'index'])->name('payment');
-    Route::post('/payment_process', [PaymentController::class,'process']);
-    route::get('/confirm',[PaymentController::class,'confirm']);
+    Route::get('/payment/{wid}', [PaymentController::class,'index'])->name('payment');
+    Route::post('/payment_process/{win_id}', [PaymentController::class,'process']);
+    route::get('/confirm/{win_id}',[PaymentController::class,'confirm']);
 
 });

@@ -168,7 +168,7 @@ class UserController extends Controller
                 $max_bid_on_product = Bid::where('product_id',$bid->product_id)->orderBy('amount','DESC')->first();
                 if($max_bid_on_product){
                     $bid->max_bid = $max_bid_on_product->amount;
-                    echo $max_bid_on_product;
+                    // echo $max_bid_on_product;
                     $max_bid_user = $max_bid_on_product->user_id;
                     if($max_bid_on_product->id == $bid->id){
                         $bid->status = "Winning";
