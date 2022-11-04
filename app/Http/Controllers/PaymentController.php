@@ -28,7 +28,7 @@ class PaymentController extends Controller
         $win_id = $wid;
         $data = winner::where('id',$wid)->with('bid','user')->first();
         // dd($data);
-        // echo $data->product_id;
+        // echo $data;
         return view('payment.payment',compact('win_id'));
     }
  
@@ -47,6 +47,8 @@ class PaymentController extends Controller
                 'token' => $token,
                 'returnUrl' => $this->completePaymentUrl.'/'.$win_id,
                 'confirm' => true,
+                // 'receipt_email' => $data->user->email,
+                
             ])->send();
  
             if($response->isSuccessful())

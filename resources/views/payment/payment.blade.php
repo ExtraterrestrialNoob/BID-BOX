@@ -238,9 +238,9 @@ var publishable_key = '{{ env("STRIPE_KEY") }}';
   var style = {
       base: {
           color: 'white',
+          theme:'night',
           fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
           fontSmoothing: 'antialiased',
-          theame: 'night',
           fontSize: '16px',
           '::placeholder': {
               color: 'white'
@@ -255,7 +255,11 @@ var publishable_key = '{{ env("STRIPE_KEY") }}';
  
     
   // Create an instance of the card Element.
-  var card = elements.create('card', {style: style});
+  var card = elements.create('card', {
+    style: style,
+    hidePostalCode: true,
+     
+    });
     
   // Add an instance of the card Element into the `card-element` <div>.
   card.mount('#card-element');
