@@ -56,15 +56,15 @@ Route::name('product.')->group(function () {
     Route::get('/product/search',[ProductController::class,'search'])->name('search');
     
     
-    Route::get('product/edit/{id}',[ProductController::class, 'edit'])->name('edit')->middleware('role:1,3');
+    Route::get('product/edit/{id}',[ProductController::class, 'edit'])->name('edit')->middleware('role:1,3','product');
     Route::get('product/{id}',[ProductController::class, 'products_by_user'])->name('products')->middleware('role:1,2,3');
     //Route::get('product/test/{id}',[ProductController::class, 'test'])->name('products'); Testing 
     //Change Products
     Route::post('product/create',[ProductController::class, 'store'])->name('product.create')->middleware('role:1,3');
     Route::post('product/bid/{pid}',[ProductController::class, 'bid'])->name('bid')->middleware('role:1,2,3');
-    Route::post('product/update/{id}',[ProductController::class, 'update'])->name('update')->middleware('role:1,3');
-    Route::post('product/update/image/{id}',[ProductController::class, 'updateimage'])->name('update.image')->middleware('role:1,3');
-    Route::delete('product/delete/{id}',[ProductController::class, 'destroy'])->name('delete')->middleware('role:1,3');
+    Route::post('product/update/{id}',[ProductController::class, 'update'])->name('update')->middleware('role:1,3','product');
+    Route::post('product/update/image/{id}',[ProductController::class, 'updateimage'])->name('update.image')->middleware('role:1,3','product');
+    Route::delete('product/delete/{id}',[ProductController::class, 'destroy'])->name('delete')->middleware('role:1,3','product');
     Route::post('product/filter',[ProductController::class,'product_filter'])->name('filter');
 
     //ajax routes
@@ -76,17 +76,17 @@ Route::name('product.')->group(function () {
 //User routes
 Route::name('user.')->group(function(){
     Route::get('user', [UserController::class, 'index'])->name('user'); //self Profile
-    Route::get('user/view/{id}', [UserController::class, 'show'])->name('user.view');
+    // Route::get('user/view/{id}', [UserController::class, 'show'])->name('user.view');
     Route::get('user/edit/',[UserController::class, 'edit'])->name('edit');
     //Change User Details
-    Route::put('user/update/{id}',[UserController::class, 'update'])->name('user.update');
-    Route::delete('user/delete/{id}',[UserController::class, 'destroy'])->name('user.delete');
-    Route::get('user/history/{id}',[UserController::class, 'history'])->name('user.history');
+    Route::put('user/update/{id}',[UserController::class, 'update'])->name('user.update')->middleware('user:{id}');
+    Route::delete('user/delete/{id}',[UserController::class, 'destroy'])->name('user.delete')->middleware('user:{id}');
+    Route::get('user/history/{id}',[UserController::class, 'history'])->name('user.history')->middleware('user:{id}');
 });
 
 Route::name('payment.')->group(function(){
 
-    Route::get('/payment/{wid}', [PaymentController::class,'index'])->name('payment');
+    Route::get('/payment/{wid}', [PaymentController::class,'index'])->name('payment')->middleware('payment:{wid}');
     Route::post('/payment_process/{win_id}', [PaymentController::class,'process']);
     route::get('/confirm/{win_id}',[PaymentController::class,'confirm']);
 
