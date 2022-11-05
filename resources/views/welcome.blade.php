@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('product.layout.app')
 <header>
     <style>
         .welcome-banner{
@@ -85,41 +85,23 @@
 
 
         <!-- Section-->
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
-                <?php
-                    $count=count($all_products);
-                    if($count>8){
-                        $count=8;
-                    }
-                ?>
-
-            @for($i=0;$i<$count;$i++)
-            <div class="col-sm-6 col-xl-4">
-                        <div class="bg--body">
-                            <div class="auction__item-thumb">
-                                <img class="border rounded"
-                                    style="object-fit:cover; height:200px; width:100%; Overflow:hidden;"
-                                    src="{{ asset('storage/'.$all_products[$i]->image_path) }}" alt="auction">
+        <div class="container">
+        <div class="row">
+                    @foreach($all_products as $i)
+                    <div class="col-md-3 pb-1 pb-md-0 ">
+                        <div class="card">
+                            <img class="card-img-top" style="object-fit:cover; height:200px; width:100%; Overflow:hidden;" src="{{ asset('storage/'.$i->image_path) }}" alt="auction">
+                                <div class="card-body">
+                                <h5 class="card-title">{{$i->name}}</h5>
+                                <p class="card-text">{{$i->short_description }}</p>
+                                <a href="{{route('product.view', $i->id )}}" class="btn btn-primary">BID NOW</a>
                             </div>
-
-                            <div class="auction__item-content p-4">
-                                <h5 class="card-title">{{$all_products[$i]->name}}</h5>
-                                <p class="card-text">{{$all_products[$i]->short_description }}</p>
-                                <a href="{{route('product.view', $all_products[$i]->id )}}" class="btn btn-primary">BID NOW</a>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item ">Price Start:
-                                    {{number_format((float)$all_products[$i]->price, 2, '.', '')}}</li>
-                            </ul>
                         </div>
+                    </div>
+                    @endforeach
                 </div>
-            @endfor
-                </div>
-            </div>
-        </section>
+        </div>
+        <hr>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; BID-BOX 2022</p></div>

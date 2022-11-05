@@ -3,7 +3,7 @@
 
 <section class="product-section pt-120 pb-120">
     <div class="container">
-        <div class="col-md-7 col-lg-4 mb-5 col-xl-3">
+    <div class="col-md-7 col-lg-4 mb-5 col-xl-3">
             <div class="filter-btn ms-auto">
                 <i class="las la-filter"></i>
             </div>
@@ -103,7 +103,7 @@
                     </div>
                 </div>
 
-                <form action="{{route('product.search')}}" method="GET">
+                <form action="{{route('product.search')}}" method="GET" class="input-group offset-lg-9">
                 <div class="d-flex  justify-content-end" style="margin-bottom: 15px;">
                 <div class="input-group">
                         <div class="form-outline">
@@ -121,25 +121,16 @@
                     <p class="mb-0 text-white-50">Showing Results: <span>18</span></p>
                     <p class="mb-0 text-white-50">Results Found: <span>21</span></p>
                 </div>
-                <div class="row g-4">
+                <div class="row">
                     @foreach($all_products as $i)
-                    <div class="col-sm-6 col-xl-4">
-                        <div class="bg--body">
-                            <div class="auction__item-thumb">
-                                <img class="border rounded"
-                                    style="object-fit:cover; height:200px; width:100%; Overflow:hidden;"
-                                    src="{{ asset('storage/'.$i->image_path) }}" alt="auction">
-                            </div>
-
-                            <div class="auction__item-content p-4">
+                    <div class="col-md-4 pb-1 pb-md-0 ">
+                        <div class="card">
+                            <img class="card-img-top" style="object-fit:cover; height:200px; width:100%; Overflow:hidden;" src="{{ asset('storage/'.$i->image_path) }}" alt="auction">
+                                <div class="card-body">
                                 <h5 class="card-title">{{$i->name}}</h5>
                                 <p class="card-text">{{$i->short_description }}</p>
                                 <a href="{{route('product.view', $i->id )}}" class="btn btn-primary">BID NOW</a>
                             </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item ">Price Start:
-                                    {{number_format((float)$i->price, 2, '.', '')}}</li>
-                            </ul>
                         </div>
                     </div>
                     @endforeach
@@ -151,7 +142,7 @@
                 </nav>
 
             </div>
-        </div> 
+    
     </div>
 </section>
 
