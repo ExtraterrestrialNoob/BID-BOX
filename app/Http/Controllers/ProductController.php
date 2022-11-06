@@ -35,14 +35,17 @@ class ProductController extends Controller
         //change paginete to show how many products do you want to show in product page 
         $all_products = Product::query();
         if(!empty($_GET['category'])){
-            $slugs=explode(',',$_GET['category']);
-            $cat_ids=Category::select('id')->whereIn('slug',$slugs)->pluck('id')->toArray();
-            $all_products=$all_products->whereIn('category_id',$cat_ids)->orderby('created_at','DESC')->paginate(9);
+            $slugs = explode(',',$_GET['category']);
+            $cat_ids = Category::select('id')->whereIn('slug',$slugs)->pluck('id')->toArray();
+            $all_products = $all_products->whereIn('category_id',$cat_ids)->orderby('created_at','DESC')->paginate(9);
+            
             // $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->paginate(9);
         }
 
         else{
             $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->paginate(9); 
+            // $results = Product::where('Is_active',1)->orderBy('created_at','DESC')->count();
+           
         }
 
         // $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->paginate(9);
@@ -452,8 +455,8 @@ class ProductController extends Controller
     // }
 
     public function search(Request $request){
-        $query=$request->input('query');
-        $all_products=Product::where('name','LIKE','%'.$query.'%')->orderBy('id','DESC')->paginate(9);
+        $query = $request->input('query');
+        $all_products = Product::where('name','LIKE','%'.$query.'%')->orderBy('id','DESC')->paginate(9);
         $category = Category::where('status',1)->with('products')->orderBy('name','ASC')->get();
         return view('product.products',compact('all_products','category'));
     }
