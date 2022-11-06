@@ -18,7 +18,7 @@
       <td class="table-secondary">
         <div class="d-flex align-items-center">
           <div class="ms-3">
-              <p class="fw-bold mb-1">{{$i->product_name}}</p>
+              <a href="{{route('product.view', $i->product_id)}}"><p class="fw-bold mb-1">{{$i->product_name}}</p></a>
           </div>
         </div>
       </td>

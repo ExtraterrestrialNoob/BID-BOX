@@ -58,15 +58,11 @@
                         <li class="nav-item">
                             <a class="nav-link " href="{{ route('product.product')}}">Products</a>
                         </li>
-
                         @guest 
                         @else
                             @if(Auth::user()->role_id==3)
-                                @php
-                                    $i=Auth::user()->id
-                                @endphp
                                 <li class="nav-item">
-                                    <a class="nav-link " href="{{route('product.products', $i )}}">My Products</a>
+                                    <a class="nav-link " href="{{route('product.products', Auth::user()->id )}}">My Products</a>
                                     
                                 </li>
                                 <li class="nav-item">
@@ -76,7 +72,7 @@
 
                             @endif
                             <li class="nav-otem">
-                            <a class="nav-link " href="{{route('user.user.history', $i)}}">Bid history</a>
+                            <a class="nav-link " href="{{route('user.user.history', Auth::User()->id)}}">Bid history</a>
                             </li>
                         @endguest
                         

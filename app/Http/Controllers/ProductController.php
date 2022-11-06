@@ -396,11 +396,16 @@ class ProductController extends Controller
         ]);
 
         $count = Bid::where('product_id',$pid)->count()+1;
+        $previous_bids = Bid::where('product_id',$pid)->where('user_id',Auth::User()->id)->where('status',0)->get();
+        foreach($previous_bids as $i){
+            $i->status = 1;
+            $i->update();
+        }
         Bid::create([
             'product_id' =>  $pid,
             'user_id' => Auth::user()->id,
             'amount' => $request->amount,
-            
+            'status' => 0,
         ]);
         Product::where('id',$pid)->update(['total_bid'=>$count]);
        

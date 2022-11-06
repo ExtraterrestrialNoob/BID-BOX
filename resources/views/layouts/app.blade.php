@@ -57,13 +57,10 @@
                             
                         </li>
                         @guest
-                        @else
-                            @php
-                                $i=Auth::user()->id
-                            @endphp   
+                        @else 
                             @if(Auth::user()->role_id==3)
                                 <li class="nav-item">
-                                    <a class="nav-link " href="{{route('product.products', $i )}}">My Products</a>
+                                    <a class="nav-link " href="{{route('product.products', Auth::user()->id )}}">My Products</a>
                                     
                                 </li>
                                 <li class="nav-item">
@@ -72,7 +69,7 @@
                                 </li>
                             @endif
                             <li class="nav-otem">
-                            <a class="nav-link " href="{{route('user.user.history', $i)}}">Bid history</a>
+                            <a class="nav-link " href="{{route('user.user.history', Auth::user()->id)}}">Bid history</a>
                             </li>
                         @endguest
                     </ul>
@@ -104,7 +101,7 @@
                                    
                                     <a class="dropdown-item" href="{{route('user.user')}}" > <i class="fa-solid fa-user"></i> Profile</a>
 
-                                    <a class="dropdown-item" href="{{route('user.user.history', $i)}}" > <i class="fa-sharp fa-solid fa-gavel"></i> My Bids</a>
+                                    <a class="dropdown-item" href="{{route('user.user.history', Auth::user()->id)}}" > <i class="fa-sharp fa-solid fa-gavel"></i> My Bids</a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
