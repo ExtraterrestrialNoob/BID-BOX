@@ -1,7 +1,10 @@
 @extends('product.layout.app')
 @section('content')
     <section class="product-section pt-120 pb-120">
-        <div class="container">
+        <div  style="
+            margin-left: 30px;
+            margin-right: 30px;
+            ">
             <div class="col-md-7 col-lg-4 mb-5 col-xl-3">
                 <div class="filter-btn ms-auto">
                     <i class="las la-filter"></i>
@@ -84,10 +87,13 @@
                     </div>
                     <div class="row">
                         @foreach ($all_products as $i)
-                            <div class="col-md-4 pb-1 pb-md-0 ">
-                                <div class="card">
+                            <div class="col-md-4 pb-2 pb-md-0 ">
+                                <div class="card" style="
+                                    padding-left: 0px;
+                                    padding-right: 0px;
+                                ">
                                     <img class="card-img-top"
-                                        style="object-fit:cover; height:200px; width:100%; Overflow:hidden;"
+                                        style="object-fit: scale-down;"
                                         src="{{ asset('storage/' . $i->image_path) }}" alt="auction">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $i->name }}</h5>
