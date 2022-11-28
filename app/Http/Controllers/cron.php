@@ -24,18 +24,20 @@ class cron extends Controller
                 // echo $temp->id,'<p>';
 
                 $bid = Bid::where('product_id',$temp->id)->orderBy('amount','DESC')->first();
+                if($bid){
 
+                    winner::create([
+                        'product_id' => $temp->id,
+                        'customer_id' => $bid->user_id,
+                        'bid_id' => $bid->id,
+                    ]);
+    
+                   $temp->is_expired = 1;
+                   $temp->is_winner_selected = 1;
+                   $temp->update();
+
+                }
               
-               
-                winner::create([
-                    'product_id' => $temp->id,
-                    'customer_id' => $bid->user_id,
-                    'bid_id' => $bid->id,
-                ]);
-
-               $temp->is_expired = 1;
-               $temp->is_winner_selected = 1;
-               $temp->update();
             }
 
 
