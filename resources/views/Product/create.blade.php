@@ -7,7 +7,7 @@
 <div class="row flex-lg-nowrap">
 
   <div class="col">
-  <form method="POST" action="{{route('product.create')}}" enctype="multipart/form-data">
+  <form method="POST" action="{{route('product.create')}}" enctype="multipart/form-data" id="addproduct">
   @csrf  
   <div class="row">
       <div class="col mb-3">
@@ -156,31 +156,6 @@
 </div>
 </div>
 
-
-
-@if ($message = \Session::get('success'))
-<div class="popupContainer" id="popupContainer">
-      <div class="popup"> 
-        <h1> Done ! </h1>
-        <p> Success </P> 
-        <button id="closebtn" onclick="closepopup()">OK</button>
-      </div>
-</div>
-@endif
-
-<!-- @if ($message = \Session::get('error')) -->
-  <!-- <div class="alert alert-success text-justify">
-    {{ $message }}
-  </div> -->
-<!-- <div class="popupContainer" id="popupContainer">
-      <div class="popup"> 
-        <h1> Done ! </h1>
-        <p> Error </P> 
-        <button id="closebtn" onclick="closepopup()">OK</button>
-      </div>
-</div> -->
-<!-- @endif -->
-
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -191,14 +166,10 @@
     </div>
 @endif
 
-@if($message = \Session::get('success'))
-  <div class="alert alert-success text-justify">
-    {{ $message }}
-  </div>
-@endif
 @endsection
 
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
     function closepopup(){
         var msg = document.getElementById('popupContainer');
@@ -213,6 +184,34 @@
     datetimelocal.max = '{{ $maxdate }}';
 
     })
+    
+
+    // Reference https://stackoverflow.com/questions/19447435/ajax-upload-image
+    $(document).ready(function (e) {
+    $('#addproduct').on('submit',(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            type:'POST',
+            url: $(this).attr('action'),
+            data:formData,
+            cache:false,
+            contentType: false,
+            processData: false,
+            success:function(data){
+              Swal.fire("Success!",
+                "Product Aded Successfully",
+              "success")
+            },
+            error: function(data){
+              Swal.fire("OOPS!",
+                "Something went wrong !",
+              "Error")
+            }
+        });
+    }));
+  })
 
 </script>
 

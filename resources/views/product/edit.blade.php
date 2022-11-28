@@ -29,7 +29,7 @@
                     <div class="">Total Bids : {{ $bid_count}}</div>
                     <div class="mt-2">
 
-                    <form method="POST" action="{{ route('product.update.image',$product->id) }}" enctype="multipart/form-data">
+                    <form id="imageedit" method="POST" action="{{ route('product.update.image',$product->id) }}" enctype="multipart/form-data">
                     @csrf
                       <input class="btn btn-primary" id="imageupload" type="file" name="image" value="image" class="form-control" data-buttonText="Upload Image" >
                       <button class="btn btn-primary" type="submit" >Upload</button>
@@ -48,7 +48,7 @@
               </ul>
               <div class="tab-content pt-3">
                 <div class="tab-pane active">
-                  <form method="POST" class="form" action="{{ route('product.update',$product->id) }}" enctype="multipart/form-data">
+                  <form id="savedata" method="POST" class="form" action="{{ route('product.update',$product->id) }}" enctype="multipart/form-data">
                   @csrf
                     <div class="row">
                       <div class="col">
@@ -133,20 +133,6 @@
     </div>
 @endempty
 
-
-@if ($message = \Session::get('success'))
-  <!-- <div class="alert alert-success text-justify">
-    {{ $message }}
-  </div> -->
-  <div class="popupContainer" id="popupContainer">
-      <div class="popup"> 
-        <h1> Done ! </h1>
-        <p> You have placed BID Successfully </P> 
-        <button id="closebtn" onclick="closepopup()">OK</button>
-      </div>
-</div>
-@endif
-
 @if ($message = \Session::get('error'))
   <!-- <div class="alert alert-success text-justify">
     {{ $message }}
@@ -165,6 +151,7 @@
 @endsection
 @isset($product)
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
 
     $(document).ready(function setDateandCategory(){
@@ -189,10 +176,57 @@
 
     })
 
-    function closepopup(){
-                var msg = document.getElementById('popupContainer');
-                msg.classList.add("hide");
-            }
+    // Reference https://stackoverflow.com/questions/19447435/ajax-upload-image
+    $(document).ready(function (e) {
+    $('#imageedit').on('submit',(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
 
+        $.ajax({
+            type:'POST',
+            url: $(this).attr('action'),
+            data:formData,
+            cache:false,
+            contentType: false,
+            processData: false,
+            success:function(data){
+              Swal.fire("Success!",
+                "Image Saved Successfully",
+              "success")
+            },
+            error: function(data){
+              Swal.fire("OOPS!",
+                "Something went wrong !",
+              "Error")
+            }
+        });
+    }));
+  })
+
+  $(document).ready(function (e) {
+    $('#savedata').on('submit',(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            type:'POST',
+            url: $(this).attr('action'),
+            data:formData,
+            cache:false,
+            contentType: false,
+            processData: false,
+            success:function(data){
+              Swal.fire("Success!",
+                "Data Saved Successfully",
+              "success")
+            },
+            error: function(data){
+              Swal.fire("OOPS!",
+                "Something went wrong !",
+              "Error")
+            }
+        });
+    }));
+  })
 </script>
 @endisset

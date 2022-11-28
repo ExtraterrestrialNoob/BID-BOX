@@ -15,6 +15,7 @@ class Bid extends Model
         'product_id',
         'user_id',
         'amount',
+        'status',
     ];
 
     public function user()

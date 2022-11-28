@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -30,13 +30,28 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->take(10)->get();
+        //change paginete to show how many products do you want to show in product page 
+        $all_products = Product::query();
+        if(!empty($_GET['category'])){
+            $slugs = explode(',',$_GET['category']);
+            $cat_ids = Category::select('id')->whereIn('slug',$slugs)->pluck('id')->toArray();
+            $all_products = $all_products->whereIn('category_id',$cat_ids)->orderby('created_at','DESC')->paginate(9);
+            
+            // $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->paginate(9);
+        }
 
-        return view('product.products', compact('all_products'));
+        else{
+            $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->paginate(9); 
+            // $results = Product::where('Is_active',1)->orderBy('created_at','DESC')->count();
+           
+        }
 
+        // $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->paginate(9);
+        $category = Category::where('status',1)->with('products')->orderBy('name','ASC')->get();
+        return view('product.products', compact('all_products','category'));
+        // dd($all_products,$category);
     }
 
     public function products_by_user($id)
@@ -153,7 +168,7 @@ class ProductController extends Controller
                 $file= $request->file('image');
                 $filename= date('YmdHi').$file->getClientOriginalName();
                 $file-> move(public_path('storage/assets/images/product'), $filename);
-                $request->image = 'assets/images/product/'.$filename;
+                $request->image =  'assets/images/product/'.$filename;
             }catch (\Exception $exp) {
                 $notify[] = ['error', 'Image could not be uploaded.'];
                 return 'image upload error';
@@ -190,22 +205,33 @@ class ProductController extends Controller
         //$user = User::with()
         $product = Product::where('id',$id)->first();
         $ActiveStatus = 0;
-        if($product->Is_active == 0){
-            $product = NULL;
-            return view('product.view', compact('product','ActiveStatus'));
+        if($product != null){
+            if($product->Is_active == 0){
+                $product = NULL;
+                return view('product.view', compact('product','ActiveStatus'));
+            }
+            if(isset($product)){
+                $ActiveStatus = 1;
+                $category = Category::where('id',$product->category_id)->first();
+                $bid_data = Bid::where('product_id',$id)->take(10)->orderBy('amount', 'DESC')->get(); //https://stackoverflow.com/questions/15229303/is-there-a-way-to-limit-the-result-with-eloquent-orm-of-laravel
+                $max_bid = $bid_data->max('amount');
+                $bid_count = Bid::where('product_id',$id)->count();
+                $bid_info =array($bid_count,$max_bid,$bid_data);
+    
+                return view('product.view', compact('product','category','bid_info','ActiveStatus'));
+            }
         }
-        if(isset($product)){
-            $ActiveStatus = 1;
-            $category = Category::where('id',$product->category_id)->first();
-            $bid_data = Bid::where('product_id',$id)->take(10)->orderBy('amount', 'DESC')->get(); //https://stackoverflow.com/questions/15229303/is-there-a-way-to-limit-the-result-with-eloquent-orm-of-laravel
-            $max_bid = $bid_data->max('amount');
-            $bid_count = Bid::where('product_id',$id)->count();
-            $bid_info =array($bid_count,$max_bid,$bid_data);
 
-            return view('product.view', compact('product','category','bid_info','ActiveStatus'));
+        else{
+            // $ActiveStatus = 1;
+            // dd("not a");
+            // $errors="This pro";
+            // return view('product.view', compact('errors','ActiveStatus'));
+            return redirect()->back()->with(\Session::flash('error', 'product id mismatch'));
+
         }
       
-        return view('product.view', compact('product','ActiveStatus'));
+        // return view('product.view', compact('product','ActiveStatus'));
         
     }
     //for update bid and table ajax
@@ -295,8 +321,11 @@ class ProductController extends Controller
         ]);
 
         $product = Product::find($id);
+        $image =  public_path('storage/'.$product->image_path);
         if($product){
-
+            if(File::exists($image)){
+               File::delete($image);
+            }
             if ($request->hasFile('image')) {
                 //if (FileTypeValidate($request->image, ['jpeg', 'jpg', 'png']))
                 try{
@@ -328,6 +357,32 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+        $product = Product::where("id",$id)->first();
+        if($product){
+            // if($product->user_id == Auth::user()->id){
+            //     $image =  ('public/storage/'.$product->image_path);
+            //     if (Storage::exists($image)){
+            //         Storage::delete($image);
+            //     }
+            //     Product::where("id",$id)->delete();
+            //     // BId::where("product_id",$id)->delete()->all();
+            //     return response()->json(null);
+            // }
+            if($product->user_id == Auth::user()->id){
+                $image =  public_path('storage/'.$product->image_path);
+                if (File::exists($image)){
+                    File::delete($image);
+                }
+
+                Product::where("id",$id)->delete();
+                return response()->json(null);
+            }
+            else{
+                echo "USer mismatch";
+            }
+        }else{
+            echo "product not found";
+        }
     }
 
 
@@ -344,14 +399,65 @@ class ProductController extends Controller
         ]);
 
         $count = Bid::where('product_id',$pid)->count()+1;
+        $previous_bids = Bid::where('product_id',$pid)->where('user_id',Auth::User()->id)->where('status',0)->get();
+        foreach($previous_bids as $i){
+            $i->status = 1;
+            $i->update();
+        }
         Bid::create([
             'product_id' =>  $pid,
             'user_id' => Auth::user()->id,
             'amount' => $request->amount,
-            
+            'status' => 0,
         ]);
         Product::where('id',$pid)->update(['total_bid'=>$count]);
+       
 
-        return back()->with(\Session::flash('success', 'Bid Placed Successfully.'));
+        // return back()->with(\Session::flash('success', 'Bid Placed Successfully.'));
+        return response()->json(['success'=>'Bid Placed Successfully.']);
+    }
+
+    public function product_filter(Request $request){
+        // dd($request->all());
+        $data = $request->all();
+
+        $caturl = '';
+        if(!empty($data['category'])){
+            foreach($data['category'] as $category){
+                if(empty($caturl)){
+                    $caturl .= '&category='.$category;
+                }
+
+                else{
+                    $caturl .= ','.$category;
+                }
+            }
+        }
+        return redirect()->route('product.product', $caturl);
+    }
+
+    // public function autosearch(Request $request){
+    //     // dd($request->all());
+    //     $query=$request->get('term', '');
+    //     $products=Product::where('name','LIKE','%'.$query.'%')->get();
+    //     $data=array();
+    //     foreach($products as $product){
+    //         $data[]=array('value'=>$product->name,'id'=>$product->id);
+    //     }
+
+    //     if(count($data)){
+    //         return $data;
+    //     }
+
+    //     else{
+    //         return ['value'=>'NO Result Found','id'=>''];
+    //     }
+    // }
+
+    public function search(Request $request){
+        $query = $request->input('query');
+        $all_products = Product::where('name','LIKE','%'.$query.'%')->orderBy('id','DESC')->paginate(9);
+        $category = Category::where('status',1)->with('products')->orderBy('name','ASC')->get();
+        return view('product.products',compact('all_products','category'));
     }
 }

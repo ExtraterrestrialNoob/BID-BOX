@@ -9,8 +9,8 @@ use App\Models\Product;
 
 class Category extends Model
 {
-    public function Category(){
-        return $this->belongsTo(Product::class);
+    public function products(){
+        return $this->hasMany(Product::class);
     }
 }
 
