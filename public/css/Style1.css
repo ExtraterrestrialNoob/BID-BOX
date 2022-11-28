@@ -1,0 +1,52 @@
+/* Registration Success Confirmation Styles */
+
+.rsc1 {
+    background-color: #B85CFF;
+    color: #ffffff;
+    padding: 0 5px;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .rcs2{
+    color: #AB274F;
+  }
+
+.bgimage{
+    background-image: url('/assets/images/frontend/register_success/register_success.jpg')
+}
+
+
+.glseffect{
+/* From https://css.glass */
+background: rgba(245, 245, 245, 0.41);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(4.8px);
+-webkit-backdrop-filter: blur(4.8px);
+border: 1px solid rgba(194, 58, 221, 0.97);
+margin: auto;
+width: 90%;
+height: 99%;
+}
+
+body {
+  background: #654ea3;
+  background: linear-gradient(to right, #610C63, #810955);
+  min-height: 100vh;
+  overflow-x:hidden;
+}
+
+.filter-widget{
+  position: relative;
+  padding: 30px;
+  background-color:white;
+}
+
+.bg--body{
+  background-color:white;
+  position: relative;
+  padding: 10px;
+}
