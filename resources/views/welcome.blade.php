@@ -44,7 +44,7 @@
     <!-- Header Section Begin -->
     <header class="header">
         <div class="header__top">
-            <div class="container">
+            <div class="container" >
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
@@ -159,7 +159,9 @@
     <!-- Hero Section Begin -->
     <section >
         <div class="container">
-            <div class="d-flex align-items-center justify-content-center">
+            <div class="d-flex align-items-center justify-content-center" style="
+    padding-top: 50px;
+">
                 
                 <div class="col-lg-9">
                     <div class="hero__search d-flex align-items-center justify-content-center ">
