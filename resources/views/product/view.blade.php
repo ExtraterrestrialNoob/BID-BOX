@@ -363,25 +363,27 @@
                     @else
                     <div class="product__details__price">Current Bid Price: <span id="current_bid_price">Rs.{{ $bid_info[1] }}</span></div>
                     @endif
-                         @auth {{-- Check if user is logged in and is user the owner of this product --}}
-                        @if(Auth::user()->id != $product->user_id)
+                        
                          <div class="card_area d-flex align-items-center" id="bid-form">
-                        <div class="col-auto">
-                            <label for="amount" class="visually-hidden"></label>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">Rs</div>
+                        @auth {{-- Check if user is logged in and is user the owner of this product --}}
+                            @if(Auth::user()->id != $product->user_id)
+                                <div class="col-auto">
+                                    <label for="amount" class="visually-hidden"></label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Rs</div>
+                                        </div>
+                                        <input id="amount" name="amount" type="number" class="form-control" step="any" placeholder="Enter Your Amount" oninput="validatebid()">
+                                    </div>
                                 </div>
-                                <input id="amount" name="amount" type="number" class="form-control" step="any" placeholder="Enter Your Amount" oninput="validatebid()">
+                                <div class="col-lg-0 pt-1">
+                                    <button type="" class="btn btn-primary mb-3 disabled" id="bidbtn" onclick="isconfirm()"> BID NOW </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-0 pt-1">
-                            <button type="" class="btn btn-primary mb-3 disabled" id="bidbtn" onclick="isconfirm()"> BID NOW </button>
-                        </div>
-                        @endif
+                            @endif
                         @endauth
                         
-                    </div>
+                    
                     <h6 id="warning_price" style="display:none;color:red;"></p></h6>
                     <h5>Total Bids:<span id="total_bids">{{ $bid_info[0] }}</span> </span></h5>
                     </div>
@@ -522,7 +524,7 @@
 
                 document.getElementById('timer').style.color = 'red';
                 document.getElementById('timer').innerHTML = "Product Expired";
-                //document.getElementById('bid-form').remove();
+                document.getElementById('bid-form').remove();
                 clearInterval(x);
             }
 
