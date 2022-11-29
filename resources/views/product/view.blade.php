@@ -522,7 +522,7 @@
 
                 document.getElementById('timer').style.color = 'red';
                 document.getElementById('timer').innerHTML = "Product Expired";
-                document.getElementById('bid-form').remove();
+                //document.getElementById('bid-form').remove();
                 clearInterval(x);
             }
 
@@ -642,5 +642,8 @@
             }
         })
     }
+
+
+    validate_layout();
 </script>
 @endisset
