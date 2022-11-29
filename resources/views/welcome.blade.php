@@ -241,7 +241,7 @@
                         </ul>
                     </nav> -->
 
-                    <nav class="header__menu d-flex justify-between">
+                    <nav class="header__menu ">
                 <ul>
                 <li class="active"><a href="{{ url('/') }}">Home</a></li>
                 <li><a href="{{ route('product.product')}}">Products</a></li>
@@ -331,7 +331,7 @@
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
+                            <h6><a href="{{route('product.view', $i->id )}}">{{$i->name}}</a></h6>
                             <h5>$30.00</h5>
                         </div>
                     </div>
