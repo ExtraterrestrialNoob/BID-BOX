@@ -34,49 +34,48 @@ class ProductController extends Controller
     {
         //change paginete to show how many products do you want to show in product page 
         $all_products = Product::query();
+
         if(!empty($_GET['category'])){
-            // dd($_GET['category']);
             $slugs = explode(',',$_GET['category']);
-            // dd($slugs);
-            $cat_ids = Category::select('id')->where('slug',$slugs)->pluck('id')->toArray();
-            // dd($cat_ids);
-            $all_products = Product::where(['Is_active'=>1, 'is_expired'=> 0])->whereIn('category_id',$cat_ids)->orderby('created_at','DESC')->paginate(9);
-            // dd($all_products);
-            // $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->paginate(9);
+            $cat_ids = Category::select('id')->whereIn('slug',$slugs)->pluck('id')->toArray();
+            $all_products = $all_products->whereIn('category_id',$cat_ids);
         }
 
         if(!empty($_GET['sortBy'])){
             $sort=$_GET['sortBy'];
             if($sort=='lth'){
-                $all_products=Product::where(['is_active'=>1 , 'is_expired'=> 0])->orderBy('price','ASC')->paginate(9);
+                $all_products= $all_products->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('price','ASC')->paginate(9);
             }
-            elseif($sort=='htl'){
-                $all_products=Product::where(['is_active'=>1, 'is_expired'=> 0])->orderBy('price','DESC')->paginate(9);
+            if($sort=='htl'){
+                $all_products= $all_products->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('price','DESC')->paginate(9);
             }
-            elseif($sort=='acs'){
-                $all_products=Product::where(['is_active'=>1, 'is_expired'=> 0])->orderBy('name','ASC')->paginate(9);
+            if($sort=='acs'){
+                $all_products= $all_products->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('name','ASC')->paginate(9);
             }
-            elseif($sort=='desc'){
-                $all_products=Product::where(['is_active'=>1, 'is_expired'=> 0])->orderBy('name','DESC')->paginate(9);
+            if($sort=='desc'){
+                $all_products= $all_products->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('name','DESC')->paginate(9);
             }
-            else{
-                $all_products = Product::where(['Is_active'=>1, 'is_expired'=> 0])->orderBy('created_at','DESC')->paginate(9); 
-                // $results = Product::where('Is_active',1)->orderBy('created_at','DESC')->count();
-               
+            if($sort=='let'){
+                $all_products= $all_products->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('created_at','DESC')->paginate(9);
             }
-            
+            if($sort=='old'){
+                $all_products= $all_products->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('created_at','ASC')->paginate(9);
+            }
+        
+             
         }
 
-        // if(!empty($_GET['min']) && !empty($_GET['max'])){
-        //     $min = (float)$_GET['min'];
-        //     $max = (float)$_GET['max'];
-        //     // dd($max);
-        //     $all_products=Product::whereBetween('price',[$min,$max])->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('created_at','DESC')->paginate(9);
-        // }
+        if(!empty($_GET['min']) && !empty($_GET['max'])){
+            $min = (float)$_GET['min'];
+            $max = (float)$_GET['max'];
+            // dd($max,$min);
+            $all_products= $all_products->whereBetween('price',[$min,$max])->where(['is_active'=>1, 'is_expired'=> 0])->paginate(9);
+            dd($all_products);
+        }
         
 
         else{
-            $all_products = Product::where(['Is_active'=>1, 'is_expired'=> 0])->orderBy('created_at','DESC')->paginate(9); 
+            $all_products =  $all_products->where(['Is_active'=>1, 'is_expired'=> 0])->orderBy('created_at','DESC')->paginate(9); 
             // $results = Product::where('Is_active',1)->orderBy('created_at','DESC')->count();
            
         }
@@ -478,14 +477,15 @@ class ProductController extends Controller
         }
 
         // //price filter
-        // $price_range_Url="";
-        // if(!empty($data['min'] && $data['max'])){
-        //     // dd($data['min']);
-        //      $price_range_Url .= '&min='.$data['min'].',max='.$data['max'];
+        $price_range_Url="";
+        if(!empty($data['min'] && $data['max'])){
+            // dd($data['min']);
+             $price_range_Url .= '&min='.$data['min'].'&max='.$data['max'];
 
-        // }
+        }
+        // dd($price_range_Url);
 
-        return \redirect()->route('product.product', $caturl.$sortByUrl);
+        return \redirect()->route('product.product', $caturl.$sortByUrl.$price_range_Url);
     }
 
     // public function autosearch(Request $request){

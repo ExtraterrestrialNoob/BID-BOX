@@ -265,8 +265,7 @@
     <section >
         <div class="container">
             <div class="d-flex align-items-center justify-content-center" style="
-    padding-top: 50px;
-">
+    padding-top: 50px;">
                 
                 <div class="col-lg-12">
                     <div class="hero__search d-flex align-items-center justify-content-center ">
@@ -408,11 +407,13 @@
                                 <div class="filter__sort">
                                     <span>Sort By</span>
                                     <select id="sortBy" name="sortBy" onchange="this.form.submit();">
-                                        <option selected value="no">Default Sort</option>
+                                        <option value=" ">Default Sort</option>
                                         <option value="lth" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='lth') selected @endif>Price - Lower To Heigher</option>
                                         <option value="htl"@if(!empty($_GET['sortBy']) && $_GET['sortBy']=='htl') selected @endif>Price - Heigher To Lower</option>
                                         <option value="acs"@if(!empty($_GET['sortBy']) && $_GET['sortBy']=='acs') selected @endif>Alphabetical Ascending</option>
                                         <option value="desc" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='desc') selected @endif>Alphabetical Descending</option>
+                                        <option value="let" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='let') selected @endif>Leatest</option>
+                                        <option value="old" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='odl') selected @endif>Oldest</option>
                                     </select>
                                 </div>
                             </div>
@@ -429,7 +430,7 @@
                             </div>
 
                         </div>
-                    </form>
+                    
                     </div>
                     <div class="row">
                     @foreach($all_products as $i)
@@ -451,6 +452,7 @@
                     </div>
                 </div>
             </div>
+            </form>
         </div>
     </section>
     <!-- Product Section End -->
