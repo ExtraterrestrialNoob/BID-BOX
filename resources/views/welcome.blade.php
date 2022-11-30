@@ -72,13 +72,13 @@
                                 <!-- <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"> -->
                                 <!-- <span class="arrow_carrot-down"></span> -->
                                     <ul>
-                                        <li  href="{{route('user.user')}}" ><a> <i class="fa-sharp fa-solid fa-circle-user "></i> Profile </a></li>
+                                        <li><a href="{{route('user.user')}}"> <i class="fa-sharp fa-solid fa-circle-user "></i> Profile </a></li>
 
-                                        <li  href="{{route('user.user.history', Auth::user()->id)}}" ><a><i class="fa-sharp fa-solid fa-gavel"></i> My Bids </a></li>
+                                        <li><a href="{{route('user.user.history', Auth::user()->id)}}" ><i class="fa-sharp fa-solid fa-gavel"></i> My Bids </a></li>
 
-                                        <li  href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        <a><i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
+                                        <li>
+                                        <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
                                         </a></li>
 
                                     </ul>
@@ -190,13 +190,13 @@
                                 <!-- <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"> -->
                                 <!-- <span class="arrow_carrot-down"></span> -->
                                     <ul>
-                                        <li  href="{{route('user.user')}}" ><a> <i class="fa-sharp fa-solid fa-circle-user "></i> Profile </a></li>
+                                        <li><a href="{{route('user.user')}}"> <i class="fa-sharp fa-solid fa-circle-user "></i> Profile </a></li>
 
-                                        <li  href="{{route('user.user.history', Auth::user()->id)}}" ><a> <i class="fa-sharp fa-solid fa-gavel"></i> My Bids </a></li>
+                                        <li><a href="{{route('user.user.history', Auth::user()->id)}}" ><i class="fa-sharp fa-solid fa-gavel"></i> My Bids </a></li>
 
-                                        <li  href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        <a><i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
+                                        <li>
+                                        <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
                                         </a></li>
 
                                     </ul>

@@ -35,22 +35,60 @@ class ProductController extends Controller
         //change paginete to show how many products do you want to show in product page 
         $all_products = Product::query();
         if(!empty($_GET['category'])){
+            // dd($_GET['category']);
             $slugs = explode(',',$_GET['category']);
-            $cat_ids = Category::select('id')->whereIn('slug',$slugs)->pluck('id')->toArray();
-            $all_products = $all_products->whereIn('category_id',$cat_ids)->orderby('created_at','DESC')->paginate(9);
-            
+            // dd($slugs);
+            $cat_ids = Category::select('id')->where('slug',$slugs)->pluck('id')->toArray();
+            // dd($cat_ids);
+            $all_products = Product::where(['Is_active'=>1, 'is_expired'=> 0])->whereIn('category_id',$cat_ids)->orderby('created_at','DESC')->paginate(9);
+            // dd($all_products);
             // $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->paginate(9);
         }
 
+        if(!empty($_GET['sortBy'])){
+            $sort=$_GET['sortBy'];
+            if($sort=='lth'){
+                $all_products=Product::where(['is_active'=>1 , 'is_expired'=> 0])->orderBy('price','ASC')->paginate(9);
+            }
+            elseif($sort=='htl'){
+                $all_products=Product::where(['is_active'=>1, 'is_expired'=> 0])->orderBy('price','DESC')->paginate(9);
+            }
+            elseif($sort=='acs'){
+                $all_products=Product::where(['is_active'=>1, 'is_expired'=> 0])->orderBy('name','ASC')->paginate(9);
+            }
+            elseif($sort=='desc'){
+                $all_products=Product::where(['is_active'=>1, 'is_expired'=> 0])->orderBy('name','DESC')->paginate(9);
+            }
+            else{
+                $all_products = Product::where(['Is_active'=>1, 'is_expired'=> 0])->orderBy('created_at','DESC')->paginate(9); 
+                // $results = Product::where('Is_active',1)->orderBy('created_at','DESC')->count();
+               
+            }
+            
+        }
+
+        // if(!empty($_GET['min']) && !empty($_GET['max'])){
+        //     $min = (float)$_GET['min'];
+        //     $max = (float)$_GET['max'];
+        //     // dd($max);
+        //     $all_products=Product::whereBetween('price',[$min,$max])->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('created_at','DESC')->paginate(9);
+        // }
+        
+
         else{
-            $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->paginate(9); 
+            $all_products = Product::where(['Is_active'=>1, 'is_expired'=> 0])->orderBy('created_at','DESC')->paginate(9); 
             // $results = Product::where('Is_active',1)->orderBy('created_at','DESC')->count();
            
         }
+        // if(!is_null(Product::first())){
+            
+            $max=Product::get('price')->max()->price;
+            $min=Product::get('price')->min()->price;
+        // }
 
-        // $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->paginate(9);
         $category = Category::where('status',1)->with('products')->orderBy('name','ASC')->get();
-        return view('product.products', compact('all_products','category'));
+        return view('product.products', compact('all_products','category','max','min'));
+        // $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->paginate(9);
         // dd($all_products,$category);
     }
 
@@ -408,7 +446,6 @@ class ProductController extends Controller
             'product_id' =>  $pid,
             'user_id' => Auth::user()->id,
             'amount' => $request->amount,
-            'status' => 0,
         ]);
         Product::where('id',$pid)->update(['total_bid'=>$count]);
        
@@ -420,7 +457,7 @@ class ProductController extends Controller
     public function product_filter(Request $request){
         // dd($request->all());
         $data = $request->all();
-
+        // category filter
         $caturl = '';
         if(!empty($data['category'])){
             foreach($data['category'] as $category){
@@ -433,7 +470,22 @@ class ProductController extends Controller
                 }
             }
         }
-        return redirect()->route('product.product', $caturl);
+
+        // sort filter
+        $sortByUrl="";
+        if(!empty($data['sortBy'])){
+            $sortByUrl .='&sortBy='.$data['sortBy'];
+        }
+
+        // //price filter
+        // $price_range_Url="";
+        // if(!empty($data['min'] && $data['max'])){
+        //     // dd($data['min']);
+        //      $price_range_Url .= '&min='.$data['min'].',max='.$data['max'];
+
+        // }
+
+        return \redirect()->route('product.product', $caturl.$sortByUrl);
     }
 
     // public function autosearch(Request $request){

@@ -4,6 +4,7 @@
     <meta name="keywords" content="BID-BOX">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>BID-BOX</title>
 
     <!-- Google Font -->
@@ -73,13 +74,13 @@
                                 <!-- <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"> -->
                                 <!-- <span class="arrow_carrot-down"></span> -->
                                     <ul>
-                                        <li  href="{{route('user.user')}}" ><a> <i class="fa-sharp fa-solid fa-circle-user "></i> Profile </a></li>
+                                        <li><a href="{{route('user.user')}}"> <i class="fa-sharp fa-solid fa-circle-user "></i> Profile </a></li>
 
-                                        <li  href="{{route('user.user.history', Auth::user()->id)}}" ><a><i class="fa-sharp fa-solid fa-gavel"></i> My Bids </a></li>
+                                        <li><a href="{{route('user.user.history', Auth::user()->id)}}" ><i class="fa-sharp fa-solid fa-gavel"></i> My Bids </a></li>
 
-                                        <li  href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        <a><i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
+                                        <li>
+                                        <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
                                         </a></li>
 
                                     </ul>
@@ -190,14 +191,14 @@
 
                                 <!-- <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"> -->
                                 <!-- <span class="arrow_carrot-down"></span> -->
-                                    <ul>
-                                        <li  href="{{route('user.user')}}" ><a> <i class="fa-sharp fa-solid fa-circle-user "></i> Profile </a></li>
+                                <ul>
+                                        <li><a href="{{route('user.user')}}"> <i class="fa-sharp fa-solid fa-circle-user "></i> Profile </a></li>
 
-                                        <li  href="{{route('user.user.history', Auth::user()->id)}}" ><a> <i class="fa-sharp fa-solid fa-gavel"></i> My Bids </a></li>
+                                        <li><a href="{{route('user.user.history', Auth::user()->id)}}" ><i class="fa-sharp fa-solid fa-gavel"></i> My Bids </a></li>
 
-                                        <li  href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        <a><i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
+                                        <li>
+                                        <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
                                         </a></li>
 
                                     </ul>
@@ -364,8 +365,9 @@
                     <div class="product__details__price">Current Bid Price: <span id="current_bid_price">Rs.{{ $bid_info[1] }}</span></div>
                     @endif
                         
-                         <div class="card_area d-flex align-items-center" id="bid-form">
-                        @auth {{-- Check if user is logged in and is user the owner of this product --}}
+                    <div class="card_area d-flex align-items-center" id="bid-form">
+                    
+                        @auth
                             @if(Auth::user()->id != $product->user_id)
                                 <div class="col-auto">
                                     <label for="amount" class="visually-hidden"></label>
@@ -464,11 +466,11 @@
 
 
 <!-- Js Plugins -->
-<script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
+    <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/jquery.nice-select.min.js')}}"></script>
     <script src="{{asset('js/jquery-ui.min.js')}}"></script>
-    <script src="{{asset('js/jquery.slicknav.js')}}"></script>
+    <script src="{{asset('js/jquery.slicknav.js')}}"></script> 
     <script src="{{asset('js/mixitup.min.js')}}"></script>
     <script src="{{asset('js/owl.carousel.min.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>
@@ -646,6 +648,7 @@
     }
 
 
-    validate_layout();
+validate_layout();
+
 </script>
 @endisset

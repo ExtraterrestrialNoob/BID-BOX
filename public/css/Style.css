@@ -1092,12 +1092,12 @@ ol {
 	position: relative;
 }
 
-.price-range-wrap .range-slider .price-input:after {
+.price-range-wrap .range-slider .price-input:after a{
 	position: absolute;
-	left: 38px;
+	left: 75px;
 	top: 13px;
 	height: 1px;
-	width: 5px;
+	width: 7px;
 	background: #dd2222;
 	content: "";
 }
@@ -1106,7 +1106,7 @@ ol {
 	font-size: 16px;
 	color: #dd2222;
 	font-weight: 700;
-	max-width: 20%;
+	max-width: 40%;
 	border: none;
 	display: inline-block;
 }
