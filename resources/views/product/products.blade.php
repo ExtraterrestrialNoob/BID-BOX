@@ -326,7 +326,7 @@
                                         <a> RS</a>
                                         <input type="text" id="minamount" value="min" name="min">
                                         <a> RS</a>
-                                        <input type="text" id="maxamount" value="max" name="max">
+                                        <input type="text" id="maxamount" value="max"  name="max">
                                     </div>
                                     <button type="submit" class="btn btn-danger">filter</button>
                                 </div>

@@ -44,33 +44,33 @@ class ProductController extends Controller
         if(!empty($_GET['sortBy'])){
             $sort=$_GET['sortBy'];
             if($sort=='lth'){
-                $all_products= $all_products->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('price','ASC')->paginate(9);
+                $all_products= $all_products->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('price','ASC');
             }
             if($sort=='htl'){
-                $all_products= $all_products->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('price','DESC')->paginate(9);
+                $all_products= $all_products->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('price','DESC');
             }
             if($sort=='acs'){
-                $all_products= $all_products->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('name','ASC')->paginate(9);
+                $all_products= $all_products->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('name','ASC');
             }
             if($sort=='desc'){
-                $all_products= $all_products->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('name','DESC')->paginate(9);
+                $all_products= $all_products->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('name','DESC');
             }
             if($sort=='let'){
-                $all_products= $all_products->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('created_at','DESC')->paginate(9);
+                $all_products= $all_products->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('created_at','DESC');
             }
             if($sort=='old'){
-                $all_products= $all_products->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('created_at','ASC')->paginate(9);
+                $all_products= $all_products->where(['is_active'=>1, 'is_expired'=> 0])->orderBy('created_at','ASC');
             }
         
-             
+            
         }
-
+        
         if(!empty($_GET['min']) && !empty($_GET['max'])){
             $min = (float)$_GET['min'];
             $max = (float)$_GET['max'];
             // dd($max,$min);
             $all_products= $all_products->whereBetween('price',[$min,$max])->where(['is_active'=>1, 'is_expired'=> 0])->paginate(9);
-            dd($all_products);
+            // dd($all_products);
         }
         
 
