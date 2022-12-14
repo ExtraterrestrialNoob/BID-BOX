@@ -278,9 +278,7 @@
     <!-- Hero Section Begin -->
     <section >
         <div class="container">
-            <div class="d-flex align-items-center justify-content-center" style="
-    padding-top: 50px;
-">
+            <div class="d-flex align-items-center justify-content-center" style="padding-top: 50px;">
                 
                 <div class="col-lg-12">
                     <div class="hero__search d-flex align-items-center justify-content-center ">

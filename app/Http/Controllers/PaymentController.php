@@ -2,10 +2,12 @@
   
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\product;
 use App\Models\Bid;
 use Illuminate\Http\Request;
 use Omnipay\Omnipay;
 use App\Models\Payment;
+use App\Models\Product as ModelsProduct;
 use App\Models\winner;
 use Intervention\Image\Gd\Commands\WidenCommand;
 
@@ -27,14 +29,19 @@ class PaymentController extends Controller
     {
         $win_id = $wid;
         $data = winner::where('id',$wid)->with('bid','user')->first();
-        // dd($data);
-        // echo $data;
-        return view('payment.payment',compact('win_id'));
+        $dis = ModelsProduct::where('id',$data->product_id)->first();
+        $bid = $data->bid->amount;
+        // dd($dis);
+        // echo($dis) ;
+        echo $bid;
+        return view('payment.payment',compact('win_id','dis','bid'));
     }
  
     public function process(Request $request, $win_id)
     {
         $data = winner::where('id',$win_id)->with('bid','user')->first();
+        $dis = ModelsProduct::where('id',$data->product_id)->get('name');
+        // dd($dis);
         if($request->input('stripeToken'))
         {
             $token = $request->input('stripeToken');
@@ -43,7 +50,7 @@ class PaymentController extends Controller
                 // 'amount' => Bid::where('id',winner::where('id',$wid)->get('amount')),
                 'amount'=>$data->bid->amount,
                 'currency' => env('STRIPE_CURRENCY'),
-                'description' => 'This is a X purchase transaction.',
+                'description' => $dis,
                 'token' => $token,
                 'returnUrl' => $this->completePaymentUrl.'/'.$win_id,
                 'confirm' => true,
@@ -53,7 +60,7 @@ class PaymentController extends Controller
  
             if($response->isSuccessful())
             {
-                // dd();
+                // dd($response);
                 $response = $this->gateway->capture([
                     'amount' => $data->bid->amount,
                     'currency' => env('STRIPE_CURRENCY'),
@@ -63,14 +70,14 @@ class PaymentController extends Controller
                     // echo ($response->paymentIntentReference);
                 // echo $response->data;
                 $arr_payment_data = $response->getData();
-                // dd($arr_payment_data);
+                // dd($arr_payment_data['charges']['data'][0]['receipt_url']);
                 $this->store_payment([     
                     'payment_id' => $arr_payment_data['id'],
                     // 'email' => $data->user->email, 
                     'amount' => $arr_payment_data['amount']/100,
                     'currency' => env('STRIPE_CURRENCY'),
                     'status' => $arr_payment_data['status'],
-                    // 'receipt_url' => $arr_payment_data['receipt_url'],
+                    'receipt_url' => $arr_payment_data['charges']['data'][0]['receipt_url'],
                 ]);
  
                 return redirect("payment/".$win_id)->with("success", "Payment is successful. Your payment id is: ". $arr_payment_data['id']);
@@ -98,7 +105,7 @@ class PaymentController extends Controller
             'returnUrl' => $this->completePaymentUrl.'/'.$win_id,
             
         ])->send();
-         
+        //  dd($response);
         if($response->isSuccessful())
         {
             $response = $this->gateway->capture([
@@ -116,7 +123,7 @@ class PaymentController extends Controller
                 'amount' => $arr_payment_data['amount']/100,
                 'currency' => env('STRIPE_CURRENCY'),
                 'status' => $arr_payment_data['status'],
-                // 'receipt_url' => $arr_payment_data['receipt_url'],
+                'receipt_url' => $arr_payment_data['charges']['data'][0]['receipt_url'],
             ]);
  
             return redirect("payment/".$win_id)->with("success", "Payment is successful. Your payment id is: ". $arr_payment_data['id']);
@@ -139,7 +146,7 @@ class PaymentController extends Controller
             $payment->amount = $arr_data['amount'];
             $payment->currency = env('STRIPE_CURRENCY');
             $payment->status = $arr_data['status'];
-            // $payment->receipt_url = $arr_data['receipt_url'];
+            $payment->receipt_url = $arr_data['receipt_url'];
             $payment->save();
         }
     }
