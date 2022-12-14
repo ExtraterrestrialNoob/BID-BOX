@@ -40,7 +40,8 @@ class PaymentController extends Controller
     public function process(Request $request, $win_id)
     {
         $data = winner::where('id',$win_id)->with('bid','user')->first();
-        $dis = ModelsProduct::where('id',$data->product_id)->get('name');
+        $dis = ModelsProduct::where('id',$data->product_id)->first();
+        // dd($dis->name);
         // dd($dis);
         if($request->input('stripeToken'))
         {
@@ -50,7 +51,7 @@ class PaymentController extends Controller
                 // 'amount' => Bid::where('id',winner::where('id',$wid)->get('amount')),
                 'amount'=>$data->bid->amount,
                 'currency' => env('STRIPE_CURRENCY'),
-                'description' => $dis,
+                'description' => $dis->name,
                 'token' => $token,
                 'returnUrl' => $this->completePaymentUrl.'/'.$win_id,
                 'confirm' => true,
