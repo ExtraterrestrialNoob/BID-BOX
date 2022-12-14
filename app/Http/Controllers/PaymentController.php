@@ -9,6 +9,7 @@ use Omnipay\Omnipay;
 use App\Models\Payment;
 use App\Models\Product as ModelsProduct;
 use App\Models\winner;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Gd\Commands\WidenCommand;
 
 class PaymentController extends Controller
@@ -33,7 +34,7 @@ class PaymentController extends Controller
         $bid = $data->bid->amount;
         // dd($dis);
         // echo($dis) ;
-        echo $bid;
+        // echo $bid;
         return view('payment.payment',compact('win_id','dis','bid'));
     }
  
@@ -81,7 +82,7 @@ class PaymentController extends Controller
                     'receipt_url' => $arr_payment_data['charges']['data'][0]['receipt_url'],
                 ]);
  
-                return redirect("payment/".$win_id)->with("success", "Payment is successful. Your payment id is: ". $arr_payment_data['id']);
+                return redirect("user/history/".Auth::user()->id)->with("success", "Payment is successful. Your payment id is: ". $arr_payment_data['id']);
             }
             elseif($response->isRedirect())
             {
@@ -90,7 +91,7 @@ class PaymentController extends Controller
             }
             else
             {
-                return redirect("payment/".$win_id)->with("error", $response->getMessage());
+                return redirect("user/history/".Auth::user()->id)->with("error", $response->getMessage());
             }
         }
 

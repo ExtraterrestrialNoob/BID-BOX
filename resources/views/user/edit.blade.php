@@ -1,6 +1,8 @@
-@extends('user.layout.app')
+@extends('layouts.app')
 @section('content')
 <div class="container rounded bg-white mt-5 mb-5">
+    <fieldset class="border p-2" >
+        <legend class="w-auto">Profile</legend>
 <form method="POST" action="{{ url('user/update/'.$user_data->id) }}" enctype="multipart/form-data">
 @csrf
 @method('PUT')
@@ -44,9 +46,10 @@
         </form>
         <div class="col-md-4">
             <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center experience"><span>Password Reset</span><span class="border px-3 p-1 add-experience"><a class="fa fa-plus" href="{{ route('password.request') }}">&nbsp;Password Reset</a></span></div><br>
+                <div class="d-flex justify-content-between align-items-center experience"><span>Password Reset</span><span ><a class="btn btn-outline-dark btn-sm btn-block"" href="{{ route('password.request') }}">Password Reset</a></span></div><br>
             </div>
         </div>
+    </fieldset>
     </div>
 </div>
 </div>

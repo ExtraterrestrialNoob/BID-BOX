@@ -1,124 +1,276 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
-    <!-- Required meta tags-->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Colorlib Templates">
-    <meta name="author" content="Colorlib">
-    <meta name="keywords" content="Colorlib Templates">
+    <meta name="description" content="BID-BOX">
+    <meta name="keywords" content="BID-BOX">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BID-BOX</title>
 
-    <!-- Title Page-->
-    <title>Au Register Forms by Colorlib</title>
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
-    <!-- Icons font CSS-->
-    <link href="register/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-    <link href="register/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <!-- Font special for pages-->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{asset('css/elegant-icons.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{asset('css/nice-select.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{asset('css/jquery-ui.min.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{asset('css/slicknav.min.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('assets/product/css/timer.css')}}">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css">
 
-    <!-- Vendor CSS-->
-    <link href="register/vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="register/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
 
-    <!-- Main CSS-->
-    <link href="register/css/main.css" rel="stylesheet" media="all">
+       
 </head>
 
 <body>
-    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
-        <div class="wrapper wrapper--w680">
-            <div class="card card-4">
-                <div class="card-body">
-                    <h2 class="title">Registration Form</h2>
-                    <form method="POST">
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">first name</label>
-                                    <input class="input--style-4" type="text" name="first_name">
+    <!-- Page Preloder -->
+    <!-- <div id="preloder">
+        <div class="loader"></div>
+    </div> -->
+
+    <!-- Humberger Begin -->
+    <div class="humberger__menu__overlay"></div>
+    <div class="humberger__menu__wrapper">
+        <div class="humberger__menu__logo">
+            <a href="#"><img src="{{url('assets/images/logoIcon/logo.png')}}" alt=""></a>
+        </div>
+
+        <div class="humberger__menu__widget">
+            <!-- <div class="header__top__right__language">
+                <img src="img/language.png" alt="">
+                <div>English</div>
+                <span class="arrow_carrot-down"></span>
+                <ul>
+                    <li><a href="#">Spanis</a></li>
+                    <li><a href="#">English</a></li>
+                </ul>
+            </div> -->
+            <nav class="header__top__right__auth">
+                                <!-- <a href="#"><i class="fa fa-user"></i> Login</a> -->
+                                <ul >
+                        <!-- Authentication Links -->
+                        @guest
+                            @if (Route::has('login'))
+                                <li>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                            @endif
+
+                            @if (Route::has('register'))
+                                <div class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">last name</label>
-                                    <input class="input--style-4" type="text" name="last_name">
-                                </div>
-                            </div>
+                            @endif
+                        @else
+                        <nav class="humberger__menu__nav mobile-menu">
+                                <!-- <a id="navbarDropdown" class="nav-link dropdown-toggle" href="user" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre> -->
+                                <li class="fa-sharp fa-solid fa-circle-user "></li> {{ Auth::user()->name }} 
+                                <!-- </a> -->
+
+                                <!-- <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"> -->
+                                <!-- <span class="arrow_carrot-down"></span> -->
+                                    <ul>
+                                        <li><a href="{{route('user.user')}}"> <i class="fa-sharp fa-solid fa-circle-user "></i> Profile </a></li>
+
+                                        <li><a href="{{route('user.user.history', Auth::user()->id)}}" ><i class="fa-sharp fa-solid fa-gavel"></i> My Bids </a></li>
+
+                                        <li>
+                                        <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
+                                        </a></li>
+
+                                    </ul>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+
+                                    <form id="profile-form" action="{{ route('user.user')}}" class="d-none">
+                                        @csrf
+                                    </form>
+                                <!-- </div> -->
+                    </nav>
+                        @endguest
+                    </ul>
+
+            </nav>
+        </div>
+        <nav class="humberger__menu__nav mobile-menu">
+            <ul>
+                <li class="active"><a href="{{ url('/') }}">Home</a></li>
+                <li><a href="{{ route('product.product')}}">Products</a></li>
+                @guest
+                @else
+                    @if(Auth::user()->role_id==3) 
+                    <li><a href="{{route('product.products', Auth::user()->id )}}">My Products</a></li>
+                    <li><a href="{{route('product.product.create')}}">Add Products</a></li>
+                    @endif
+                    <li><a href="{{route('user.user.history', Auth::user()->id)}}">Bid History</a></li>
+                    <!-- <li><a href="#">Pages</a>
+                    <ul class="header__menu__dropdown">
+                        <li><a href="./shop-details.html">Shop Details</a></li>
+                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                        <li><a href="./checkout.html">Check Out</a></li>
+                        <li><a href="./blog-details.html">Blog Details</a></li>
+                    </ul>
+                </li> -->
+                <!-- <li><a href="./blog.html">Blog</a></li> -->
+                <!-- <li><a href="./contact.html">Contact</a></li> -->
+            @endguest
+            </ul>
+        </nav>
+        <div id="mobile-menu-wrap"></div>
+        <div class="header__top__right__social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+        </div>
+        <div class="humberger__menu__contact">
+            <ul>
+                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                <li>Free Shipping for all Order of $99</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Humberger End -->
+    
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container" >
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="header__top__left">
+                            <ul>
+                                <li><i class="fa fa-envelope"></i> alfgayan@gmail.com</li>
+                            </ul>
                         </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Birthday</label>
-                                    <div class="input-group-icon">
-                                        <input class="input--style-4 js-datepicker" type="text" name="birthday">
-                                        <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
-                                    </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="header__top__right">
+                            <div class="header__top__right__social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                            </div>
+                            <!-- <div class="header__top__right__language">
+                                <img src="img/language.png" alt="">
+                                <div>English</div>
+                                <span class="arrow_carrot-down"></span>
+                                <ul>
+                                    <li><a href="#">Spanis</a></li>
+                                    <li><a href="#">English</a></li>
+                                </ul>
+                            </div> -->
+                            <div class="header__top__right__auth">
+                                <!-- <a href="#"><i class="fa fa-user"></i> Login</a> -->
+                                <ul style="display: flex;">
+                        <!-- Authentication Links -->
+                        @guest
+                            @if (Route::has('login'))
+                                <div class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Gender</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Male
-                                            <input type="radio" checked="checked" name="gender">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container">Female
-                                            <input type="radio" name="gender">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
+                            @endif
+
+                            @if (Route::has('register'))
+                                <div class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </div>
+                            @endif
+                        @else
+                            <div class="header__top__right__language">
+                                <!-- <a id="navbarDropdown" class="nav-link dropdown-toggle" href="user" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre> -->
+                                <div class="fa-sharp fa-solid fa-circle-user "></div> {{ Auth::user()->name }} 
+                                <!-- </a> -->
+
+                                <!-- <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"> -->
+                                <!-- <span class="arrow_carrot-down"></span> -->
+                                    <ul>
+                                        <li><a href="{{route('user.user')}}"> <i class="fa-sharp fa-solid fa-circle-user "></i> Profile </a></li>
+
+                                        <li><a href="{{route('user.user.history', Auth::user()->id)}}" ><i class="fa-sharp fa-solid fa-gavel"></i> My Bids </a></li>
+
+                                        <li>
+                                        <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
+                                        </a></li>
+
+                                    </ul>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+
+                                    <form id="profile-form" action="{{ route('user.user')}}" class="d-none">
+                                        @csrf
+                                    </form>
+                                <!-- </div> -->
                             </div>
+                        @endguest
+                    </ul>
+
+                    </div>
                         </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Email</label>
-                                    <input class="input--style-4" type="email" name="email">
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Phone Number</label>
-                                    <input class="input--style-4" type="text" name="phone">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input-group">
-                            <label class="label">Subject</label>
-                            <div class="rs-select2 js-select-simple select--no-search">
-                                <select name="subject">
-                                    <option disabled="disabled" selected="selected">Choose option</option>
-                                    <option>Subject 1</option>
-                                    <option>Subject 2</option>
-                                    <option>Subject 3</option>
-                                </select>
-                                <div class="select-dropdown"></div>
-                            </div>
-                        </div>
-                        <div class="p-t-15">
-                            <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="./index.html"><img src="{{url('assets/images/logoIcon/logo.png')}}" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-8 pt-3 ">
+                    <!-- <nav class="header__menu">
+                        <ul>
+                            <li class="active"><a href="./index.html">Home</a></li>
+                            <li><a href="./shop-grid.html">Shop</a></li>
+                            <li><a href="#">Pages</a>
+                                <ul class="header__menu__dropdown">
+                                    <li><a href="./shop-details.html">Shop Details</a></li>
+                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                                    <li><a href="./checkout.html">Check Out</a></li>
+                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="./blog.html">Blog</a></li>
+                            <li><a href="./contact.html">Contact</a></li>
+                        </ul>
+                    </nav> -->
 
-    <!-- Jquery JS-->
-    <script src="register/vendor/jquery/jquery.min.js"></script>
-    <!-- Vendor JS-->
-    <script src="register/vendor/select2/select2.min.js"></script>
-    <script src="register/vendor/datepicker/moment.min.js"></script>
-    <script src="register/vendor/datepicker/daterangepicker.js"></script>
-
-    <!-- Main JS-->
-    <script src="register/js/glo.js"></script>
-
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
-
-</html>
-<!-- end document-->
+                    <nav class="header__menu ">
+                <ul>
+                <li class="active"><a href="{{ url('/') }}">Home</a></li>
+                <li><a href="{{ route('product.product')}}">Products</a></li>
+                @guest
+                @else
+                    @if(Auth::user()->role_id==3) 
+                    <li><a href="{{route('product.products', Auth::user()->id )}}">My Products</a></li>
+                    <li><a href="{{route('product.product.create')}}">Add Products</a></li>
+                    @endif
+                    <li><a href="{{route('user.user.history', Auth::user()->id)}}">Bid History</a></li>
+                    <!-- <li><a href="#">Pages</a>
+                    <ul class="header__menu__dropdown">
+                        <li><a href="./shop-details.html">Shop Details</a></li>
+                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                        <li><a href="./checkout.html">Check Out</a></li>
+                        <li><a href="./blog-details.html">Blog Details</a></li>
+                    </ul>
+                </li> -->
+                <!-- <li><a href="./blog.html">Blog</a></li> -->
+                <!-- <li><a href="./contact.html">Contact</a></li> -->
+            @endguest
+            </ul>
+        </nav>
+                </div>
+               
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->

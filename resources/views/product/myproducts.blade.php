@@ -1,8 +1,8 @@
-@extends('product.layout.app')
+@extends('layouts.app')
 @section('content')
 
 <!-- Name |  | Price | BIDS | | Winner | Status | -->
-<div class="container rounded bg-white mt-5 mb-5">
+<div class="col-lg-12 pb-5">
 <table class="table align-middle mb-1 bg-light">
   <thead class="bg-light">
     <tr>

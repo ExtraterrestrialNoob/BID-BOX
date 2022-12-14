@@ -1,4 +1,4 @@
-@extends('product.layout.app')
+@extends('layouts.app')
 
 @section('content')
 
@@ -18,7 +18,7 @@
                   <div class="mx-auto" style="width: 250px; hight: 250px">
                     <div class="d-flex justify-content-center align-items-center rounded" style="height: 250px; background-color: rgb(233, 236, 239);">
                       <!-- <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span> -->
-                      <img src="{{ asset('storage/'.$product->image_path) }}" style="object-fit:cover;height:100%;width:100% ;Overflow:hidden;">
+                      <img class="img-thumbnail" src="{{ asset('storage/'.$product->image_path) }}" style="object-fit:cover;height:100%;width:100% ;Overflow:hidden;">
                     </div>
                   </div>
                 </div>
@@ -55,7 +55,7 @@
                         <div class="row">
                           <div class="col">
                             <div class="form-group">
-                              <label>Name</label>
+                            <div class="mb-2"><b>Name</b></div>
                               <input class="form-control" type="text" name="name" placeholder="" value="{{ $product->name }}">
                             </div>
                           </div>
@@ -63,7 +63,7 @@
                         <div class="row">
                           <div class="col">
                             <div class="form-group">
-                              <label>Price</label>
+                            <div class="mb-2"><b>Price</b></div>
                               <input class="form-control" type="text" placeholder="" value="Rs.{{ number_format((float)$product->price, 2, '.', '')}}" readonly>
                             </div>
                           </div>
@@ -71,7 +71,7 @@
                         <div class="row">
                           <div class="col mb-3">
                             <div class="form-group">
-                              <label>Short Description</label>
+                            <div class="mb-2"><b>Short Description</b></div>
                               <input class="form-control" type="text" name="short_description" placeholder="" value="{{ $product->short_description }}">
                             </div>
                           </div>
@@ -79,7 +79,7 @@
                         <div class="row">
                           <div class="col mb-3">
                             <div class="form-group">
-                              <label>Long Discription</label>
+                            <div class="mb-2"><b>Long Description</b></div>
                               <textarea class="form-control" rows="5" type="text" name ="long_description" value="" style="resize: none;"> {{ $product->long_description }} </textarea>
                             </div>
                           </div>
@@ -87,7 +87,7 @@
                         <div class="row">
                           <div class="col mb-3">
                             <div class="form-group">
-                              <label>Specification</label>
+                            <div class="mb-2"><b>Specification</b></div>
                               <textarea class="form-control" rows="2" type="text" name="specification" placeholder="" value="" style="resize: none;"> {{ $product->specification }} </textarea>
                             </div>
                           </div>

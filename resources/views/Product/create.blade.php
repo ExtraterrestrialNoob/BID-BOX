@@ -1,4 +1,4 @@
-@extends('product.layout.app')
+@extends('layouts.app')
 
 
 @section('content')
@@ -7,6 +7,8 @@
 <div class="row flex-lg-nowrap">
 
   <div class="col">
+  <fieldset class="border p-2" >
+        <legend class="w-auto">Product Details</legend>
   <form method="POST" action="{{route('product.create')}}" enctype="multipart/form-data" id="addproduct">
   @csrf  
   <div class="row">
@@ -31,16 +33,13 @@
                   </div>
                 </div>
               </div>
-              <ul class="nav nav-tabs">
-                <li class="nav-item">Product Detail</a></li>
-              </ul>
               <div class="tab-content pt-3">
                 <div class="tab-pane active">
                   
                 <div class="row">
                     <div class="col">
                     <div class="form-group">
-                    <lable>Upload image</lable>
+                    <div class="mb-2"><b>Upload image</b></div>
                      <input id="image" type="file" name="image" class="form-control">
                                 @error('image')
                                     <span class="invalid-feedback" role="alert">
@@ -56,7 +55,7 @@
                         <div class="row">
                           <div class="col">
                             <div class="form-group">
-                              <label>Name</label>
+                            <div class="mb-2"><b>Name</b></div>
                               <input class="form-control" id="name" type="text" name="name" placeholder=""  required value="{{ old('name') }}">
                               @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -69,7 +68,7 @@
                         <div class="row">
                           <div class="col">
                             <div class="form-group">
-                              <label>Price</label>
+                            <div class="mb-2"><b>Price</b></div>
                               <input id="price" type="number" step="any" class="form-control" name="price" value="{{ old('price') }}" required autocomplete="price">
                               @error('price')
                                     <span class="invalid-feedback" role="alert">
@@ -82,7 +81,7 @@
                         <div class="row">
                           <div class="col mb-3">
                             <div class="form-group">
-                              <label>Short Description</label>
+                            <div class="mb-2"><b>Short Description</b></div>
                               <input class="form-control" type="text" name="short_description" placeholder="" value="{{ old('short_description') }}">
                               @error('short_description')
                                     <span class="invalid-feedback" role="alert">
@@ -95,7 +94,7 @@
                         <div class="row">
                           <div class="col mb-3">
                             <div class="form-group">
-                              <label>Long Discription</label>
+                            <div class="mb-2"><b>Long Description</b></div>
                               
                               <textarea  id="long_description" rows="5" class="form-control" name="long_description" value="{{ old('long_description') }}"></textarea>
                               @error('long_description')
@@ -109,7 +108,7 @@
                         <div class="row">
                           <div class="col mb-3">
                             <div class="form-group">
-                              <label>Specification</label>
+                            <div class="mb-2"><b>Specification</b></div>
                               
                               <input id="specification" type="specification" class="form-control" name="specification" value="{{ old('specification')}}">
                             </div>
@@ -152,6 +151,7 @@
         </div>
       </div>
 </form>
+  </fieldset>
   </div>
 </div>
 </div>

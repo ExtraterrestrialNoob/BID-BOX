@@ -57,7 +57,7 @@ Route::name('product.')->group(function () {
     
     
     Route::get('product/edit/{id}',[ProductController::class, 'edit'])->name('edit')->middleware('role:1,3','product');
-    Route::get('product/{id}',[ProductController::class, 'products_by_user'])->name('products')->middleware('role:1,2,3');
+    Route::get('product/{id}',[ProductController::class, 'products_by_user'])->name('products')->middleware('role:1,3');
     //Route::get('product/test/{id}',[ProductController::class, 'test'])->name('products'); Testing 
     //Change Products
     Route::post('product/create',[ProductController::class, 'store'])->name('product.create')->middleware('role:1,3');

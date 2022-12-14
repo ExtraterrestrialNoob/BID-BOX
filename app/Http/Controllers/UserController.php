@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\winner;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -154,6 +155,8 @@ class UserController extends Controller
 
     public function history($id){
         $history = Bid::where('user_id',"=",Auth::User()->id)->orderBy('created_at','DESC')->get();
+        $win = winner::where('customer_id',Auth::User()->id)->with('product','bid')->get();
+        // echo($win);
         if($history){
             foreach($history as $bid){
                 $product_details = Product::where("id",$bid->product_id)->select('name','price')->first();
@@ -189,7 +192,7 @@ class UserController extends Controller
         //     // echo $product;
         // }
         // echo $histry;
-       return view('user.history', compact('history'));
+       return view('user.history', compact('history','win'));
         // dd($histry);
     }
 
