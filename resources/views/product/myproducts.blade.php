@@ -30,7 +30,7 @@
               class="rounded"
               />
           <div class="ms-3">
-            <p class="fw-bold mb-1">{{$i->name}}</p>
+            <p class="fw-bold mb-1"> {{$i->name}}</p>
           </div>
         </div>
       </td>

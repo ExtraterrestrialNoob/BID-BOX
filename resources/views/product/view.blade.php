@@ -114,44 +114,44 @@
                     <h5>Total Bids:<span id="total_bids">{{ $bid_info[0] }}</span> </span></h5>
                     </div>
                 </div>
-                <div class="col-lg-12">
-                    <div class="product__details__tab">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
-                                    aria-selected="true">Description</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
-                                    aria-selected="false">Bids</a>
-                            </li>
-                            
-                        </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                                <div class="product__details__tab__desc">
-                                    <h3>Products Infomation</h3>
-                                    {{ $product->long_description }}
-                                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="product__details__tab">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
+                                aria-selected="true">Description</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
+                                aria-selected="false">Bids</a>
+                        </li>
+                        
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                            <div class="product__details__tab__desc">
+                                <h3>Products Infomation</h3>
+                                {{ $product->long_description }}
                             </div>
-                            <div class="tab-pane" id="tabs-2" role="tabpanel">
-                                <div class="product__details__tab__desc">
-                                    <!-- <h6>Bids</h6> -->
-                                
-                                        <h3> LeaderBoard </h3>
-                                        <table id="LeaderBoard">
-                                            <tr class="table-success">
-                                                <th>User</th>
-                                                <th>BID</th>
-                                                <th>Time</th>
-                                            </tr>
-
-                                        </table>
-                                    
-                                </div>
-                            </div>
-                           
                         </div>
+                        <div class="tab-pane" id="tabs-2" role="tabpanel">
+                            <div class="product__details__tab__desc">
+                                <!-- <h6>Bids</h6> -->
+                            
+                                    <h3> LeaderBoard </h3>
+                                    <table id="LeaderBoard">
+                                        <tr class="table-success">
+                                            <th>User</th>
+                                            <th>BID</th>
+                                            <th>Time</th>
+                                        </tr>
+
+                                    </table>
+                                
+                            </div>
+                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -189,16 +189,8 @@
 @endif
 
 
-<!-- Js Plugins -->
-    <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/jquery.nice-select.min.js')}}"></script>
-    <script src="{{asset('js/jquery-ui.min.js')}}"></script>
-    <script src="{{asset('js/jquery.slicknav.js')}}"></script> 
-    <script src="{{asset('js/mixitup.min.js')}}"></script>
-    <script src="{{asset('js/owl.carousel.min.js')}}"></script>
-    <script src="{{asset('js/main.js')}}"></script>
-{{--JS--}}
+
+
 @isset($product)
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

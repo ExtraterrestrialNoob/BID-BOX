@@ -24,7 +24,7 @@ use App\Http\Controllers\PaymentController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/register_vendor',[ProductController::class, 'index'])->name('register'); // Tempory Product check
+// Route::get('/register_vendor',[ProductController::class, 'index'])->name('register'); // Tempory Product check
 
 Route::get('/register_success',function(){
     return view('auth/registration_success_confirm');

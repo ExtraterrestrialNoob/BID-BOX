@@ -130,7 +130,7 @@
                         </div>
                       <div class="col-12 col-sm-5 offset-sm-1 mb-3">
                         <div class="mb-2"><b>Category</b></div>
-                        <select name="category" id="category" class="form-control">
+                        <select name="category" id="category" class="form-control" style="padding: inherit;">
                                 @foreach($all_category as $category)
                                 <option value="{{$category->id}}">{{$category->name}}</option>
                                 @endforeach

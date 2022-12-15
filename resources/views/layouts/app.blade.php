@@ -275,9 +275,9 @@
     </header>
     <!-- Header Section End -->
 
-    <main>
+    
         @yield('content')
-    </main>
+
 
         <!-- Footer Section Begin -->
     <footer class="footer spad">
@@ -286,7 +286,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                            <a href="./index.html"><img src="{{url('assets/images/logoIcon/logo.png')}}" alt=""></a>
                         </div>
                         <ul>
                             <li>Address: 60-49 Road 11378 New York</li>
@@ -336,4 +336,13 @@
         </div>
     </footer>
 </body>
+
+    <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script> 
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <!-- <script src="{{asset('js/jquery.nice-select.min.js')}}"></script> -->
+    <script src="{{asset('js/jquery-ui.min.js')}}"></script>
+    <script src="{{asset('js/jquery.slicknav.js')}}"></script> 
+    <script src="{{asset('js/mixitup.min.js')}}"></script>
+    <script src="{{asset('js/owl.carousel.min.js')}}"></script>
+    <script src="{{asset('js/main.js')}}"></script>
 </html>

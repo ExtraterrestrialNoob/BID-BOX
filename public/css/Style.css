@@ -159,7 +159,7 @@ ol {
 	top: 0;
 	left: 0;
 	z-index: 999999;
-	background: #000;
+	background: #000000;
 }
 
 .loader {
@@ -1869,7 +1869,7 @@ ol {
 } */
 
 .product__details__tab {
-	padding-top: 85px;
+	padding-top: 0px;
 }
 
 .product__details__tab .nav-tabs {

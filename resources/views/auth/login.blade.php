@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 @section('content')
 
@@ -82,6 +81,7 @@
       </div>
 </div>
 @endif
+
 <script type="text/javascript">
      function closepopup(){
                 var msg = document.getElementById('popupContainer');

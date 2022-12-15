@@ -55,7 +55,7 @@
                             <h4>Price</h4>
                             <div class="price-range-wrap">
                                 <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                    data-min="{{ceil($min)}}" data-max="{{ceil($max)}}">
+                                 data-min="{{ceil($min)}}" data-max="{{ceil($max)}}">
                                     <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
                                     <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
                                     <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
@@ -92,18 +92,11 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-5 ">
+                            <div class="col-lg-3 col-md-5 ml-auto p-2 ">
                                 <div class="filter__found">
-                                    <h6><span>16</span> Products found</h6>
+                                    <h6><span>{{count($all_products)}}</span> Products found</h6>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-3 ">
-                                <div class="filter__option">
-                                    <span class="icon_grid-2x2"></span>
-                                    <span class="icon_ul"></span>
-                                </div>
-                            </div>
-
                         </div>
                     
                     </div>
@@ -131,15 +124,5 @@
         </div>
     </section>
     <!-- Product Section End -->
-
-     <!-- Js Plugins -->
-    <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/jquery.nice-select.min.js')}}"></script>
-    <script src="{{asset('js/jquery-ui.min.js')}}"></script>
-    <script src="{{asset('js/jquery.slicknav.js')}}"></script>
-    <script src="{{asset('js/mixitup.min.js')}}"></script>
-    <script src="{{asset('js/owl.carousel.min.js')}}"></script>
-    <script src="{{asset('js/main.js')}}"></script>
 
 @endsection
