@@ -41,17 +41,17 @@ Route::group(['prefix' => 'admin'], function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home','check_active');
-Route::get('/seller', [Seller::class, 'index'])->middleware('role:3','check_active');
-Route::get('/bidder', [Bidder::class, 'index'])->middleware('role:2','check_active');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/seller', [Seller::class, 'index'])->middleware('role:3');
+Route::get('/bidder', [Bidder::class, 'index'])->middleware('role:2');
 route::get('/update',[cron::class,'expire'])->name('update');
 
 
 //ProductRoutes Grouped
 Route::name('product.')->group(function () {
-    Route::get('product',[ProductController::class, 'index'])->name('product')->middleware('check_active',);//example
+    Route::get('product',[ProductController::class, 'index'])->name('product');//example
     Route::get('product/create',[ProductController::class, 'create'])->name('create')->middleware('role:1,3','check_active');//example
-    Route::get('product/view/{id}',[ProductController::class, 'show'])->name('view','check_active');
+    Route::get('product/view/{id}',[ProductController::class, 'show'])->name('view');
     //product search and auto search
     Route::get('/product/search',[ProductController::class,'search'])->name('search');
     
@@ -61,10 +61,10 @@ Route::name('product.')->group(function () {
     //Route::get('product/test/{id}',[ProductController::class, 'test'])->name('products'); Testing 
     //Change Products
     Route::post('product/create',[ProductController::class, 'store'])->name('product.create')->middleware('role:1,3','check_active');
-    Route::post('product/bid/{pid}',[ProductController::class, 'bid'])->name('bid')->middleware('role:1,2,3');
-    Route::post('product/update/{id}',[ProductController::class, 'update'])->name('update')->middleware('role:1,3','product');
-    Route::post('product/update/image/{id}',[ProductController::class, 'updateimage'])->name('update.image')->middleware('role:1,3','product');
-    Route::delete('product/delete/{id}',[ProductController::class, 'destroy'])->name('delete')->middleware('role:1,3','product');
+    Route::post('product/bid/{pid}',[ProductController::class, 'bid'])->name('bid')->middleware('role:1,2,3','check_active');
+    Route::post('product/update/{id}',[ProductController::class, 'update'])->name('update')->middleware('role:1,3','product','check_active');
+    Route::post('product/update/image/{id}',[ProductController::class, 'updateimage'])->name('update.image')->middleware('role:1,3','product','check_active');
+    Route::delete('product/delete/{id}',[ProductController::class, 'destroy'])->name('delete')->middleware('role:1,3','product','check_active');
     Route::post('product/filter',[ProductController::class,'product_filter'])->name('filter');
 
     //ajax routes
