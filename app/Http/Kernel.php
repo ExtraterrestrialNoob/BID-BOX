@@ -68,5 +68,7 @@ class Kernel extends HttpKernel
         'payment' => \App\Http\Middleware\payment::class,
         'user' => \App\Http\Middleware\user::class,
         'product' => \App\Http\Middleware\product::class,
+        'check_active' => \App\Http\Middleware\chekactive::class,
+        'payment_one'=> \App\Http\Middleware\paymentone::class,
     ];
 }

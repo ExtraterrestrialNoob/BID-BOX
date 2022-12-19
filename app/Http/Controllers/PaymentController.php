@@ -40,7 +40,9 @@ class PaymentController extends Controller
  
     public function process(Request $request, $win_id)
     {
-        $data = winner::where('id',$win_id)->with('bid','user')->first();
+        // $data = winner::where('id',$win_id)->with('bid','user')->first();
+        $data = winner::where('id',$win_id)->with('bid','user','product')->first();
+        // dd($data);
         $dis = ModelsProduct::where('id',$data->product_id)->first();
         // dd($dis->name);
         // dd($dis);
@@ -79,6 +81,7 @@ class PaymentController extends Controller
                     'amount' => $arr_payment_data['amount']/100,
                     'currency' => env('STRIPE_CURRENCY'),
                     'status' => $arr_payment_data['status'],
+                    'product_id' =>$data->product_id,
                     'receipt_url' => $arr_payment_data['charges']['data'][0]['receipt_url'],
                 ]);
  
@@ -100,7 +103,7 @@ class PaymentController extends Controller
  
     public function confirm(Request $request, $win_id)
     {
-        // $data = winner::where('id',$win_id)->with('bid','user')->first();
+        $data = winner::where('id',$win_id)->with('bid','user','product')->first();
 
         $response = $this->gateway->confirm([
             'paymentIntentReference' => $request->input('payment_intent'),
@@ -126,6 +129,7 @@ class PaymentController extends Controller
                 'currency' => env('STRIPE_CURRENCY'),
                 'status' => $arr_payment_data['status'],
                 'receipt_url' => $arr_payment_data['charges']['data'][0]['receipt_url'],
+                'product_id' =>$data->product_id,
             ]);
  
             return redirect("payment/".$win_id)->with("success", "Payment is successful. Your payment id is: ". $arr_payment_data['id']);
@@ -149,6 +153,7 @@ class PaymentController extends Controller
             $payment->currency = env('STRIPE_CURRENCY');
             $payment->status = $arr_data['status'];
             $payment->receipt_url = $arr_data['receipt_url'];
+            $payment->product_id = $arr_data['product_id'];
             $payment->save();
         }
     }

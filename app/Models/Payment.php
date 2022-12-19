@@ -7,5 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    use HasFactory;
+    // use HasFactory;
+    public function product(){
+        return $this->belongsTo(Product::class);
+    }
+
+    public function winners(){
+        return $this->belongsTo(winner::class);
+    }
+
 }

@@ -29,4 +29,8 @@ class winner extends Model
     public function bid(){
         return $this->belongsTo(Bid::class,'bid_id');
     }
+    public function payment(){
+        return $this->belongsTo(Payment::class);
+    }
+    
 }

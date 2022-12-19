@@ -45,6 +45,8 @@
             </div>
         </div>
     </form>
+
+<script src="https://js.stripe.com/v3/"></script>
     
 <script>
 var publishable_key = '{{ env("STRIPE_KEY") }}';
