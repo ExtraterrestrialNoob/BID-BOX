@@ -10,7 +10,7 @@
                     <div class="media align-items-end profile-head"> 
                         <div class="profile mr-3">
                         @if($user_data->avatar != 'users/default.png')
-                            <img src="{{asset('storage/'.$user_data->avatar)}}" alt="profile Avatar" width="130" class="rounded mb-2 img-thumbnail">
+                            <img src="{{asset($user_data->avatar)}}" alt="profile Avatar" width="130" class="rounded mb-2 img-thumbnail">
                         @else
                         <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="profile Avatar" width="130" class="rounded-circle mb-2 img-thumbnail">
                         @endif
@@ -77,7 +77,7 @@
 
                                     @for($i=0;$i<$c;$i++)
                                     <div class=" col-lg-6 mb-2 pr-lg-1">
-                                        <img style="max-width: 100%; " src="{{ asset('assets/images/product/'.$all_products[$i]->image_path) }}" alt="" class="img-fluid rounded shadow-sm">
+                                        <img style="max-width: 100%; " src="{{ asset('storage/'.$all_products[$i]->image_path) }}" alt="" class="img-fluid rounded shadow-sm">
                                     </div> 
 
                         @endfor                                

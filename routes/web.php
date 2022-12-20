@@ -10,6 +10,7 @@ use App\Http\Controllers\Bidder;
 use App\Http\Controllers\cron;
 use App\Http\Controllers\payment;
 use App\Http\Controllers\PaymentController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,13 +27,12 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Route::get('/register_vendor',[ProductController::class, 'index'])->name('register'); // Tempory Product check
 
-Route::get('/register_success',function(){
-    return view('auth/registration_success_confirm');
-})->name('/register_success');
+Route::get('/register_success',[HomeController::class, 'index'])->name('/register_success');
 
-// Route::get('/buyer_login',function(){
-//     return view('/auth/register');
-// })->name('register_buyer');
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
 
 
 Route::group(['prefix' => 'admin'], function () {

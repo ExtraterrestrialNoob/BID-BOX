@@ -29,6 +29,7 @@ class LoginController extends Controller
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
     public function redirectTo() {
+      if(Auth::user()->email_verified_at){
         $role = Auth::user()->role_id; 
         switch ($role) {
           case '1':
@@ -42,7 +43,10 @@ class LoginController extends Controller
             return '/seller'; 
           break;
         }
+      }else{
+        return '/register_success';
       }
+    }
 
 
     /**
