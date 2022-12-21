@@ -35,7 +35,7 @@
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
                             <img class="product__details__pic__item--large"
-                                src="{{ url('storage/'.$product->image_path) }}" alt="">
+                                src="{{ asset('storage/'.$product->image_path) }}" alt="">
                         </div>
                        
                     </div>
