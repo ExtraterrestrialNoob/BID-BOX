@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
+use function PHPUnit\Framework\isEmpty;
+
 class ProductController extends Controller
 {
 
@@ -81,12 +83,17 @@ class ProductController extends Controller
             // $results = Product::where('Is_active',1)->orderBy('created_at','DESC')->count();
            
         }
-        // if(!is_null(Product::first())){
+        if(isEmpty(Product::all())){
             
+            $max=0;
+            $min=0;
+        }
+        
+        else{
             $max=Product::get('price')->max()->price;
             $min=Product::get('price')->min()->price;
-        // }
-
+        }
+        
         $category = Category::where('status',1)->with('products')->orderBy('name','ASC')->get();
         return view('product.products', compact('all_products','category','max','min'));
         // $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->paginate(9);
