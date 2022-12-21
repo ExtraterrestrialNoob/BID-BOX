@@ -83,7 +83,7 @@ class ProductController extends Controller
             // $results = Product::where('Is_active',1)->orderBy('created_at','DESC')->count();
            
         }
-        if(isEmpty(Product::all())){
+        if(isEmpty($all_products)){
             
             $max=0;
             $min=0;
