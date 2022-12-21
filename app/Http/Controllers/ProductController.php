@@ -69,9 +69,11 @@ class ProductController extends Controller
             $min = (float)$_GET['min'];
             $max = (float)$_GET['max'];
             // dd($max,$min);
+            if($all_products){
             $all_products= $all_products->whereBetween('price',[$min,$max])->where(['is_active'=>1, 'is_expired'=> 0])->paginate(9);
             // dd($all_products);
         }
+    }
         
 
         else{
