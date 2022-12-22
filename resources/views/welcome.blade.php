@@ -18,7 +18,7 @@
                     <div class="hero__item " data-setbg="{{url('storage/assets/images/frontend/banner.jpg')}}" style="background-image: url('storage/assets/images/frontend/banner.jpg');background-size: contain;">
                         <div class="hero__text">
                             <span>BID BOX</span>
-                            <h2>Vegetable <br />100% Organic</h2>
+                            <h2>Auction with affordability</h2>
                             <p>Free Pickup and Delivery Available</p>
                             <a href="#" class="primary-btn">SHOP NOW</a>
                         </div>
