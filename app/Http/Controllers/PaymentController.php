@@ -96,7 +96,7 @@ class PaymentController extends Controller
                 'win_id'=>$arr_payment_data['id']
                 ];
                 // dd($temp);
-                // dd(print_r($temp));
+                // dd(print_r($temp['data']['product']['name']));
                 Mail::to($data->user->email)->send(new recieptmail($temp));
  
                 return redirect("user/history/".Auth::user()->id)->with("success", "Payment is successful. Your payment id is: ". $arr_payment_data['id']);
