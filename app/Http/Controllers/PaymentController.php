@@ -43,7 +43,7 @@ class PaymentController extends Controller
     {
         // $data = winner::where('id',$win_id)->with('bid','user')->first();
         $data = winner::where('id',$win_id)->with('bid','user','product')->first();
-        dd($data);
+        // dd($data);
         $dis = ModelsProduct::where('id',$data->product_id)->first();
         // dd($dis->name);
         // dd($dis);
