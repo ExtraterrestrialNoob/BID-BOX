@@ -10,6 +10,7 @@ use App\Models\Payment;
 use App\Models\Product as ModelsProduct;
 use App\Models\winner;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Gd\Commands\WidenCommand;
 
 class PaymentController extends Controller
@@ -42,7 +43,7 @@ class PaymentController extends Controller
     {
         // $data = winner::where('id',$win_id)->with('bid','user')->first();
         $data = winner::where('id',$win_id)->with('bid','user','product')->first();
-        // dd($data);
+        dd($data);
         $dis = ModelsProduct::where('id',$data->product_id)->first();
         // dd($dis->name);
         // dd($dis);
@@ -104,6 +105,7 @@ class PaymentController extends Controller
     public function confirm(Request $request, $win_id)
     {
         $data = winner::where('id',$win_id)->with('bid','user','product')->first();
+        // dd($data);
 
         $response = $this->gateway->confirm([
             'paymentIntentReference' => $request->input('payment_intent'),
@@ -131,8 +133,14 @@ class PaymentController extends Controller
                 'receipt_url' => $arr_payment_data['charges']['data'][0]['receipt_url'],
                 'product_id' =>$data->product_id,
             ]);
- 
-            return redirect("payment/".$win_id)->with("success", "Payment is successful. Your payment id is: ". $arr_payment_data['id']);
+            
+            $temp=['data'=>$data,
+                'win_id'=>$arr_payment_data['id']
+            
+            ];
+
+            // Mail::to($data-)
+            return redirect("payment/".$win_id)->with("success", "Payment is successful. You will recive an Email");
         }
         else
         {
