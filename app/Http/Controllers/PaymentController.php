@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\product;
+use App\Mail\recieptmail;
 use App\Models\Bid;
 use Illuminate\Http\Request;
 use Omnipay\Omnipay;
@@ -33,9 +34,14 @@ class PaymentController extends Controller
         $data = winner::where('id',$wid)->with('bid','user')->first();
         $dis = ModelsProduct::where('id',$data->product_id)->first();
         $bid = $data->bid->amount;
-        // dd($dis);
+        // dd($data->user->email);
         // echo($dis) ;
         // echo $bid;
+        // $temp=['data'=>$data,
+        //         // 'win_id'=>$arr_payment_data['id']
+        //         ];
+        // // // dd(print_r($temp));
+        // dd($temp['data']);
         return view('payment.payment',compact('win_id','dis','bid'));
     }
  
@@ -85,6 +91,13 @@ class PaymentController extends Controller
                     'product_id' =>$data->product_id,
                     'receipt_url' => $arr_payment_data['charges']['data'][0]['receipt_url'],
                 ]);
+
+                $temp=['data'=>$data,
+                'win_id'=>$arr_payment_data['id']
+                ];
+                // dd($temp);
+                // dd(print_r($temp));
+                Mail::to($data->user->email)->send(new recieptmail($temp));
  
                 return redirect("user/history/".Auth::user()->id)->with("success", "Payment is successful. Your payment id is: ". $arr_payment_data['id']);
             }
@@ -105,41 +118,42 @@ class PaymentController extends Controller
     public function confirm(Request $request, $win_id)
     {
         $data = winner::where('id',$win_id)->with('bid','user','product')->first();
-        // dd($data);
-
+        
         $response = $this->gateway->confirm([
             'paymentIntentReference' => $request->input('payment_intent'),
             'returnUrl' => $this->completePaymentUrl.'/'.$win_id,
             
-        ])->send();
-        //  dd($response);
-        if($response->isSuccessful())
-        {
+            ])->send();
+            //  dd($response);
+            if($response->isSuccessful())
+            {
             $response = $this->gateway->capture([
                 'amount' =>$request->input('amount'),
                 'currency' => env('STRIPE_CURRENCY'),
                 'paymentIntentReference' => $request->input('payment_intent'),
                 // 'receipt_url' => $response->getreceipt_url(),
-            ])->send();
+                ])->send();
  
-            $arr_payment_data = $response->getData();
- 
-            $this->store_payment([
-                'payment_id' => $arr_payment_data['id'],
-                // 'email' =>  $data->user->email,
-                'amount' => $arr_payment_data['amount']/100,
-                'currency' => env('STRIPE_CURRENCY'),
-                'status' => $arr_payment_data['status'],
-                'receipt_url' => $arr_payment_data['charges']['data'][0]['receipt_url'],
-                'product_id' =>$data->product_id,
-            ]);
-            
-            $temp=['data'=>$data,
+                $arr_payment_data = $response->getData();
+                
+                $this->store_payment([
+                    'payment_id' => $arr_payment_data['id'],
+                    // 'email' =>  $data->user->email,
+                    'amount' => $arr_payment_data['amount']/100,
+                    'currency' => env('STRIPE_CURRENCY'),
+                    'status' => $arr_payment_data['status'],
+                    'receipt_url' => $arr_payment_data['charges']['data'][0]['receipt_url'],
+                    'product_id' =>$data->product_id,
+                ]);
+                
+                $temp=['data'=>$data,
                 'win_id'=>$arr_payment_data['id']
+                
+                ];
             
-            ];
-
-            // Mail::to($data-)
+            Mail::to($data->user->email)->send(new recieptmail($temp));
+            // dd('done');
+            // dd($data);
             return redirect("payment/".$win_id)->with("success", "Payment is successful. You will recive an Email");
         }
         else

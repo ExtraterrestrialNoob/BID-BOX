@@ -7,6 +7,7 @@ use App\Models\Payment;
 use App\Models\winner;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class paymentone
 {

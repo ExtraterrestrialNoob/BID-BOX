@@ -30,6 +30,6 @@ class recieptmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Your Reciept')->view('view.name');
+        return $this->subject('Your Reciept')->view('vendor.mail.reciept');
     }
 }

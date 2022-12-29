@@ -18,7 +18,7 @@
         "nesbot/carbon": "^2.60",
         "omnipay/stripe": "^3.2",
         "stripe/stripe-php": "^9.8",
-        "tcg/voyager": "^1.5"
+        "tcg/voyager": "^1.6"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
