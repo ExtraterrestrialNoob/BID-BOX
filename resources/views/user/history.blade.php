@@ -6,11 +6,11 @@
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
-                                    aria-selected="true">History</a>
+                                    aria-selected="true">All</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
-                                    aria-selected="false">Winned Bids</a>
+                                    aria-selected="false">Won</a>
                             </li>
                             
                         </ul>
@@ -30,11 +30,11 @@
                                   </thead>
                                   @foreach($history as $i)
                                   <tbody>
-                                    <tr>
-                                      <td class="table-secondary">
+                                    <tr class="clickable" onclick="window.location='{{route('product.view', $i->product_id)}}'">
+                                      <td class="table-Info">
                                         <div class="d-flex align-items-center">
                                           <div class="ms-3">
-                                              <a href="{{route('product.view', $i->product_id)}}"><p class="fw-bold mb-1">{{$i->product_name}}</p></a>
+                                              <p class="fw-bold mb-1">{{$i->product_name}}</p>
                                           </div>
                                         </div>
                                       </td>
@@ -56,11 +56,21 @@
                                     <td class="table-secondary">
                                         <p class="fw-normal mb-1">{{$i->created_at}}</p>
                                     </td>
-
+                                    @if($i->status == 'Winning')
                                     <td class="table-secondary">
-                                        <p class="fw-normal mb-1">{{$i->status}}</p>
+                                        <p class="fw-normal mb-1 text-success">{{$i->status}}</p>
                                     </td>
-                                
+                                    @elseif($i->status == 'Suspended')
+                                    <td class="table-secondary">
+                                      <p class="fw-normal mb-1 text-warning">{{$i->status}}</p>
+                                    </td>
+                                    @elseif($i->status == 'Losing')
+                                    <td class="table-secondary">
+                                      <p class="fw-normal mb-1 text-danger">{{$i->status}}</p>
+                                    </td>
+                                    @endif
+                                  
+                                  </tr>
                                   </tbody>
                                   @endforeach
                               </table>
@@ -102,11 +112,16 @@
                                     <td class="table-secondary">
                                         <p class="fw-normal mb-1">{{$i->bid->created_at}}</p>
                                     </td>
-
+                                    @if($i->is_paid == 0)
                                     <td class="table-secondary">
-                                        <button type="submit" class="btn btn-primary" onclick='location="{{route('payment.payment', $i->id )}}"'>{{__('View')}}</button>
+                                        <button type="submit" class="btn btn-primary" onclick='location="{{route('payment.payment', $i->id )}}"'>{{__('Pay Now')}}</button>
                                     </td>
-                                
+                                    @else
+                                    <td class="table-secondary">
+                                      <button type="submit" class="btn btn-success" onclick='location="{{$i->receipt_url}}"'>{{__('View Receipt')}}</button>
+                                  </td>
+                                  @endif
+
                                   </tbody>
                                   @endforeach
                               </table>

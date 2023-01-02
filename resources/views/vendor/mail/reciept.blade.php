@@ -191,7 +191,7 @@
                 </tr>
                 <tr>
                   <td align="left" width="75%" style="padding: 6px 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">{{$data['data']['product']['name']}}</td>
-                  <td align="left" width="25%" style="padding: 6px 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;"> Rs. {{ number_format((float)$data['data']['product']['price'], 2, '.', '')}}</td>
+                  <td align="left" width="25%" style="padding: 6px 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;"> Rs. {{ number_format((float)$data['data']['bid']['amount'], 2, '.', '')}}</td>
                 </tr>
                
                 

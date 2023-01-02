@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\winner;
 use Illuminate\Support\Facades\DB;
+use App\Models\Payment;
 
 class UserController extends Controller
 {
@@ -156,6 +157,7 @@ class UserController extends Controller
     public function history($id){
         $history = Bid::where('user_id',"=",Auth::User()->id)->orderBy('created_at','DESC')->get();
         $win = winner::where('customer_id',Auth::User()->id)->with('product','bid')->get();
+
         // echo($win);
         if($history){
             foreach($history as $bid){
@@ -186,6 +188,15 @@ class UserController extends Controller
             }//foreach
         }
 
+        for($i=0; $i<sizeof($win); $i++){
+            $paid = Payment::where('product_id',$win[$i]->product_id)->first();
+            if($paid){
+                $win[$i]->is_paid = 1;
+                $win[$i]->receipt_url = $paid->receipt_url;
+            }else{
+                $win[$i]->is_paid = 0;
+            }
+        }
         // echo $history;
         // for($i=0; $i<sizeof($histry); $i++){
         //     $product = Product::where('id',$histry[$i]->product_id)->select('name','price')->first();
