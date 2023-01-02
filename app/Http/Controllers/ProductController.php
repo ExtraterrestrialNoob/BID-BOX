@@ -85,16 +85,17 @@ class ProductController extends Controller
         }
         if(isEmpty($all_products)){
             
+            $max=Product::where(['is_active'=>1, 'is_expired'=> 0])->get('price')->max()->price;
+            $min=Product::where(['is_active'=>1, 'is_expired'=> 0])->get('price')->min()->price;
+        }
+        
+        else{
             $max=0;
             $min=0;
         }
         
-        else{
-            $max=Product::get('price')->max()->price;
-            $min=Product::get('price')->min()->price;
-        }
-        
         $category = Category::where('status',1)->with('products')->orderBy('name','ASC')->get();
+        // dd($max,$min);
         return view('product.products', compact('all_products','category','max','min'));
         // $all_products = Product::where('Is_active',1)->orderBy('created_at','DESC')->paginate(9);
         // dd($all_products,$category);

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
@@ -27,7 +28,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Route::get('/register_vendor',[ProductController::class, 'index'])->name('register'); // Tempory Product check
 
-Route::get('/register_success',[HomeController::class, 'index'])->name('/register_success');
+Route::get('/register_success',function () {
+    return back()->with(\Session::flash('success', 'Data inserted Successfully.'));
+})->name('verify');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();

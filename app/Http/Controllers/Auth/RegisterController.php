@@ -70,7 +70,6 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         
-    
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -80,22 +79,11 @@ class RegisterController extends Controller
             'role_id'=> $data['type'],
         ]);
     }
-    // protected function create(array $data)
-    // {
-    //     $user = User::create([
-    //         'name' => $data['name'],
-    //         'email' => $data['email'],
-    //         'password' => Hash::make($data['password']),
-            
-    //     ]);
+    protected function verify(array $data)
+    {
 
-    //     $user->info_users = info_users::create([
-    //         'user_id' => $user->id,
-    //         'nic' => $data['nic'],
-    //         'tpno' => $data['tpno'],
-    //     ]);
+        return view('auth.verify');
 
-    //     return $user;
-    // }
+    }
 
 }

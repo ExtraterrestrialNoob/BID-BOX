@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" id="adduser">
                         @csrf
 
                         <div class="row mb-3">
@@ -118,3 +118,41 @@
     </div>
 </div>
 @endsection
+
+{{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function (e) {
+    $('#adduser').on('submit',(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            type:'POST',
+            url: $(this).attr('action'),
+            data:formData,
+            cache:false,
+            contentType: false,
+            processData: false,
+            success:function(data){
+                Swal.fire({
+                    title: "We've Sent an verification email!",
+                    text: 'Verify your email',
+                    imageUrl: "{{ url('storage/assets/images/frontend/email_verify.jpg') }}",
+                    imageWidth: 400,
+                    imageHeight: 200,
+                    imageAlt: 'verify image',
+                })
+                window.location.replace("{{ route('home') }}");
+            },
+            // error: function(data){
+            //   Swal.fire("OOPS!",
+            //     "Something went wrong !",
+            //   "error")
+            // }
+        });
+    }));
+  })
+
+</script> --}}

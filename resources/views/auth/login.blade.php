@@ -72,7 +72,7 @@
     </div>
 </div>
 </div>
-@if (session('error')) 
+{{-- @if (session('error')) 
      <div class="popupContainer" id="popupContainer">
       <div class="popup"> 
         <h1> Error ! </h1>
@@ -80,13 +80,21 @@
         <button id="closebtn" onclick="closepopup()">OK</button>
       </div>
 </div>
-@endif
-
+@endif --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
-     function closepopup(){
-                var msg = document.getElementById('popupContainer');
-                msg.classList.add("hide");
-            }
+    //  function closepopup(){
+    //             var msg = document.getElementById('popupContainer');
+    //             msg.classList.add("hide");
+    //         }
+        var msg = "{{ Session::get('error') }}";
+        if(msg){
+            console.log('banned');
+            Swal.fire("Banned!",
+                "Your Account is banned ! Contact us via email.",
+              "Error");
+        }
+
 </script>
 
 @endsection
