@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{asset('css/slicknav.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ asset('assets/product/css/timer.css')}}">
     <link rel="stylesheet" href="{{asset('css/Style.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{asset('css/welcome_blade_cards.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ asset('assets/product/css/timer.css')}}">
 
 

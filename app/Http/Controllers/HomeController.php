@@ -25,7 +25,12 @@ class HomeController extends Controller
     public function index()
     {
         $all_products = Product::where(['is_active'=>1, 'is_expired'=> 0])->orderBy('created_at','DESC')->take(8)->get();
-
+        // if($all_products){
+        //     foreach($all_products as $product){
+        //         $expire_date = $product->
+        //     }
+        // }
+        // echo $all_products;
         return view('welcome' , compact('all_products'));
     }
 

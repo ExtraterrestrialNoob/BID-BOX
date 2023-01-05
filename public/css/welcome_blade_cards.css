@@ -1,0 +1,195 @@
+.main_container{
+    position: relative;
+    padding-left:  auto;
+    padding-right:  auto;
+    /* margin-left: 20% auto;
+    margin-right: 20% auto; */
+    margin: 0 auto;
+    /* padding-top: 20px;
+    padding-bottom: 20px; */
+   
+}
+
+.main_container .container{
+    box-sizing: border-box;
+    justify-content: center;
+    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
+    grid-auto-rows: auto;
+    grid-gap: 1rem;
+    background-color: rgb(255, 255, 255);
+    
+}
+
+
+.main_container .container .card_item{
+    height: 550px;
+    width: 350px;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: rgb(255, 255, 255);
+    /* border-style: solid;
+    border-color: rgb(134, 133, 133); */
+    border: none;
+    /* border-width: 0.2px; */
+    transition: 0.6s;
+    box-shadow: 0 0 5px #de59e2;
+    outline: none;
+}
+
+.main_container .container .card_item:hover { 
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+}
+
+
+.main_container .container .card_item .card_img{
+    max-width: 100%;
+    overflow-x: clip;
+    overflow-y: clip;
+    cursor: pointer;
+}
+
+.main_container .container .card_item .card_img img{
+    width: 350px;
+    height: 350px;
+    overflow-x: clip;
+    overflow-y: clip;
+    cursor: pointer;
+    overflow: hidden;
+    object-fit: contain;
+}
+
+.main_container .container .card_item .card_details{
+    margin: 15px;
+}
+
+.main_container .container .card_item .card_details .card_details_tittle{
+    margin-bottom: 12px;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.card_details_tittle a:hover{
+    color:crimson;
+}
+
+.main_container .container .card_item .card_details_container{
+    display: block;
+    /* margin: 15px; */
+    justify-content: space-between;
+}
+
+.main_container .container .card_item .card_bidding_details{
+    justify-content: space-between;
+    display: flex;
+}
+
+.main_container .container .card_item .card_bidding_details .card_timer_title span{
+    font-family: sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+}
+.main_container .container .card_item .card_bidding_details .timer_body{
+    -webkit-box-direction: normal;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.days{
+    margin: 2px 2px 2px 2px;
+    width: 25%;
+    height: auto;
+    display: inline-block;
+}
+.hours{
+    margin: 2px 2px 2px 2px;
+    display: inline-block;
+    width: 25%;
+    height: auto;
+}
+.mins{
+    margin: 2px 2px 2px 2px;
+    display: inline-block;
+    width: 25%;
+    height: auto;
+}
+.secs{
+    margin: 2px 2px 2px 2px;
+    display: inline-block;
+    width: 25%;
+    height: auto;
+}
+
+.value_box{
+    box-sizing: border-box;
+    max-width: 100%;
+    border-style: solid;
+    border-radius: 2px;
+    border-color: cornflowerblue;
+    width: 40px;
+    height: 38px;
+    border-width: 1px;
+    text-align: center;
+}
+
+.card_price_value{
+    box-sizing: border-box;
+    max-width: 100%;
+    border-style: solid;
+    border-radius: 2px;
+    border-color: cornflowerblue;
+    width: 120px;
+    height: 38px;
+    border-width: 1px;
+    text-align: center;
+    align-items: left;
+}
+
+.card_price_value p{
+    padding: 5px 0px 0px 0px;
+    margin: 0;
+    color: black;
+}
+
+
+.value_box p{
+    padding: 5px 0px 0px 0px;
+    margin: 0;
+    color: black;
+}
+
+.title{
+    align-items:inherit;
+
+}
+
+.card_button{
+    justify-content: center;
+    display: flex;
+    margin-top: 10px;
+}
+
+.card_button button{
+    background-color: #b80ebe;
+    color: azure;
+    border-radius: 5px;
+    padding: 10px 10px;
+    border: none;
+    outline: none;
+    font-weight: 400;
+    transition: 0.4s;
+}
+
+.card_button button:hover{
+    background-color: #e4e4e4;
+    border-color: #de59e2;
+    outline: none;
+    color: black;
+    box-shadow: 0 0 10px #de59e2;
+}
