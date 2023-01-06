@@ -100,21 +100,101 @@
                         </div>
                     
                     </div>
-                    <div class="row">
-                    @foreach($all_products as $i)
-                    <div class="col-lg-4 col-md-6 col-sm-6 ">
-                            <div class="product__item mb-5">
-                                <div class="product__item__pic set-bg" data-setbg="{{ asset('storage/'.$i->image_path) }}" style="background-image: url('{{ asset('/storage/'.$i->image_path)}}'); background-size: contain;">
-                                  
+                    {{-- <div class="row"> --}}
+
+                    <div id='all_conatainer' class="main_container">
+                        <div class="container">    
+                        @foreach($all_products as $i)
+                        {{-- <div class="col-lg-4 col-md-6 col-sm-6 ">
+                                <div class="product__item mb-5">
+                                    <div class="product__item__pic set-bg" data-setbg="{{ asset('storage/'.$i->image_path) }}" style="background-image: url('{{ asset('/storage/'.$i->image_path)}}'); background-size: contain;">
+                                    
+                                    </div>
+                                    <div class="product__item__text">
+                                        <h6><a href="{{route('product.view', $i->id )}}">{{$i->name}}</a></h6>
+                                        <h5>Rs. {{ number_format((float)$i->price, 2, '.', '')}}</h5>
+                                    </div>
                                 </div>
-                                <div class="product__item__text">
-                                    <h6><a href="{{route('product.view', $i->id )}}">{{$i->name}}</a></h6>
-                                    <h5>Rs. {{ number_format((float)$i->price, 2, '.', '')}}</h5>
+                        </div> --}}
+
+                        <div class="card_item">
+                            <div class="card_img">
+                                <img class="c-node_img_content" src="{{ asset('storage/'.$i->image_path) }}" alt="img_1">
+                            </div>
+                            <div class="card_details">
+                                <div class="card_details_title">
+                                    <h3 class="card_details_tittle">
+                                    <a href="{{route('product.view', $i->id )}}" > {{$i->name}} </a>
+                                    </h3>
+                                </div>
+                                <div class="card_details_container">
+                                    <div class="card_bidding_details">
+                                        <div class="card_timer">
+                                            <span class="js_timer_title">
+                                                Time Remaining
+                                            </span> <br>
+                                            <div class="timer_body">
+                                                <div class="days">
+                                                    <div class="value_box">
+                                                        <p id="value_days_{{ $i->id }}">001</p>
+                                                    </div> 
+                                                    <div class="title" id="title_days">
+                                                        Days
+                                                    </div>
+                                                </div>
+        
+                                                <div class="hours">
+                                                    <div class="value_box">
+                                                        <p  id="value_hours_{{ $i->id }}">001</p>
+                                                    </div>
+                                                    <div class="title" id="title_hours">
+                                                        Hrs
+                                                    </div>
+        
+                                                </div>
+        
+                                                <div class="mins">
+                                                    <div class="value_box">
+                                                        <p id="value_mins_{{ $i->id }}">001</p>
+                                                    </div>
+                                                    <div class="title" id="title_mins">
+                                                        Min
+                                                    </div>
+                                                </div>
+        
+                                                <div class="secs">
+                                                    <div class="value_box">
+                                                        <p id="value_secs_{{ $i->id }}">001</p>
+                                                    </div>
+                                                    <div class="title" id="title_secs">
+                                                        Sec
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card_price">
+                                            <span class="card_price_title">
+                                                Current Bid
+                                            </span> <br>
+                                            <div class="card_price_value">
+                                                <p>LKR {{ number_format((float)$i->price, 0, '.', '')}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card_button">
+                                    <a onclick="window.location.href='{{route('product.view', $i->id )}}';">BID NOW</a>
                                 </div>
                             </div>
+                        </div>
+
+
+
+                        @endforeach
+
                     </div>
-                    @endforeach
-                    </div>
+                </div>
+                        {{-- </div> --}}
                     <div class="product__pagination">
                         {!! $all_products->appends($_GET)->links() !!}
                     </div>

@@ -112,7 +112,7 @@
                             </div>
                         </div>
                         <div class="card_button">
-                            <button onclick="window.location.href='{{route('product.view', $i->id )}}';">BID NOW</button>
+                            <a onclick="window.location.href='{{route('product.view', $i->id )}}';">BID NOW</a>
                         </div>
                     </div>
                 </div>

@@ -175,7 +175,7 @@
     margin-top: 10px;
 }
 
-.card_button button{
+.card_button a{
     background-color: #b80ebe;
     color: azure;
     border-radius: 5px;
@@ -186,10 +186,11 @@
     transition: 0.4s;
 }
 
-.card_button button:hover{
+.card_button a:hover{
     background-color: #e4e4e4;
     border-color: #de59e2;
     outline: none;
     color: black;
     box-shadow: 0 0 10px #de59e2;
+    cursor: pointer;
 }
