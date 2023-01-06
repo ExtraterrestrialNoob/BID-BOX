@@ -28,57 +28,13 @@
         <div class="container">
         <form action="{{ route('product.filter') }}" method="POST">
             <div class="row">
-                <div class="col-lg-3 col-md-5">
-                    <div class="sidebar">
-                        <div class="sidebar__item">
-                            <h4>Department</h4>
-                                @csrf
-                                    @if (!empty($_GET['category']))
-                                        @php
-                                            $filter_cats = explode(',', $_GET['category']);
-                                        @endphp
-                                    @endif
-                                    <ul>
-                                        @foreach ($category as $cat)
-                                        <li><input type="checkbox" @if (!empty($filter_cats) && in_array($cat->slug, $filter_cats)) 
-                                            checked @endif class="form-check-input category-check" value="{{ $cat->slug }}" 
-                                            id="{{ $cat->id }}" name="category[]" onchange="this.form.submit();">
-                                            <label for="{{ $cat->slug }}"><span></span>{{ ucfirst($cat->name) }}
-                                                    <span>({{ count($cat->products) }})</span></label> 
-                                        </li>
-                                        
-                                        @endforeach
-                                    </ul>
-                            
-                        </div>
-                        <div class="sidebar__item">
-                            <h4>Price</h4>
-                            <div class="price-range-wrap">
-                                <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                 data-min="{{ceil($min)}}" data-max="{{ceil($max)}}">
-                                    <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
-                                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                                </div>
-                                <div class="range-slider">
-                                    <div class="price-input">
-                                        <a> RS</a>
-                                        <input type="text" id="minamount" value="min" name="min">
-                                        <a> RS</a>
-                                        <input type="text" id="maxamount" value="max"  name="max">
-                                    </div>
-                                    <button type="submit" class="btn btn-danger">filter</button>
-                                </div>
-                            </div>
-                        </div>   
-                       
-                    </div>
-                </div>
-                <div class="col-lg-9 col-md-7">
+                @csrf
+               
+                <div class="container">
                     
                     <div class="filter__item">
                         <div class="row">
-                            <div class="col-lg-5 col-md-5">
+                            <div class="col-lg-3 col-md-5">
                                 <div class="filter__sort">
                                     <span>Sort By</span>
                                     <select id="sortBy" name="sortBy" onchange="this.form.submit();">
@@ -92,7 +48,72 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-5 ml-auto p-2 ">
+                            
+                            <div class="dropdown col-lg-3 col-md-5 ">
+                                @if (!empty($_GET['category']))
+                                    @php
+                                        $filter_cats = explode(',', $_GET['category']);
+                                    @endphp
+                                @endif
+                                <button class="btn btn-light dropdown-toggle" data-mdb-ripple-color="dark" type="button" data-toggle="dropdown">
+                                    Category
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                                    @foreach ($category as $cat)
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                           
+
+                                            <div class="form-check">
+                                                <input @if (!empty($filter_cats) && in_array($cat->slug, $filter_cats)) 
+                                                checked @endif
+                                                type="checkbox"  class="form-check-input" value="{{ $cat->slug }}" 
+                                                id="{{ $cat->id }}" name="category[]" onchange="this.form.submit();"/>
+                                                <label class="form-check-label" for="{{ $cat->slug }}"><span></span>{{ ucfirst($cat->name) }}
+                                                        <span>({{ count($cat->products) }})</span></label> 
+                                            </div>
+                                        </a>
+                                    </li>
+                                    
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                            <div class="dropdown col-lg-3 col-md-5 ">
+                                <button  class="btn btn-light dropdown-toggle" data-mdb-ripple-color="dark" type="button" data-toggle="dropdown">Price
+                                <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                <li><a href="#" class="dropdown-item">
+                                    <div class="form-check">
+                                    <div class="price-range-wrap">
+                                        <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
+                                         data-min="{{ceil($min)}}" data-max="{{ceil($max)}}">
+                                            <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
+                                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                                        </div>
+                                        <div class="range-slider">
+                                            <div class="price-input">
+                                                <a> RS</a>
+                                                <input type="text" id="minamount" value="min" name="min">
+                                                <a> RS</a>
+                                                <input type="text" id="maxamount" value="max"  name="max">
+                                            </div>
+                                            <button type="submit" class="btn btn-danger">filter</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </a></li>
+                                
+                                </ul>
+                            </div>
+                            
+                            <!-- <div class="sidebar__item">
+                            <h4>Price</h4>
+                        </div>  -->
+
+                            <div class="col-lg-3 col-md-5 ml-auto p-1 ">
                                 <div class="filter__found">
                                     <h6><span>{{count($all_products)}}</span> Products found</h6>
                                 </div>
@@ -204,5 +225,7 @@
         </div>
     </section>
     <!-- Product Section End -->
+
+
 
 @endsection

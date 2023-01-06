@@ -1390,13 +1390,13 @@ ol {
 }
 
 .filter__item {
-	padding-top: 45px;
+	padding-top: 20px;
 	border-top: 1px solid #ebebeb;
 	padding-bottom: 20px;
 }
 
 .filter__sort {
-	margin-bottom: 15px;
+	margin-top: 9px;
 }
 
 .filter__sort span {
@@ -1454,10 +1454,10 @@ ol {
 	min-height: 30px;
 }
 
-.filter__found {
+/* .filter__found {
 	text-align: center;
 	margin-bottom: 15px;
-}
+} */
 
 .filter__found h6 {
 	font-size: 16px;
