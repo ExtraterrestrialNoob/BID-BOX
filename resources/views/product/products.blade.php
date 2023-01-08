@@ -229,3 +229,48 @@
 
 
 @endsection
+
+
+<script>
+    // paginated data to array https://stackoverflow.com/questions/65025588/laravel-get-just-data-from-pagination
+    var all_products = {!! json_encode($all_products->toArray()['data'], JSON_HEX_TAG) !!} // convert php varibale to js    
+    console.log(all_products);
+    all_products.forEach(timer);
+
+    function timer($product){
+        var countDownDate = new Date(new Date($product.expired_at).getTime());
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+            // if (document.getElementById("hour") == null) {
+            //     return; -10 -24 -14
+            // }
+            // var timer = document.getElementById('timer');
+            var d;
+            var h;
+            var m;
+            var s;
+
+            var f = true;
+
+            // Get today's date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var d = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var s = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Output the result in an element with id="demo"
+            // timer.innerHTML = d + "d   " + h + "m   " + m + "min   " + s + "s   ";
+            document.getElementById('value_days_' + $product.id.toString()).innerHTML = d;
+            document.getElementById('value_hours_' + $product.id.toString()).innerHTML = h;
+            document.getElementById('value_mins_' + $product.id.toString()).innerHTML = m;
+            document.getElementById('value_secs_' + $product.id.toString()).innerHTML = s;
+        }, 1000);
+        }
+        
+</script>

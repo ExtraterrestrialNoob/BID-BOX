@@ -30,28 +30,35 @@
               class="rounded"
               />
           <div class="ms-3">
-            <p class="fw-bold mb-1"> {{$i->name}}</p>
+            <p class="fw-bold mb-1 text-primary"> {{$i->name}}</p>
           </div>
         </div>
       </td>
       <td class="table-secondary">
-        <p class="fw-normal mb-1">{{$i->id}}</p>
+        <p class="fw-normal mb-1 text-primary">{{$i->id}}</p>
       </td>
       <td class="table-secondary">
-        <span class="fw-bold mb-1">Rs.{{number_format((float)$i->price, 2, '.', '')}}</span>
+        <span class="fw-bold mb-1 text-primary">Rs.{{number_format((float)$i->price, 2, '.', '')}}</span>
       </td>
-      <td class="fw-bold mb-1 table-secondary">{{$i->bid_count}}</td>
+      <td class="fw-bold mb-1 table-secondary text-primary">{{$i->bid_count}}</td>
 
       <td class="table-secondary">
         <!-- <button type="button" class="btn btn-link btn-sm btn-rounded">
           Edit
         </button> -->
-        <p class="fw-normal mb-1">Rs.{{number_format((float)$i->max_bid, 2, '.', '')}}</p>  
+        <p class="fw-normal mb-1 text-primary ">Rs.{{number_format((float)$i->max_bid, 2, '.', '')}}</p>  
     </td>
 
-    <td class="table-secondary">
-        <p class="fw-normal mb-1">{{$i->winner}}</p>
+    @if($i->paid_status)
+      <td class="table-secondary">
+        <p class="fw-normal mb-1 text-success">{{$i->winner}}</p>
       </td>
+    @else
+    <td class="table-secondary">
+        <p class="fw-normal mb-1 text-primary">{{$i->winner}}</p>
+      </td>
+      @endif
+
 
       <td class="table-secondary">
         @if($i->status == 'Active')
@@ -62,9 +69,29 @@
       </td>
       @if(auth()->user()->id == $i->user_id)
       <td class="table-secondary">
-      <button type="submit" class="btn btn-primary" onclick='location="{{route('product.view', $i->id )}}"'>{{__('View')}}</button>  
-      <!-- <p class="fw-normal mb-1"><a href="{{route('product.view', $i->id )}}">{{ __('View')}}</a></p> -->
-      </td>
+        @if(!$i->paid_status)
+        <td class="table-secondary">
+          <button type="submit" class="btn btn-primary disabled" onclick='location="{{route('product.view', $i->id )}}"'>{{__('View')}}</button>  
+          <!-- <p class="fw-normal mb-1"><a href="{{route('product.view', $i->id )}}">{{ __('View')}}</a></p> -->
+          </td>
+
+          <td class="table-secondary">
+            <button type="submit" class="btn btn-success disabled" onclick='location=""'>{{__('View User')}}</button>  
+            <!-- <p class="fw-normal mb-1"><a href="">{{ __('View')}}</a></p> -->
+            </td>
+
+          @else
+          <td class="table-secondary">
+            <button type="submit" class="btn btn-success" onclick='location="{{ $i->paid_status->receipt_url}}"'>{{__('View Receipt')}}</button>  
+            <!-- <p class="fw-normal mb-1"><a href="{{ $i->paid_status->receipt_url}}">{{ __('View')}}</a></p> -->
+            </td>
+
+            <td class="table-secondary">
+              <button type="submit" class="btn btn-success" onclick='location="{{route('product.view', $i->real_winner->customer_id )}}"'>{{__('View User')}}</button>  
+              <!-- <p class="fw-normal mb-1"><a href="{{ $i->paid_status->receipt_url}}">{{ __('View')}}</a></p> -->
+              </td>
+
+          @endif
 
       <td class="table-secondary">
         <!-- <p class="fw-normal mb-1"><a href="{{route('product.edit', $i->id )}}">{{__('Edit')}}</a></p> -->

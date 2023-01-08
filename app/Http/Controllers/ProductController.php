@@ -6,6 +6,8 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Bid;
+use App\Models\winner;
+use App\Models\Payment;
 use App\Http\Middleware\Role;
 use App\Rules\FileTypeValidate;
 use Carbon\Carbon;
@@ -113,7 +115,17 @@ class ProductController extends Controller
             if($all_products[$i]->expired_at > now()){
                 $winner = 'No Winner Announced';
             }elseif($max_bid != NULL){
-                $winner =  User::where('id',$max_bid->user_id)->first()->name;
+                $winner =  User::where('id',$max_bid->user_id)->first()->name."(Pending)";
+                $real_winner = winner::where('product_id',$all_products[$i]->id)->first();
+                if($real_winner){
+                    $paid_status = Payment::where('product_id',$all_products[$i]->id)->first();
+                    if($paid_status){
+                        $winner = User::where('id',$max_bid->user_id)->first()->name."(Paid)";
+                        $all_products[$i]->real_winner = $real_winner;
+                        $all_products[$i]->paid_status = $paid_status;
+                    }
+                }
+
             }else{
                 $winner = 'No Bids Placed';
             }
