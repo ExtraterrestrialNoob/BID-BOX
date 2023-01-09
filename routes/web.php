@@ -29,7 +29,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Route::get('/register_vendor',[ProductController::class, 'index'])->name('register'); // Tempory Product check
 
 Route::get('/register_success',function () {
-    return back()->with(\Session::flash('success', 'Data inserted Successfully.'));
+    return redirect('/home');
 })->name('verify');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
