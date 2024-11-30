@@ -15,7 +15,7 @@
                         </div>
                         
                     </div>
-                    <div class="hero__item " data-setbg="{{url('storage/assets/images/frontend/banner.jpg')}}" style="background-image: url('storage/assets/images/frontend/banner.jpg');background-size: contain;">
+                    <div class="hero__item " data-setbg="{{url('assets/images/frontend/banner.jpg')}}" style="background-image: url('storage/assets/images/frontend/banner.jpg');background-size: contain;">
                         <div class="hero__text">
                             <span>BID BOX</span>
                             <h2>Auction with affordability</h2>
