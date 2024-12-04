@@ -28,14 +28,14 @@
     <link rel="stylesheet" href="{{ asset('assets/product/css/timer.css')}}">
 
 
-
+       
 </head>
 
 <body>
     <!-- Page Preloder -->
     <div id="preloder">
-        <div class="loader"></div>
-    </div>
+        <div class="loader"></div> 
+    </div> 
 
     <!-- Humberger Begin -->
     <div class="humberger__menu__overlay"></div>
@@ -73,7 +73,7 @@
                         @else
                         <nav class="humberger__menu__nav mobile-menu">
                                 <!-- <a id="navbarDropdown" class="nav-link dropdown-toggle" href="user" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre> -->
-                                <li class="fa-sharp fa-solid fa-circle-user "></li> {{ Auth::user()->name }}
+                                <li class="fa-sharp fa-solid fa-circle-user "></li> {{ Auth::user()->name }} 
                                 <!-- </a> -->
 
                                 <!-- <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"> -->
@@ -107,7 +107,7 @@
                 <li><a href="{{ route('product.product')}}">Products</a></li>
                 @guest
                 @else
-                    @if(Auth::user()->role_id==3)
+                    @if(Auth::user()->role_id==3) 
                     <li><a href="{{route('product.products', Auth::user()->id )}}">My Products</a></li>
                     <li><a href="{{route('product.product.create')}}">Add Products</a></li>
                     @endif
@@ -139,7 +139,7 @@
         </div>
     </div>
     <!-- Humberger End -->
-
+    
 
     <!-- Header Section Begin -->
     <header class="header">
@@ -189,7 +189,7 @@
                         @else
                             <div class="header__top__right__language">
                                 <!-- <a id="navbarDropdown" class="nav-link dropdown-toggle" href="user" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre> -->
-                                <div class="fa-sharp fa-solid fa-circle-user "></div> {{ Auth::user()->name }}
+                                <div class="fa-sharp fa-solid fa-circle-user "></div> {{ Auth::user()->name }} 
                                 <!-- </a> -->
 
                                 <!-- <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"> -->
@@ -252,7 +252,7 @@
                 <li><a href="{{ route('product.product')}}">Products</a></li>
                 @guest
                 @else
-                    @if(Auth::user()->role_id==3)
+                    @if(Auth::user()->role_id==3) 
                     <li><a href="{{route('product.products', Auth::user()->id )}}">My Products</a></li>
                     <li><a href="{{route('product.product.create')}}">Add Products</a></li>
                     @endif
@@ -271,7 +271,7 @@
             </ul>
         </nav>
                 </div>
-
+               
             </div>
             <div class="humberger__open">
                 <i class="fa fa-bars"></i>
@@ -280,7 +280,7 @@
     </header>
     <!-- Header Section End -->
 
-
+    
         @yield('content')
 
 
@@ -340,12 +340,12 @@
 </body>
 
     <!-- <script src="{{asset('js/bootstrap.min.js')}}"></script> -->
-    <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
+    <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script> 
     <!-- <script src="{{asset('js/bootstrap.min.js')}}"></script> -->
-
+    
     <script src="{{asset('js/jquery.nice-select.min.js')}}"></script>
     <script src="{{asset('js/jquery-ui.min.js')}}"></script>
-    <script src="{{asset('js/jquery.slicknav.js')}}"></script>
+    <script src="{{asset('js/jquery.slicknav.js')}}"></script> 
     <script src="{{asset('js/mixitup.min.js')}}"></script>
     <script src="{{asset('js/owl.carousel.min.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>
